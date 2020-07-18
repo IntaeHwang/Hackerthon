@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class MySharedPref {
+
     private static MySharedPref instance;
 
     private MySharedPref(){}

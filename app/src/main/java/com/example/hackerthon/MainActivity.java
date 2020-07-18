@@ -29,6 +29,8 @@ public class MainActivity extends BaseActivity {
         makeLog(new Object() {
         }.getClass().getEnclosingMethod().getName() + "()", "관리자 나이 : " + adminAge);
 
+
+
         makeToast("로그인되었습니다.", SHORT_TOAST);
         makeToast("로그인되었습니다.", LONG_TOAST);
 

@@ -60,7 +60,7 @@ public class Room {
         this.gameStartUserEmail = gameStartUserEmail;
     }
 
-    HashMap<String, Object> toRoomMap(){
+    HashMap<String, Object> toRoomMap(Room room){
         HashMap<String, Object> roomMap = new HashMap<>();
 
         roomMap.put("roomId", roomId);

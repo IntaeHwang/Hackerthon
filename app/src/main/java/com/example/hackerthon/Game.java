@@ -37,7 +37,7 @@ public class Game {
         this.gameInfo = gameInfo;
     }
 
-    HashMap<String, Object> toGameMap(){
+    HashMap<String, Object> toGameMap(Game game){
         HashMap<String, Object> gameMap = new HashMap<>();
 
         gameMap.put("gamePicture", gamePicture);

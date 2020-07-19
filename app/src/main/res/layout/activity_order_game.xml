@@ -11,7 +11,7 @@
         android:id="@+id/progressBar_activity_taptap_timeBar"
         style="@android:style/Widget.ProgressBar.Horizontal"
         android:layout_width="323dp"
-        android:layout_height="45dp"
+        android:layout_height="25dp"
         android:layout_marginTop="30dp"
         android:max="1000"
         app:layout_constraintBottom_toTopOf="@+id/textView_activity_taptap_userScore"
@@ -28,7 +28,7 @@
         android:gravity="center"
         android:text="0"
         android:textColor="#ffffff"
-        android:textSize="100sp"
+        android:textSize="70sp"
         app:layout_constraintBottom_toTopOf="@+id/textView_activity_taptap_scoreText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -53,6 +53,7 @@
 
     <Button
         android:id="@+id/button_activity_order_game_roundTouchButton"
+        android:onClick="onClick"
         android:layout_width="wrap_content"
         android:layout_height="85dp"
         android:layout_marginStart="12dp"
@@ -66,6 +67,7 @@
 
     <Button
         android:id="@+id/button_activity_order_game_roundTouchButton2"
+        android:onClick="onClick"
         android:layout_width="wrap_content"
         android:layout_height="85dp"
         android:layout_marginStart="12dp"
@@ -83,6 +85,7 @@
 
     <Button
         android:id="@+id/button_activity_order_game_roundTouchButton4"
+        android:onClick="onClick"
         android:layout_width="wrap_content"
         android:layout_height="85dp"
         android:layout_marginTop="12dp"
@@ -97,6 +100,7 @@
 
     <Button
         android:id="@+id/button_activity_order_game_roundTouchButton8"
+        android:onClick="onClick"
         android:layout_width="wrap_content"
         android:layout_height="85dp"
         android:layout_marginTop="8dp"
@@ -110,6 +114,7 @@
 
     <Button
         android:id="@+id/button_activity_order_game_roundTouchButton12"
+        android:onClick="onClick"
         android:layout_width="wrap_content"
         android:layout_height="85dp"
         android:layout_marginTop="8dp"
@@ -123,6 +128,7 @@
 
     <Button
         android:id="@+id/button_activity_order_game_roundTouchButton16"
+        android:onClick="onClick"
         android:layout_width="wrap_content"
         android:layout_height="85dp"
         android:layout_marginTop="8dp"
@@ -136,6 +142,7 @@
 
     <Button
         android:id="@+id/button_activity_order_game_roundTouchButton20"
+        android:onClick="onClick"
         android:layout_width="wrap_content"
         android:layout_height="85dp"
         android:layout_marginTop="8dp"
@@ -149,6 +156,7 @@
 
     <Button
         android:id="@+id/button_activity_order_game_roundTouchButton19"
+        android:onClick="onClick"
         android:layout_width="wrap_content"
         android:layout_height="85dp"
         android:layout_marginTop="8dp"
@@ -162,6 +170,7 @@
 
     <Button
         android:id="@+id/button_activity_order_game_roundTouchButton18"
+        android:onClick="onClick"
         android:layout_width="wrap_content"
         android:layout_height="85dp"
         android:layout_marginTop="8dp"
@@ -175,6 +184,7 @@
 
     <Button
         android:id="@+id/button_activity_order_game_roundTouchButton17"
+        android:onClick="onClick"
         android:layout_width="wrap_content"
         android:layout_height="85dp"
         android:layout_marginStart="12dp"
@@ -190,6 +200,7 @@
 
     <Button
         android:id="@+id/button_activity_order_game_roundTouchButton14"
+        android:onClick="onClick"
         android:layout_width="wrap_content"
         android:layout_height="85dp"
         android:layout_marginTop="8dp"
@@ -203,6 +214,7 @@
 
     <Button
         android:id="@+id/button_activity_order_game_roundTouchButton13"
+        android:onClick="onClick"
         android:layout_width="wrap_content"
         android:layout_height="85dp"
         android:layout_marginStart="12dp"
@@ -218,6 +230,7 @@
 
     <Button
         android:id="@+id/button_activity_order_game_roundTouchButton15"
+        android:onClick="onClick"
         android:layout_width="wrap_content"
         android:layout_height="85dp"
         android:layout_marginTop="8dp"
@@ -231,6 +244,7 @@
 
     <Button
         android:id="@+id/button_activity_order_game_roundTouchButton9"
+        android:onClick="onClick"
         android:layout_width="wrap_content"
         android:layout_height="85dp"
         android:layout_marginStart="12dp"
@@ -244,6 +258,7 @@
 
     <Button
         android:id="@+id/button_activity_order_game_roundTouchButton10"
+        android:onClick="onClick"
         android:layout_width="wrap_content"
         android:layout_height="85dp"
         android:layout_marginTop="8dp"
@@ -257,6 +272,7 @@
 
     <Button
         android:id="@+id/button_activity_order_game_roundTouchButton11"
+        android:onClick="onClick"
         android:layout_width="wrap_content"
         android:layout_height="85dp"
         android:layout_marginTop="8dp"
@@ -270,6 +286,7 @@
 
     <Button
         android:id="@+id/button_activity_order_game_roundTouchButton7"
+        android:onClick="onClick"
         android:layout_width="wrap_content"
         android:layout_height="85dp"
         android:layout_marginStart="5dp"
@@ -285,6 +302,7 @@
 
     <Button
         android:id="@+id/button_activity_order_game_roundTouchButton6"
+        android:onClick="onClick"
         android:layout_width="wrap_content"
         android:layout_height="85dp"
         android:layout_marginStart="15dp"
@@ -302,6 +320,7 @@
 
     <Button
         android:id="@+id/button_activity_order_game_roundTouchButton5"
+        android:onClick="onClick"
         android:layout_width="wrap_content"
         android:layout_height="85dp"
         android:layout_marginStart="12dp"
@@ -315,6 +334,7 @@
 
     <Button
         android:id="@+id/button_activity_order_game_roundTouchButton3"
+        android:onClick="onClick"
         android:layout_width="wrap_content"
         android:layout_height="85dp"
         android:layout_marginStart="112dp"

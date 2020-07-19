@@ -17,7 +17,7 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.linearLayout_mainAcitivity_searchRoom)
     Button linearLayoutMainAcitivitySearchRoom; //버튼 - 방찾기
     @BindView(R.id.linearLayout_mainAcitivity_myProfile)
-    Button linearLayoutMainAcitivityMyProfile;  //버튼 - 내정보
+    Button linearLayoutMainAcitivityMyProfile;  //버튼 - 내정보.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

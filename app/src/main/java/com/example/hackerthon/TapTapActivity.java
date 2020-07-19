@@ -5,6 +5,8 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -28,7 +30,7 @@ public class TapTapActivity extends BaseActivity {
         setContentView(R.layout.activity_tap_tap);
         ButterKnife.bind(this);
 
-    }
+    }//OnCreate
 
 
     @OnClick(R.id.button_activity_taptap_realRoundTouchButton)
@@ -42,5 +44,24 @@ public class TapTapActivity extends BaseActivity {
             count++;
         }
 
+        //프로그래스바 10초 종료됬을때 유저 데이터의 gamescore에 추가하기
+
     }
-}
+
+    public void addGameScore(){
+        String userKey = applicationClass.currentUserEmailKey; //유저의 키값
+        //DB에 USER데이터 추가하기
+        DatabaseReference myRef = applicationClass.databaseReference.child("USER").child(userKey);
+        User user = new User();
+        user.setGameScore(44); // 44에 변수값 넣기
+        makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", " :user " +user);
+        myRef.setValue(user.toUserMap(user)); // 데이터베이스에 추가
+
+    }
+
+
+
+
+}//class
+
+

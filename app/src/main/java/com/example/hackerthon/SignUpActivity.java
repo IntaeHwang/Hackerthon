@@ -137,10 +137,7 @@ public class SignUpActivity extends BaseActivity {
 //                            user.toUserMap(user);
                             makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", " user.toUserMap(user) : " +  user.toUserMap(user));
 
-
-                            myRef.setValue(user.toUserMap(user)); // 데이터베이스에 추가
-
-
+                            myRef.setValue(user.toUserMap(user)); // 데이터베이스에 회원정보 추가
                             makeToast("회원가입에 성공하였습니다.",SHORT_TOAST);
 
                             //로그인 액티비티로 이동

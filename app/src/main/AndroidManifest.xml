@@ -20,6 +20,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".OrderGameActivity">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".TapTapActivity"/>
         <activity android:name=".GameReadyActivity"/>
@@ -33,7 +40,7 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".TapTapActivity"/>
+
         <activity android:name=".BaseActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".GameListActivity"/>

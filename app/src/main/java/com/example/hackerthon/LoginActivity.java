@@ -42,10 +42,10 @@ public class LoginActivity extends BaseActivity {
 
 
     //---------------------내가 추가한 변수----------------------
-    String inputEmail;
-    String inputPassword;
-    String userKey;
-
+    String inputEmail; //입력받은 이메일값
+    String inputPassword; //입력받은 비밀번호
+    String userKey; //이메일 변환한 값  >> application class의 emailKey 변수값으로 저장
+    String name; //로그인한 유저의 이름값 >> application class의 name 변수값으로 저장
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +74,7 @@ public class LoginActivity extends BaseActivity {
 //                            FirebaseUser user = mAuth.getCurrentUser();
 
                             //유저키를 Sharedpreference에 저장
-                            applicationClass.mySharedPref.saveStringPref(userKey,userKey);
+//                            applicationClass.mySharedPref.saveStringPref(userKey,userKey);
 
                             //데이터베이스에서 유저 데이터중 이름값 빼서 토스트에 띄어보기
                             DatabaseReference ref2 = applicationClass.firebaseDatabase.getReference("USER").child(userKey);
@@ -86,8 +86,13 @@ public class LoginActivity extends BaseActivity {
 
                                         //로그인한 유저 이름값만 빼오기
                                         User user = dataSnapshot.getValue(User.class);
-                                        String name = user.getUserName();
+                                        name = user.getUserName();
+//                                        applicationClass.mySharedPref.saveStringPref(name,name); //굳이 shared 쓸필요없음
 //                                        userArrayList.add(user);
+
+                                        //키값이랑 로그인한유저의 이름값 applicationClass의 변수값으로 저장
+                                        applicationClass.emailKey = userKey;
+                                        applicationClass.name = name;
 
                                         //토스트로 '이름' 님 로그인하였습니다.
                                         makeLog(new Object() {

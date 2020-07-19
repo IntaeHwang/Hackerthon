@@ -22,6 +22,8 @@ public class ApplicationClass extends Application {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
 
+
+    String emailKey,name;
     @Override
     public void onCreate() {
         super.onCreate();

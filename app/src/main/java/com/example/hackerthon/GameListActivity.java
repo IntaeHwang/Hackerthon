@@ -13,14 +13,14 @@ import butterknife.OnClick;
 
 public class GameListActivity extends AppCompatActivity {
 
-    @BindView(R.id.TextView_GameListActivity_masterText)
-    TextView TextViewGameListActivityMasterText;
-    @BindView(R.id.TextView_GameListActivity_masterName)
-    TextView TextViewGameListActivityMasterName;
-    @BindView(R.id.Button_GameListActivity_exit)
-    Button ButtonGameListActivityExit;
-    @BindView(R.id.RecyclerView_GameListActivity_gameList)
-    RecyclerView RecyclerViewGameListActivityGameList;
+    @BindView(R.id.textView_GameListActivity_masterText)
+    TextView textViewGameListActivityMasterText;
+    @BindView(R.id.textView_GameListActivity_masterName)
+    TextView textViewGameListActivityMasterName;
+    @BindView(R.id.button_GameListActivity_exit)
+    Button buttonGameListActivityExit;
+    @BindView(R.id.recyclerView_GameListActivity_gameList)
+    RecyclerView recyclerViewGameListActivityGameList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +31,12 @@ public class GameListActivity extends AppCompatActivity {
         
     }
 
-    @OnClick(R.id.Button_GameListActivity_exit)
+    @OnClick(R.id.button_GameListActivity_exit)
     public void onButtonGameListActivityExitClicked() {
 
     }
 
-    @OnClick(R.id.RecyclerView_GameListActivity_gameList)
+    @OnClick(R.id.recyclerView_GameListActivity_gameList)
     public void onRecyclerViewGameListActivityGameListClicked() {
 
     }

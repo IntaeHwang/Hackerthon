@@ -20,7 +20,7 @@
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/TextView_GameListActivity_masterText"
+        android:id="@+id/textView_GameListActivity_masterText"
         />
 
     <TextView
@@ -33,10 +33,10 @@
 
         android:layout_marginLeft="10dp"
 
-        app:layout_constraintStart_toEndOf="@id/TextView_GameListActivity_masterText"
-        app:layout_constraintTop_toTopOf="@id/TextView_GameListActivity_masterText"
-        app:layout_constraintBottom_toBottomOf="@id/TextView_GameListActivity_masterText"
-        android:id="@+id/TextView_GameListActivity_masterName"
+        app:layout_constraintStart_toEndOf="@id/textView_GameListActivity_masterText"
+        app:layout_constraintTop_toTopOf="@id/textView_GameListActivity_masterText"
+        app:layout_constraintBottom_toBottomOf="@id/textView_GameListActivity_masterText"
+        android:id="@+id/textView_GameListActivity_masterName"
     />
 
     <Button
@@ -52,7 +52,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         
-        android:id="@+id/Button_GameListActivity_exit"
+        android:id="@+id/button_GameListActivity_exit"
         />
 
     <LinearLayout
@@ -63,7 +63,7 @@
         
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Button_GameListActivity_exit"
+        app:layout_constraintTop_toBottomOf="@id/button_GameListActivity_exit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintVertical_bias="0.1"
         >
@@ -91,7 +91,7 @@
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
 
-            android:id="@+id/RecyclerView_GameListActivity_gameList"
+            android:id="@+id/recyclerView_GameListActivity_gameList"
             />
 
     </LinearLayout>

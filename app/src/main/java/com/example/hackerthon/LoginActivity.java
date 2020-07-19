@@ -90,7 +90,7 @@ public class LoginActivity extends BaseActivity {
 //                                        applicationClass.mySharedPref.saveStringPref(name,name); //굳이 shared 쓸필요없음
 //                                        userArrayList.add(user);
 
-                                        //키값이랑 로그인한유저의 이름값 applicationClass의 변수값으로 저장
+                                        //키값이랑 로그인한유저의 이름값 applicationClass의 변수값으로 저장ㅇ
                                         applicationClass.emailKey = userKey;
                                         applicationClass.name = name;
 

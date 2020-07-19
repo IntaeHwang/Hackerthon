@@ -1,9 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RoomCreateActivity">
+    tools:context=".RoomCreateActivity"
+    android:background="@color/colorMainBackground">
+
+    <TextView
+        android:id="@+id/textview_roomCreateActivity_roomMaster"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="방장 : 김청아"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/button_roomCreateActivity_roomOut"
+        app:layout_constraintBottom_toTopOf="@id/linearlayout_roomCreateActivity_roomInfo"
+        android:textColor="@color/colorTextWhite"
+        android:textSize="21sp"/>
+
+    <Button
+        android:id="@+id/button_roomCreateActivity_roomOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="나가기"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/textview_roomCreateActivity_roomMaster"
+        app:layout_constraintBottom_toTopOf="@id/linearlayout_roomCreateActivity_roomInfo"
+        android:background="@drawable/circular_corner_colorview_button"
+        android:textColor="@color/colorTextWhite"
+        android:textSize="21sp"/>
+
+    <LinearLayout
+        android:id="@+id/linearlayout_roomCreateActivity_roomInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/button_roomCreateActivity_roomOut"
+        app:layout_constraintBottom_toTopOf="@id/linearlayout_roomCreateActivity_playerList"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="vertical"
+        android:background="@drawable/circular_coner_view_stoke">
+
+        <TextView
+            android:id="@+id/textview_roomCreateActivity_roomInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="방 정보"
+            android:gravity="center"
+            android:background="@color/colorView"
+            android:textColor="@color/colorTextWhite"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="20dp">
+
+            <ImageView
+                android:id="@+id/imageview_roomCreateActivity_qrCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_roomcreateactivity_qrcode"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/textview_roomCreateActivity_roomStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="게임 시작 권한" />
+
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="방장"/>
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1등"/>
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="꼴등"/>
+                </RadioGroup>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearlayout_roomCreateActivity_playerList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearlayout_roomCreateActivity_roomInfo"
+        android:orientation="vertical"
+        android:background="@drawable/circular_coner_view_stoke"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp">
+
+        <TextView
+            android:id="@+id/textview_roomCreateActivity_playerInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="플레이어 1명"
+            android:gravity="center"
+            android:background="@color/colorView"
+            android:textColor="@color/colorTextWhite"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_roomCreateActivity_playerList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"/>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

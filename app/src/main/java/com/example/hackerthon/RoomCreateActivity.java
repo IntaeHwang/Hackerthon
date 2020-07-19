@@ -17,13 +17,14 @@ import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class RoomCreateActivity extends AppCompatActivity {
-
+public class RoomCreateActivity extends BaseActivity {
 
     @BindView(R.id.textview_roomCreateActivity_roomMasterName)
     TextView textviewRoomCreateActivityRoomMasterName;  //방장 이름 (방을 만든 방장 이름 데이터가 들어간다)
@@ -54,24 +55,28 @@ public class RoomCreateActivity extends AppCompatActivity {
         //방 만들기를 한 user 이름을 받아서 setText() 해준다
 //        textviewRoomCreateActivityRoomMaster.setText();
 
-//        getCurrentTimeMillis();
+        getCurrentTimeMillis();
 //        createORcode();
 
     }
 
     //현재 시간을 받아오는 함수 -> RoomId 값으로 현재시간 데이터를 대입할거라서 현재시간을 구해야 한다
-//    public void getCurrentTimeMillis(){
-//        //현재 시간을 구한다
-//        long nowTime = System.currentTimeMillis();
-//        //현재 시간을 날짜 Data 에 저장한다
-//        Data data = new Data(nowTime);
-//        //날짜와 시간을 나타내기위한 포맷을 지정한다
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyMMddHHmmss");
-//        //String 변수에 현재날짜+시간 데이터 변수 저장
-//        currentTimeStringData = simpleDateFormat.format(data);
-//
-//
-//    }
+    public void getCurrentTimeMillis(){
+
+        //현재 시간을 날짜 Data 에 저장한다
+        Calendar calendar = Calendar.getInstance();
+
+        //
+        //날짜와 시간을 나타내기위한 포맷을 지정한다
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyMMddHHmmsss");
+        //String 변수에 현재날짜+시간 데이터 변수 저장
+        currentTimeStringData = simpleDateFormat.format(calendar.getTime());
+
+        makeLog(new Object() {
+        }.getClass().getEnclosingMethod().getName() + "()", "currentTimeStringData : " + currentTimeStringData);
+
+
+    }
 
     //QR 코드 생성 함수
     public void createQRcode(ImageView img, String text) {

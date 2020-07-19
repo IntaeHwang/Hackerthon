@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#3f342e">
+    android:background="@color/colorView">
 
     <TextView
         android:id="@+id/textView_activity_taptap_informationPhrase"
@@ -47,7 +47,7 @@
         android:layout_marginStart="150dp"
         android:layout_marginEnd="150dp"
         android:layout_marginBottom="56dp"
-        android:background="@drawable/ic_roundedbutton"
+        android:background="@drawable/circular_round_white_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

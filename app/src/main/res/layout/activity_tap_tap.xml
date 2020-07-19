@@ -80,14 +80,14 @@
         android:text="▼"
         android:textColor="#ffffff"
         android:textSize="28sp"
-        app:layout_constraintBottom_toTopOf="@+id/button_activity_taptap_roundTouchButton"
+        app:layout_constraintBottom_toTopOf="@+id/button_activity_order_game_roundTouchButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_activity_taptap_informationPhrase" />
 
     <Button
-        android:id="@+id/button_activity_taptap_roundTouchButton"
+        android:id="@+id/button_activity_order_game_roundTouchButton"
         android:layout_width="223dp"
         android:layout_height="228dp"
         android:layout_marginStart="150dp"

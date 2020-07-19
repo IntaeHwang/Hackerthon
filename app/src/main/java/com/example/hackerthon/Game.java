@@ -1,8 +1,9 @@
 package com.example.hackerthon;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class Game {
+public class Game implements Serializable {
     String gamePicture;
     String gameName;
     String gameInfo;

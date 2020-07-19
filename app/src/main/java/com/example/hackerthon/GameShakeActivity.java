@@ -180,5 +180,4 @@ public class GameShakeActivity extends AppCompatActivity implements SensorEventL
             }
         }
     }
-
 }

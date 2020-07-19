@@ -56,7 +56,7 @@ public class RoomCreateActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         //방 만들기를 한 user 이름을 받아서 setText() 해준다
-//        textviewRoomCreateActivityRoomMaster.setText();
+        textviewRoomCreateActivityRoomMasterName.setText(applicationClass.currentUserName);
 
         //현재시간(초단위까지)을 받아와서 qr코드를 생성해준다 (qr코드 값은 = 현재시간을 데이터값으로 가진다)
         getCurrentTimeMillis();

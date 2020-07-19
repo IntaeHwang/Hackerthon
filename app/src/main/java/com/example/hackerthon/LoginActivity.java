@@ -36,9 +36,9 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.edittext_loginActivity_InputPassword)
     TextInputEditText edittextLoginActivityInputPassword; //비밀번호 입력칸
     @BindView(R.id.button_loginActivity_login)
-    Button buttonLoginActivityLogin; // 로그인 버트
+    Button buttonLoginActivityLogin; // 로그인 버튼
     @BindView(R.id.button_loginActivity_signUp)
-    Button buttonLoginActivitySignUp; // 회원가입 버트
+    Button buttonLoginActivitySignUp; // 회원가입 버튼
 
 
     //---------------------내가 추가한 변수----------------------
@@ -91,8 +91,8 @@ public class LoginActivity extends BaseActivity {
 //                                        userArrayList.add(user);
 
                                         //키값이랑 로그인한유저의 이름값 applicationClass의 변수값으로 저장ㅇ
-                                        applicationClass.emailKey = userKey;
-                                        applicationClass.name = name;
+                                        applicationClass.currentUserEmailKey = userKey;
+                                        applicationClass.currentUserName = name;
 
                                         //토스트로 '이름' 님 로그인하였습니다.
                                         makeLog(new Object() {

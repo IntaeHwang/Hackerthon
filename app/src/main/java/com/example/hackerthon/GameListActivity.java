@@ -48,6 +48,11 @@ public class GameListActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         gameList = new ArrayList<>();
+        makeLog(new Object() {}.getClass().getEnclosingMethod().getName()+"()", "gameList111 : "+gameList.size() );
+        recyclerViewGameListActivityGameList.setHasFixedSize(true);
+        gameListAdapter = new GameListAdapter(gameList, this);
+        recyclerViewGameListActivityGameList.setAdapter(gameListAdapter);
+        recyclerViewGameListActivityGameList.setLayoutManager( new GridLayoutManager(this, 2));
 
         //방장 이름, 이전 액티비티(방 생성 시 최초 액티비티)를 사용해서 방장 이름을 가져온다
 //        textViewGameListActivityMasterName.setText(getIntent().getStringExtra("MasterName"));
@@ -78,10 +83,12 @@ public class GameListActivity extends BaseActivity {
 
                         Game game = snapshot.getValue(Game.class);
                         gameList.add(game);
-                        
+                        gameListAdapter.notifyDataSetChanged();
                         makeLog(new Object() {}.getClass().getEnclosingMethod().getName()+"()", "gameList : "+gameList.size() );
                         makeLog(new Object() {
                         }.getClass().getEnclosingMethod().getName() + "()", "snapshot : " + snapshot);
+
+
                     }
 
                     @Override
@@ -89,6 +96,9 @@ public class GameListActivity extends BaseActivity {
 
                     }
                 });
+
+
+
             }
 
             @Override
@@ -111,11 +121,12 @@ public class GameListActivity extends BaseActivity {
 
             }
         });
+//        makeLog(new Object() {}.getClass().getEnclosingMethod().getName()+"()", "gameList111 : "+gameList.size() );
+//        recyclerViewGameListActivityGameList.setHasFixedSize(true);
+//        gameListAdapter = new GameListAdapter(gameList, this);
+//        recyclerViewGameListActivityGameList.setAdapter(gameListAdapter);
+//        recyclerViewGameListActivityGameList.setLayoutManager( new GridLayoutManager(this, 2));
 
-        recyclerViewGameListActivityGameList.setHasFixedSize(true);
-        gameListAdapter = new GameListAdapter(gameList, this);
-        recyclerViewGameListActivityGameList.setLayoutManager( new GridLayoutManager(this, 2));
-        recyclerViewGameListActivityGameList.setAdapter(gameListAdapter);
 
     }
 

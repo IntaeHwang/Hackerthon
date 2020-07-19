@@ -1,5 +1,6 @@
 package com.example.hackerthon;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -51,6 +52,8 @@ public class GameReadyActivity extends BaseActivity {
 
     @OnClick(R.id.button_activity_game_ready_startButton)
     public void onButtonActivityGameReadyStartButtonClicked() {
+        Intent intent = new Intent(getApplicationContext(),TapTapActivity.class);
+        startActivity(intent);
 
     }
 }

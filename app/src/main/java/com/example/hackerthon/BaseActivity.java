@@ -3,6 +3,7 @@ package com.example.hackerthon;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -79,5 +80,7 @@ public class BaseActivity extends AppCompatActivity {
         Log.d(TAG, className+"_onDestroy()");
         super.onDestroy();
     }
+
+    Handler handler = new Handler();
 
 }

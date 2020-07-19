@@ -59,21 +59,30 @@ public class GameListActivity extends BaseActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 makeLog(new Object() {}.getClass().getEnclosingMethod().getName()+"()", "snapshot : "+snapshot );
+                makeLog(new Object() {}.getClass().getEnclosingMethod().getName()+"()", "snapshot's children : "+snapshot.getChildren() );
 
                 String gameid = snapshot.getKey(); //Game 목록을 받아오기
 
-                applicationClass.databaseReference.child("GAME").child(gameid).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        Game game = snapshot.getValue(Game.class);
-                        gameList.add(game);
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                makeLog(new Object() {
+                }.getClass().getEnclosingMethod().getName() + "()", "gameid : " + gameid);
 
-                    }
-                });
+//                applicationClass.databaseReference.child("GAME").child(gameid).addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        Game game = snapshot.getValue(Game.class);
+//                        Game game = snapshot
+//                        gameList.add(game);
+//
+//                        makeLog(new Object() {
+//                        }.getClass().getEnclosingMethod().getName() + "()", "snapshot : " + snapshot);
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
             }
 
             @Override

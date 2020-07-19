@@ -47,7 +47,7 @@ public class GameReadyActivity extends BaseActivity {
 
     @OnClick(R.id.button_activity_game_ready_backButton)
     public void onButtonActivityGameReadyBackButtonClicked() {
-
+        super.onBackPressed();
     }
 
     @OnClick(R.id.button_activity_game_ready_startButton)

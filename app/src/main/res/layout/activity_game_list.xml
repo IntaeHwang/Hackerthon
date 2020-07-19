@@ -19,7 +19,7 @@
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/TextView_GameList_masterText"
+        android:id="@+id/TextView_GameListActivity_masterText"
         />
 
     <TextView
@@ -32,8 +32,56 @@
 
         android:layout_marginLeft="10dp"
 
-        app:layout_constraintStart_toEndOf="@id/TextView_GameList_masterText"
-        app:layout_constraintTop_toTopOf="@id/TextView_GameList_masterText"
-        app:layout_constraintBottom_toBottomOf="@id/TextView_GameList_masterText"
+        app:layout_constraintStart_toEndOf="@id/TextView_GameListActivity_masterText"
+        app:layout_constraintTop_toTopOf="@id/TextView_GameListActivity_masterText"
+        app:layout_constraintBottom_toBottomOf="@id/TextView_GameListActivity_masterText"
+        android:id="@+id/TextView_GameListActivity_masterName"
     />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="나가기"
+        android:textSize="20dp"
+        android:textColor="@color/colorTextWhite"
+
+        android:layout_margin="10dp"
+        android:background="@drawable/circular_corner_colorview_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        
+        android:id="@+id/Button_GameListActivity_exit"
+        />
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="500dp"
+        
+        android:gravity="center"
+        
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Button_GameListActivity_exit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.1"
+        >
+        
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="top"
+            android:gravity="center"
+            android:background="@drawable/circular_topcorner_colorview_button"
+
+            android:padding="5dp"
+            android:text="게임 리스트"
+            android:textSize="20dp"
+            android:textColor="@color/colorTextWhite"
+
+            />
+        
+        
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -45,6 +45,7 @@ public class LoginActivity extends BaseActivity {
     String inputPassword; //입력받은 비밀번호
     String userKey; //이메일 변환한 값  >> application class의 emailKey 변수값으로 저장
     String name; //로그인한 유저의 이름값 >> application class의 name 변수값으로 저장
+    String autoLoginKey; //자동 로그인 정보(키 데이터);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +65,7 @@ public class LoginActivity extends BaseActivity {
         userKey = applicationClass.EncodeString(inputEmail); // 키값으로 바꾸기 위해 이메일 . 을 , 으로 바꾼값
 
         //자동로그인 유저 정보가 있으면
-        String autoLoginKey = applicationClass.mySharedPref.getStringPref("CurrentUserKey");
+        autoLoginKey = applicationClass.mySharedPref.getStringPref("CurrentUserKey");
 
         if(autoLoginKey.contentEquals("no key")){//저장된 자동로그인 정보가 없으면
             //파이어베이스 로그인
@@ -141,8 +142,10 @@ public class LoginActivity extends BaseActivity {
                     name = user.getUserName();
 
                     //키값이랑 로그인한유저의 이름값 applicationClass의 변수값으로 저장
-                    applicationClass.currentUserEmailKey = userKey;
+                    applicationClass.currentUserEmailKey = autoLoginKey;
                     applicationClass.currentUserName = name;
+
+                    makeLog(new Object() {}.getClass().getEnclosingMethod().getName()+"()", "autoLogInKey : "+autoLoginKey );
                 }
 
                 @Override

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#3f342e">
+
+    <TextView
+        android:id="@+id/textView_activity_taptap_informationPhrase"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="280dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="center"
+        android:text="아래 버튼을 두드리세요."
+        android:textColor="#ffffff"
+        android:textSize="28sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/textView_activity_taptap_centerArrow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="180dp"
+        android:layout_marginEnd="180dp"
+        android:layout_marginBottom="91dp"
+        android:gravity="center"
+        android:text="▼"
+        android:textColor="#ffffff"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toTopOf="@+id/button_activity_taptap_roundTouchButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_activity_taptap_informationPhrase" />
+
+    <Button
+        android:id="@+id/button_activity_taptap_roundTouchButton"
+        android:layout_width="223dp"
+        android:layout_height="228dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginEnd="150dp"
+        android:layout_marginBottom="56dp"
+        android:background="@drawable/ic_roundedbutton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

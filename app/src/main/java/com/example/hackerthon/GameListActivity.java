@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -58,9 +59,21 @@ public class GameListActivity extends BaseActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 makeLog(new Object() {}.getClass().getEnclosingMethod().getName()+"()", "snapshot : "+snapshot );
-//                Game game = snapshot.getValue(Game.class); //Game 목록을 받아오기
 
-//                gameList.add(game);
+                String gameid = snapshot.getKey(); //Game 목록을 받아오기
+
+                applicationClass.databaseReference.child("GAME").child(gameid).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Game game = snapshot.getValue(Game.class);
+                        gameList.add(game);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
 
             @Override

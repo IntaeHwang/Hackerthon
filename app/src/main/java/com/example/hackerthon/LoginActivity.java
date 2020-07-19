@@ -134,7 +134,7 @@ public class LoginActivity extends BaseActivity {
                         }
                     });
         }else{
-            applicationClass.firebaseDatabase.getReference("USER").child(userKey).addListenerForSingleValueEvent(new ValueEventListener() {
+            applicationClass.firebaseDatabase.getReference("USER").child(autoLoginKey).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     //로그인한 유저 이름값만 빼오기

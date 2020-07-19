@@ -13,12 +13,12 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        //스플래쉬 액티비티 2초지속 후 로그인 액티비티로 이동
+        //스플래쉬 액티비티 2초지속 후 로그인 액티비티로 이동하는 메소드 실행
         startLoading();
 
     }
 
-    //2초 후 로그인액티비티로 넘어가는 메소드
+    //3초 후 로그인액티비티로 넘어가는 메소드
     private void startLoading() {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -37,7 +37,7 @@ public class SplashActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
                 startActivity(intent);
             }
-        },2000);
+        },3000);
 
     }
 }

@@ -9,29 +9,45 @@
     android:background="@color/colorMainBackground">
 
     <TextView
-        android:id="@+id/textview_roomCreateActivity_roomMaster"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="방장 : 김청아"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/button_roomCreateActivity_roomOut"
-        app:layout_constraintBottom_toTopOf="@id/linearlayout_roomCreateActivity_roomInfo"
+        android:text="방장:"
+        android:textSize="20dp"
         android:textColor="@color/colorTextWhite"
-        android:textSize="21sp"/>
+        android:layout_margin="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/textview_roomCreateActivity_roomMasterText"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="userName"
+        android:textSize="20dp"
+        android:textColor="@color/colorTextWhite"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintStart_toEndOf="@id/textview_roomCreateActivity_roomMasterText"
+        app:layout_constraintTop_toTopOf="@id/textview_roomCreateActivity_roomMasterText"
+        app:layout_constraintBottom_toBottomOf="@id/textview_roomCreateActivity_roomMasterText"
+        android:id="@+id/textview_roomCreateActivity_roomMasterName"
+        />
 
     <Button
-        android:id="@+id/button_roomCreateActivity_roomOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:text="나가기"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/textview_roomCreateActivity_roomMaster"
-        app:layout_constraintBottom_toTopOf="@id/linearlayout_roomCreateActivity_roomInfo"
-        android:background="@drawable/circular_corner_colorview_button"
+        android:textSize="20dp"
         android:textColor="@color/colorTextWhite"
-        android:textSize="21sp"/>
+
+        android:layout_margin="10dp"
+        android:background="@drawable/circular_corner_colorview_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        android:id="@+id/button_roomCreateActivity_roomExit"
+        />
 
     <LinearLayout
         android:id="@+id/linearlayout_roomCreateActivity_roomInfo"
@@ -39,7 +55,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/button_roomCreateActivity_roomOut"
+        app:layout_constraintTop_toBottomOf="@id/button_roomCreateActivity_roomExit"
         app:layout_constraintBottom_toTopOf="@id/linearlayout_roomCreateActivity_playerList"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
@@ -52,7 +68,7 @@
             android:layout_height="wrap_content"
             android:text="방 정보"
             android:gravity="center"
-            android:background="@color/colorView"
+            android:background="@drawable/circular_topcorner_colorview_button"
             android:textColor="@color/colorTextWhite"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"/>
@@ -77,25 +93,29 @@
                 android:gravity="center">
 
                 <TextView
-                    android:id="@+id/textview_roomCreateActivity_roomStart"
+                    android:id="@+id/textview_roomCreateActivity_roomStartAuthority"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="게임 시작 권한" />
 
                 <RadioGroup
+                    android:id="@+id/radiogroup_roomCreateActivity_gameStartGroup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <RadioButton
+                        android:id="@+id/radiogroup_roomCreateActivity_gameStartMaster"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="true"
                         android:text="방장"/>
                     <RadioButton
+                        android:id="@+id/radiogroup_roomCreateActivity_gameStartTheFirst"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1등"/>
                     <RadioButton
+                        android:id="@+id/radiogroup_roomCreateActivity_gameStartTheLast"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="꼴등"/>
@@ -126,7 +146,7 @@
             android:layout_height="wrap_content"
             android:text="플레이어 1명"
             android:gravity="center"
-            android:background="@color/colorView"
+            android:background="@drawable/circular_topcorner_colorview_button"
             android:textColor="@color/colorTextWhite"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"/>

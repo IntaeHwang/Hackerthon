@@ -58,7 +58,7 @@ public class User {
         this.userName = userName;
     }
 
-    HashMap<String, Object> toUserMap(){
+    HashMap<String, Object> toUserMap(User user){
         HashMap<String, Object> userMap = new HashMap<>();
 
         userMap.put("id", id);

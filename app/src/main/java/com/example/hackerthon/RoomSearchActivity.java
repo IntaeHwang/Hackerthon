@@ -8,7 +8,7 @@ import android.os.Bundle;
 
 public class RoomSearchActivity extends AppCompatActivity {
 
-    String roomId; //생성된 방 아이디 = 현재시간을 초 단위까지 받아온 데이터 (중복되지 않기위해)
+//    String getRoomId; //생성된 방 아이디 = 현재시간을 초 단위까지 받아온 데이터 (중복되지 않기위해)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -42,6 +42,8 @@ public class LoginActivity extends BaseActivity {
     //로그인 버튼 클릭시
     @OnClick(R.id.button_loginActivity_login)
     public void onButtonLoginActivityLoginClicked() {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
     }
 
 

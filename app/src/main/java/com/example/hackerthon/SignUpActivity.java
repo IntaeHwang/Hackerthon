@@ -131,7 +131,7 @@ public class SignUpActivity extends BaseActivity {
 
                             //DB에 USER데이터 추가하기
                             DatabaseReference myRef = applicationClass.databaseReference.child("USER").child(userKey);
-                            User user = new User(myEmail,myPassword,null,null, myName);
+                            User user = new User(myEmail,myPassword,0,0, myName);
 
                             makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", " :user " +user);
 //                            user.toUserMap(user);

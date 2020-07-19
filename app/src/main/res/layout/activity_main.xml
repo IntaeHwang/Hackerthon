@@ -64,7 +64,7 @@
             android:layout_weight="1"
             android:background="#00ff0000"
             android:drawableTop="@drawable/ic_linearlayout_mainacitivity_createroom"
-            android:text="판매내역" />
+            android:text="방 만들기" />
 
         <Button
             android:id="@+id/linearLayout_mainAcitivity_searchRoom"
@@ -73,7 +73,7 @@
             android:layout_weight="1"
             android:background="#00ff0000"
             android:drawableTop="@drawable/ic_linearlayout_mainacitivity_searchroom"
-            android:text="구매내역" />
+            android:text="방 찾기" />
 
         <Button
             android:id="@+id/linearLayout_mainAcitivity_myProfile"
@@ -82,7 +82,7 @@
             android:layout_weight="1"
             android:background="#00ff0000"
             android:drawableTop="@drawable/ic_linearlayout_mainacitivity_myprofile"
-            android:text="관심목록" />
+            android:text="내정보" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

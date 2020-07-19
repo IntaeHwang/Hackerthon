@@ -1,14 +1,16 @@
 package com.example.hackerthon;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.zxing.BarcodeFormat;
@@ -17,9 +19,8 @@ import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Calendar;
-import java.util.Date;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -42,6 +43,8 @@ public class RoomCreateActivity extends BaseActivity {
     RadioGroup radiogroupRoomCreateActivityGameStartGroup;      //라디오버튼 그룹 (위 3개의 시작권한자를 감싸고 있다)
     @BindView(R.id.recyclerview_roomCreateActivity_playerList)
     RecyclerView recyclerviewRoomCreateActivityPlayerList;      //리사이클러뷰 - 플레이어 리스트
+    @BindView(R.id.button_roomCreateActivity_gameList)
+    Button buttonRoomCreateActivityGameList;    //게임리스트 액티비티로 화면전환하는 버튼
 
     String createRoomId; //생성된 방 아이디 = 현재시간을 초 단위까지 받아온 데이터 (중복되지 않기위해)
     String currentTimeStringData;    //현재시간 (초까지)
@@ -57,11 +60,13 @@ public class RoomCreateActivity extends BaseActivity {
 
         //현재시간(초단위까지)을 받아와서 qr코드를 생성해준다 (qr코드 값은 = 현재시간을 데이터값으로 가진다)
         getCurrentTimeMillis();
+        //리사이클러뷰를 초기화한다
+//        recyclerviewInit();
 
     }
 
     //현재 시간을 받아오는 함수 -> RoomId 값으로 현재시간 데이터를 대입할거라서 현재시간을 구해야 한다
-    public void getCurrentTimeMillis(){
+    public void getCurrentTimeMillis() {
 
         //캘린더 객체 생성
         Calendar calendar = Calendar.getInstance();
@@ -70,7 +75,8 @@ public class RoomCreateActivity extends BaseActivity {
         //String 변수에 현재날짜+시간 데이터 변수 저장
         currentTimeStringData = simpleDateFormat.format(calendar.getTime());
 
-        makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", "currentTimeStringData : " + currentTimeStringData);
+        makeLog(new Object() {
+        }.getClass().getEnclosingMethod().getName() + "()", "currentTimeStringData : " + currentTimeStringData);
 
 
         //QR 코드 생성하는 함수 (QR코드 이미지, QR코드 인식하면 값 넘겨줄 데이터)
@@ -94,8 +100,28 @@ public class RoomCreateActivity extends BaseActivity {
         }
     }
 
-    //나가기 버튼 클릭 : 나가기 버튼을 누르면 메인 화면으로 돌아간다
-    @OnClick(R.id.button_roomCreateActivity_roomExit)
-    public void onViewClicked() {
+    //리사이클러뷰 데이터 초기화하는 함수
+    public void recyclerInit(){
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerviewRoomCreateActivityPlayerList.setLayoutManager(linearLayoutManager);
+
+//        //어댑터 객체를 생성한다
+//        adminMenulistAdapter = new AdminMenulistAdapter(this);
+//        recyclerviewRoomCreateActivityPlayerList.setAdapter(adminMenulistAdapter);
+
     }
+
+    @OnClick({R.id.button_roomCreateActivity_roomExit, R.id.button_roomCreateActivity_gameList})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.button_roomCreateActivity_roomExit:   //나가기 버튼 (메인화면으로 전환)
+                break;
+            case R.id.button_roomCreateActivity_gameList:   //게임리스트 화면으로 가기 버튼
+                Intent gameListIntent = new Intent(this, GameListActivity.class);
+                startActivity(gameListIntent);
+                break;
+        }
+    }
+
 }

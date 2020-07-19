@@ -36,18 +36,14 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:text="나가기"
         android:textSize="20dp"
         android:textColor="@color/colorTextWhite"
-
         android:layout_margin="10dp"
         android:background="@drawable/circular_corner_colorview_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-
-        android:id="@+id/button_roomCreateActivity_roomExit"
-        />
+        android:id="@+id/button_roomCreateActivity_roomExit" />
 
     <LinearLayout
         android:id="@+id/linearlayout_roomCreateActivity_roomInfo"
@@ -81,8 +77,8 @@
 
             <ImageView
                 android:id="@+id/imageview_roomCreateActivity_qrCode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:src="@drawable/ic_roomcreateactivity_qrcode"/>
 
             <LinearLayout
@@ -126,6 +122,20 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="게임 리스트"
+        android:textSize="20dp"
+        android:textColor="@color/colorTextWhite"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:background="@drawable/circular_corner_colorview_button"
+        app:layout_constraintEnd_toEndOf="@id/linearlayout_roomCreateActivity_roomInfo"
+        app:layout_constraintTop_toBottomOf="@id/linearlayout_roomCreateActivity_roomInfo"
+        app:layout_constraintBottom_toTopOf="@id/linearlayout_roomCreateActivity_playerList"
+        android:id="@+id/button_roomCreateActivity_gameList" />
 
     <LinearLayout
         android:id="@+id/linearlayout_roomCreateActivity_playerList"

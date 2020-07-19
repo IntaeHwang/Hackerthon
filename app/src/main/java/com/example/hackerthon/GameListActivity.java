@@ -71,16 +71,17 @@ public class GameListActivity extends BaseActivity {
                 makeLog(new Object() {
                 }.getClass().getEnclosingMethod().getName() + "()", "gameid : " + gameid);
 
-                applicationClass.databaseReference.child("GAME").child(gameid).addListenerForSingleValueEvent(new ValueEventListener() {
+                applicationClass.firebaseDatabase.getReference("GAME").child(gameid).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         makeLog(new Object() {}.getClass().getEnclosingMethod().getName()+"()", "snapshot : "+snapshot );
 
-//                        Game game = snapshot.getValue(Game.class);
-//                        gameList.add(game);
-//
-//                        makeLog(new Object() {
-//                        }.getClass().getEnclosingMethod().getName() + "()", "snapshot : " + snapshot);
+                        Game game = snapshot.getValue(Game.class);
+                        gameList.add(game);
+                        
+                        makeLog(new Object() {}.getClass().getEnclosingMethod().getName()+"()", "gameList : "+gameList.size() );
+                        makeLog(new Object() {
+                        }.getClass().getEnclosingMethod().getName() + "()", "snapshot : " + snapshot);
                     }
 
                     @Override
@@ -112,8 +113,8 @@ public class GameListActivity extends BaseActivity {
         });
 
         recyclerViewGameListActivityGameList.setHasFixedSize(true);
-        gameListLayoutManager = new GridLayoutManager(this, 2);
         gameListAdapter = new GameListAdapter(gameList, this);
+        recyclerViewGameListActivityGameList.setLayoutManager( new GridLayoutManager(this, 2));
         recyclerViewGameListActivityGameList.setAdapter(gameListAdapter);
 
     }

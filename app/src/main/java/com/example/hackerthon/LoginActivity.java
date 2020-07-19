@@ -53,10 +53,6 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
-
-
-
-
     }
 
     //로그인 버튼 클릭시
@@ -126,10 +122,6 @@ public class LoginActivity extends BaseActivity {
                         // ...
                     }
                 });
-
-
-
-
 
     }
 

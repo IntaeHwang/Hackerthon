@@ -10,6 +10,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.zxing.BarcodeFormat;
@@ -59,6 +60,8 @@ public class RoomCreateActivity extends BaseActivity {
 
         //현재시간(초단위까지)을 받아와서 qr코드를 생성해준다 (qr코드 값은 = 현재시간을 데이터값으로 가진다)
         getCurrentTimeMillis();
+        //리사이클러뷰를 초기화한다
+//        recyclerviewInit();
 
     }
 
@@ -95,6 +98,18 @@ public class RoomCreateActivity extends BaseActivity {
             img.setImageBitmap(bitmap);
         } catch (Exception e) {
         }
+    }
+
+    //리사이클러뷰 데이터 초기화하는 함수
+    public void recyclerInit(){
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerviewRoomCreateActivityPlayerList.setLayoutManager(linearLayoutManager);
+
+//        //어댑터 객체를 생성한다
+//        adminMenulistAdapter = new AdminMenulistAdapter(this);
+//        recyclerviewRoomCreateActivityPlayerList.setAdapter(adminMenulistAdapter);
+
     }
 
     @OnClick({R.id.button_roomCreateActivity_roomExit, R.id.button_roomCreateActivity_gameList})

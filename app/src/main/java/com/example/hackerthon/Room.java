@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class Room {
     String roomId;
     String roomMasterEmail;
-    int numberOfParticipants;
+    int numberOfPlayers;
     int selectedStartAuthority;
     String gameStartUserEmail;
 
@@ -13,10 +13,10 @@ public class Room {
     public static final int THE_FIRST = 1;
     public static final int THE_LAST = 2;
 
-    public Room(String roomId, String roomMasterEmail, int numberOfParticipants, int selectedStartAuthority) {
+    public Room(String roomId, String roomMasterEmail, int numberOfPlayers, int selectedStartAuthority) {
         this.roomId = roomId;
         this.roomMasterEmail = roomMasterEmail;
-        this.numberOfParticipants = numberOfParticipants;
+        this.numberOfPlayers = numberOfPlayers;
         this.selectedStartAuthority = selectedStartAuthority;
     }
 
@@ -36,12 +36,12 @@ public class Room {
         this.roomMasterEmail = roomMasterEmail;
     }
 
-    public int getNumberOfParticipants() {
-        return numberOfParticipants;
+    public int getNumberOfPlayers() {
+        return numberOfPlayers;
     }
 
-    public void setNumberOfParticipants(int numberOfParticipants) {
-        this.numberOfParticipants = numberOfParticipants;
+    public void setNumberOfPlayers(int numberOfPlayers) {
+        this.numberOfPlayers = numberOfPlayers;
     }
 
     public int getSelectedStartAuthority() {
@@ -65,7 +65,7 @@ public class Room {
 
         roomMap.put("roomId", roomId);
         roomMap.put("roomMasterEmail", roomMasterEmail);
-        roomMap.put("numberOfParticipants", numberOfParticipants);
+        roomMap.put("numberOfPlayers", numberOfPlayers);
         roomMap.put("selectedStartAuthority", selectedStartAuthority);
         roomMap.put("gameStartUserEmail", gameStartUserEmail);
 

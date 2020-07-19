@@ -19,7 +19,7 @@ public class BaseActivity extends AppCompatActivity {
 
     //로그 : 액티비티명 + 함수명 + 원하는 데이터를 한번에 보기위한 로그
     public void makeLog(String methodData, String strData){
-        Log.d(TAG, className+"_"+methodData+" : "+strData);
+        Log.d(TAG, className+"_"+methodData+"_"+strData);
 
     }
 

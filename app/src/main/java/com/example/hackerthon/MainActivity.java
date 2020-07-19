@@ -11,6 +11,7 @@ public class MainActivity extends BaseActivity {
 
     String adminId = "김청아";
     int adminAge = 27;
+    String userName = "고은찬";
     @BindView(R.id.button2)
     Button button2;
     @BindView(R.id.button)
@@ -29,7 +30,11 @@ public class MainActivity extends BaseActivity {
         makeLog(new Object() {
         }.getClass().getEnclosingMethod().getName() + "()", "관리자 나이 : " + adminAge);
 
+        makeLog(new Object() {}.getClass().getEnclosingMethod().getName()+"()", "");
 
+
+        makeLog(new Object() {
+        }.getClass().getEnclosingMethod().getName() + "()", "");
 
         makeToast("로그인되었습니다.", SHORT_TOAST);
         makeToast("로그인되었습니다.", LONG_TOAST);

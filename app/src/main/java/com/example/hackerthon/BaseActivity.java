@@ -41,7 +41,6 @@ public class BaseActivity extends AppCompatActivity {
 
         applicationClass = (ApplicationClass)getApplicationContext();
 
-
     }
 
     @Override

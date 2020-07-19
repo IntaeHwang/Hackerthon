@@ -44,7 +44,7 @@ public class RoomCreateActivity extends BaseActivity {
     RecyclerView recyclerviewRoomCreateActivityPlayerList;      //리사이클러뷰 - 플레이어 리스트
 
     String createRoomId; //생성된 방 아이디 = 현재시간을 초 단위까지 받아온 데이터 (중복되지 않기위해)
-    String currentTimeStringData;    //TODO: 주석적기
+    String currentTimeStringData;    //현재시간 (초까지)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,35 +55,37 @@ public class RoomCreateActivity extends BaseActivity {
         //방 만들기를 한 user 이름을 받아서 setText() 해준다
 //        textviewRoomCreateActivityRoomMaster.setText();
 
+        //현재시간(초단위까지)을 받아와서 qr코드를 생성해준다 (qr코드 값은 = 현재시간을 데이터값으로 가진다)
         getCurrentTimeMillis();
-//        createORcode();
 
     }
 
     //현재 시간을 받아오는 함수 -> RoomId 값으로 현재시간 데이터를 대입할거라서 현재시간을 구해야 한다
     public void getCurrentTimeMillis(){
 
-        //현재 시간을 날짜 Data 에 저장한다
+        //캘린더 객체 생성
         Calendar calendar = Calendar.getInstance();
-
-        //
         //날짜와 시간을 나타내기위한 포맷을 지정한다
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyMMddHHmmsss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmsss");
         //String 변수에 현재날짜+시간 데이터 변수 저장
         currentTimeStringData = simpleDateFormat.format(calendar.getTime());
 
-        makeLog(new Object() {
-        }.getClass().getEnclosingMethod().getName() + "()", "currentTimeStringData : " + currentTimeStringData);
+        makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", "currentTimeStringData : " + currentTimeStringData);
 
 
+        //QR 코드 생성하는 함수 (QR코드 이미지, QR코드 인식하면 값 넘겨줄 데이터)
+        createQRcode(imageviewRoomCreateActivityQrCode, currentTimeStringData);
     }
 
     //QR 코드 생성 함수
-    public void createQRcode(ImageView img, String text) {
+    public void createQRcode(ImageView img, String currentTimeData) {
+
+        //roomId 는 초단위까지의 현재시간을 값으로 가진다
+        createRoomId = currentTimeData;
 
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
         try {
-            BitMatrix bitMatrix = multiFormatWriter.encode(text, BarcodeFormat.QR_CODE, 500, 500);
+            BitMatrix bitMatrix = multiFormatWriter.encode(createRoomId, BarcodeFormat.QR_CODE, 500, 500);
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
             Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
             //bitmap 형식의 이미지 파일로 만들어낸다

@@ -4,10 +4,11 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
 
-    <color name="colorMain">#422D10</color>
-    <color name="colorSub">#fbb036</color>
+    <color name="colorView">#3f342e</color>
+    <color name="colorMainBackground">#8d8176</color>
+    <color name="colorSubBackground">#bdb1a5</color>
+    <color name="colorPoint">#fbb036</color>
 
-    <color name="colorWhite">#ffffff</color>
-    <color name="colorBlack">#000000</color>
-    <color name="colorGameBackground">#c70c18</color>
+    <color name="colorTextWhite">#ffffff</color>
+    <color name="colorTextBlack">#000000</color>
 </resources>

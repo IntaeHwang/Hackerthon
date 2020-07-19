@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".GameShakeActivity">
 
+    <ProgressBar
+        android:id="@+id/progressbar_GameShakeActivity_progressbar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="1000"
+        android:progress="0"
+        android:progressDrawable="@drawable/game_progressbar"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView_GameShakeActivity_time"

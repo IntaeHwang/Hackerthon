@@ -8,9 +8,10 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.appcompat.app.AppCompatActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,12 +22,19 @@ public class GameShakeActivity extends AppCompatActivity implements SensorEventL
     TextView textViewGameShakeActivityTime;
     @BindView(R.id.textView_GameShakeActivity_score)
     TextView textViewGameShakeActivityScore;
+    @BindView(R.id.progressbar_GameShakeActivity_progressbar)
+    ProgressBar progressbarGameShakeActivityProgressbar;
 
-    /** 센서 이벤트*/
+    /**
+     * 센서 이벤트
+     */
     public int countNum = 0;  // 카운트 되는 수
 
 
-    /** 속도를 통해서 기준이 되는 속도(SHAKE_THRESHOLD) 보다 빠른 경우 숫자가 카우팅이 되기 위함*/
+
+    /**
+     * 속도를 통해서 기준이 되는 속도(SHAKE_THRESHOLD) 보다 빠른 경우 숫자가 카우팅이 되기 위함
+     */
     private long lastTime;  //
     private float speed;
 
@@ -40,9 +48,10 @@ public class GameShakeActivity extends AppCompatActivity implements SensorEventL
     private float lastY;
     private float lastZ;
 
-    /** 숫자값이 클수록 센서가 둔감하게 반응함.
-     *      - 그 이유는 (speed > SHAKE_THRESHOLD) 인 경우에만 카운팅 되기 때문
-     * */
+    /**
+     * 숫자값이 클수록 센서가 둔감하게 반응함.
+     * - 그 이유는 (speed > SHAKE_THRESHOLD) 인 경우에만 카운팅 되기 때문
+     */
     private static final int SHAKE_THRESHOLD = 600;
     private static final int DATA_X = SensorManager.DATA_X;
     private static final int DATA_Y = SensorManager.DATA_Y;
@@ -132,10 +141,13 @@ public class GameShakeActivity extends AppCompatActivity implements SensorEventL
             /**시간계산*/
             int millisecond = time % 100;
             int sec = time / 100;
-            String result = String.format("%02d:%02d",  sec, millisecond);
+            String result = String.format("%02d:%02d", sec, millisecond);
             textViewGameShakeActivityTime.setText(result);
 
-            if(sec >= 10){
+            progressbarGameShakeActivityProgressbar.setProgress(time);
+
+
+            if (sec >= 10) {
                 isRunning = false;
                 textViewGameShakeActivityTime.setText("10:00");
 //                sensorManager.unregisterListener(this);

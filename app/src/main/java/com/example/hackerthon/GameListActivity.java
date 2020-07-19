@@ -76,11 +76,11 @@ public class GameListActivity extends BaseActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         makeLog(new Object() {}.getClass().getEnclosingMethod().getName()+"()", "snapshot : "+snapshot );
 
-                        Game game = snapshot.getValue(Game.class);
-                        gameList.add(game);
-
-                        makeLog(new Object() {
-                        }.getClass().getEnclosingMethod().getName() + "()", "snapshot : " + snapshot);
+//                        Game game = snapshot.getValue(Game.class);
+//                        gameList.add(game);
+//
+//                        makeLog(new Object() {
+//                        }.getClass().getEnclosingMethod().getName() + "()", "snapshot : " + snapshot);
                     }
 
                     @Override

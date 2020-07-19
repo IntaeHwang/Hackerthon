@@ -44,8 +44,9 @@ public class MainActivity extends BaseActivity {
         makeToast("로그인되었습니다.", SHORT_TOAST);
         makeToast("로그인되었습니다.", LONG_TOAST);
 
-        User user = new User("intae", "qwer1234");
+        User user = new User("intae123", "12345");
         HashMap<String, Object> userMap = user.toUserMap();
+
 
         applicationClass.databaseReference.child("test").setValue(userMap);
 

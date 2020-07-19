@@ -62,10 +62,10 @@ public class RoomCreateActivity extends AppCompatActivity {
 
     //현재 시간을 받아오는 함수 -> RoomId 값으로 현재시간 데이터를 대입할거라서 현재시간을 구해야 한다
     public void getCurrentTimeMillis(){
-//        //현재 시간을 구한다
-//        long nowTime = System.currentTimeMillis();
+
 //        //현재 시간을 날짜 Data 에 저장한다
 //        LocalDate nowDate = LocalDate.now();
+//        //
 //        //날짜와 시간을 나타내기위한 포맷을 지정한다
 //        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyMMddHHmmss");
 //        //String 변수에 현재날짜+시간 데이터 변수 저장

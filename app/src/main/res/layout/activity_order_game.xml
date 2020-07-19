@@ -274,11 +274,11 @@
         android:layout_height="85dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginEnd="14dp"
+        android:background="@drawable/circular_round_white_button"
         android:text="17"
         android:textColor="#B22222"
         android:textSize="40sp"
-        android:background="@drawable/circular_round_white_button"
         app:layout_constraintEnd_toStartOf="@+id/button_activity_order_game_roundTouchButton8"
         app:layout_constraintStart_toEndOf="@+id/button_activity_order_game_roundTouchButton6"
         app:layout_constraintTop_toBottomOf="@+id/button_activity_order_game_roundTouchButton3" />

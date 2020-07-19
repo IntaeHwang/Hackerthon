@@ -33,6 +33,7 @@
         </activity>
         <activity android:name=".BaseActivity" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".GameListActivity"/>
         <!-- Zxing 라이브러리 카메라 세로 모드 -->
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"

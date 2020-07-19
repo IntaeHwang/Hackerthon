@@ -48,8 +48,8 @@ public class GameListActivity extends BaseActivity {
 
         gameList = new ArrayList<>();
 
-        //방장 이름, 이전 액티비티(방 생성 시 최초 액티비티)를 사용해서
-        textViewGameListActivityMasterName.setText(getIntent().getStringExtra("MasterName"));
+        //방장 이름, 이전 액티비티(방 생성 시 최초 액티비티)를 사용해서 방장 이름을 가져온다
+//        textViewGameListActivityMasterName.setText(getIntent().getStringExtra("MasterName"));
 
         //게임 목록을 불러오긴 위한 childListener 추가 및
         //childListener 추가시 동작될 오버라이딩 함수 정의 보통 최초로 가져올 시 onChildAdded() 메소드가 작동

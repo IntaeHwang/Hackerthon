@@ -8,6 +8,8 @@ public class Game implements Serializable {
     String gameName;
     String gameInfo;
 
+    public Game(){};
+
     public Game(String gamePicture, String gameName, String gameInfo) {
         this.gamePicture = gamePicture;
         this.gameName = gameName;

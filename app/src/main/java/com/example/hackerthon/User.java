@@ -9,7 +9,9 @@ public class User {
     int totalScore;
     int gameScore;
     String userName;
+
     public User(){};
+
     public User(String id, String pw, int totalScore, int gameScore, String userName) {
         this.id = id;
         this.pw = pw;

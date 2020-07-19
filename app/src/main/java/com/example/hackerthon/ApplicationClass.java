@@ -32,7 +32,7 @@ public class ApplicationClass extends Application {
         //파이어베이스 저장소 객체 선언
         firebaseStorage = FirebaseStorage.getInstance();
         storageRef = FirebaseStorage.getInstance().getReference();
-        firebaseDatabase = FirebaseDatabase.getInstance();
+//        firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
     }
 

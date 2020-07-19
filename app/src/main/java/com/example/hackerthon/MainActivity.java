@@ -3,6 +3,8 @@ package com.example.hackerthon;
 import android.os.Bundle;
 import android.widget.Button;
 
+import java.util.HashMap;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -41,6 +43,11 @@ public class MainActivity extends BaseActivity {
 
         makeToast("로그인되었습니다.", SHORT_TOAST);
         makeToast("로그인되었습니다.", LONG_TOAST);
+
+        User user = new User("intae", "qwer1234");
+        HashMap<String, Object> userMap = user.toUserMap();
+
+        applicationClass.databaseReference.child("test").setValue(userMap);
 
     }
 

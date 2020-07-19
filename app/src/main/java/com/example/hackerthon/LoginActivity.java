@@ -40,7 +40,6 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.button_loginActivity_signUp)
     Button buttonLoginActivitySignUp; // 회원가입 버튼
 
-
     //---------------------내가 추가한 변수----------------------
     String inputEmail; //입력받은 이메일값
     String inputPassword; //입력받은 비밀번호
@@ -64,24 +63,28 @@ public class LoginActivity extends BaseActivity {
         inputPassword = edittextLoginActivityInputPassword.getText().toString(); //입력 비밀번호
         userKey = applicationClass.EncodeString(inputEmail); // 키값으로 바꾸기 위해 이메일 . 을 , 으로 바꾼값
 
-        //파이어베이스 로그인
-        applicationClass.firebaseAuth.signInWithEmailAndPassword(inputEmail, inputPassword)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            //로그인 성공시
+        //자동로그인 유저 정보가 있으면
+        String autoLoginKey = applicationClass.mySharedPref.getStringPref("CurrentUserKey");
+
+        if(autoLoginKey.contentEquals("no key")){//저장된 자동로그인 정보가 없으면
+            //파이어베이스 로그인
+            applicationClass.firebaseAuth.signInWithEmailAndPassword(inputEmail, inputPassword)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                //로그인 성공시
 //                            FirebaseUser user = mAuth.getCurrentUser();
 
-                            //유저키를 Sharedpreference에 저장
+                                //유저키를 Sharedpreference에 저장
 //                            applicationClass.mySharedPref.saveStringPref(userKey,userKey);
 
-                            //데이터베이스에서 유저 데이터중 이름값 빼서 토스트에 띄어보기
-                            DatabaseReference ref2 = applicationClass.firebaseDatabase.getReference("USER").child(userKey);
-                            ref2.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                     //로그인시 로그인한 데이터 불러오기 연습
+                                //데이터베이스에서 유저 데이터중 이름값 빼서 토스트에 띄어보기
+                                DatabaseReference ref2 = applicationClass.firebaseDatabase.getReference("USER").child(userKey);
+                                ref2.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        //로그인시 로그인한 데이터 불러오기 연습
 //                                        ArrayList userArrayList = new ArrayList<>();
 
                                         //로그인한 유저 이름값만 빼오기
@@ -90,7 +93,7 @@ public class LoginActivity extends BaseActivity {
 //                                        applicationClass.mySharedPref.saveStringPref(name,name); //굳이 shared 쓸필요없음
 //                                        userArrayList.add(user);
 
-                                        //키값이랑 로그인한유저의 이름값 applicationClass의 변수값으로 저장ㅇ
+                                        //키값이랑 로그인한유저의 이름값 applicationClass의 변수값으로 저장
                                         applicationClass.currentUserEmailKey = userKey;
                                         applicationClass.currentUserName = name;
 
@@ -99,34 +102,57 @@ public class LoginActivity extends BaseActivity {
                                         }.getClass().getEnclosingMethod().getName() + "()", "name : " + name);
                                         makeToast(name+"님 로그인 하였습니다.",SHORT_TOAST);
 
-                                }
+                                        applicationClass.mySharedPref.saveStringPref("CurrentUserKey", applicationClass.currentUserEmailKey);
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    }
 
-                                }
-                            });
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-
-                            //로그 - 로그인 성공 표시
-                            makeLog(new Object() {
-                            }.getClass().getEnclosingMethod().getName() + "()", "로그인 성공 : " );
+                                    }
+                                });
 
 
-                            //메인액티비티로 이동
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                            startActivity(intent);
-                            
-                        } else {
-                            //로그인 실패시
-                            makeLog(new Object() {
-                            }.getClass().getEnclosingMethod().getName() + "()", "로그인 실패 : " );
-                            makeToast("로그인 실패",SHORT_TOAST);
+                                //로그 - 로그인 성공 표시
+                                makeLog(new Object() {
+                                }.getClass().getEnclosingMethod().getName() + "()", "로그인 성공 : " );
+
+
+                                //메인액티비티로 이동
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(intent);
+
+                            } else {
+                                //로그인 실패시
+                                makeLog(new Object() {
+                                }.getClass().getEnclosingMethod().getName() + "()", "로그인 실패 : " );
+                                makeToast("로그인 실패",SHORT_TOAST);
+                            }
+
+                            // ...
                         }
+                    });
+        }else{
+            applicationClass.firebaseDatabase.getReference("USER").child(userKey).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    //로그인한 유저 이름값만 빼오기
+                    User user = snapshot.getValue(User.class);
+                    name = user.getUserName();
 
-                        // ...
-                    }
-                });
+                    //키값이랑 로그인한유저의 이름값 applicationClass의 변수값으로 저장
+                    applicationClass.currentUserEmailKey = userKey;
+                    applicationClass.currentUserName = name;
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
+
+
 
     }
 

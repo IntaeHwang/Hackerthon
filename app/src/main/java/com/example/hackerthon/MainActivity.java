@@ -30,7 +30,10 @@ public class MainActivity extends BaseActivity {
         makeLog(new Object() {
         }.getClass().getEnclosingMethod().getName() + "()", "관리자 나이 : " + adminAge);
 
-        makeLog(new Object() {}.getClass().getEnclosingMethod().getName()+"()", "");
+        makeLog(new Object() {}.getClass().getEnclosingMethod().getName()+"()", "userName : "+userName);
+
+        makeLog(new Object() {
+        }.getClass().getEnclosingMethod().getName() + "()", "userName : " + userName);
 
 
         makeLog(new Object() {

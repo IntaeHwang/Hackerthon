@@ -9,5 +9,5 @@
 
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
-    <color name="colorRed">#c70c18</color>
+    <color name="colorGameBackground">#c70c18</color>
 </resources>

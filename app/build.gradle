@@ -63,5 +63,8 @@ dependencies {
     def lottieVersion = "3.4.1"
     implementation "com.airbnb.android:lottie:$lottieVersion"
 
+    // Zxing 라이브러리 QR코드 인식할 수 있는 기능
+    implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
+
 
 }

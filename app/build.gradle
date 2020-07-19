@@ -57,4 +57,7 @@ dependencies {
 
     //메테리얼 xml들이 혹시 필요할지 몲라 해 놓음
     implementation 'com.google.android.material:material:1.1.0'
+
+    // Zxing 라이브러리 QR 코드 인식할 수 있는 기능
+    implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
 }

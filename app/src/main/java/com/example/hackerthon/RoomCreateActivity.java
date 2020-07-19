@@ -19,6 +19,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
@@ -72,13 +73,26 @@ public class RoomCreateActivity extends BaseActivity {
 
         //리사이클러뷰를 초기화한다
         recyclerviewInit();
+
         //플레이어 데이터를 불러온다
         loadPlayerListData();
 
         radiogroupRoomCreateActivityGameStartGroup.setOnCheckedChangeListener(radioGroupButtonChangeListener);
 
-        //액티비티 최초 진입 시 룸 생성되는 함수 (키는 룸넘버(현재날짜데이터), 플레이어수, 방장이메일, 선택한시작권한자)
-        saveDatabaseAfterCreateRoom();
+        Intent intent = getIntent();
+        String enterPath = intent.getStringExtra("enterPath");
+
+        //RoomCreateActivity 에 들어온 경로 체크
+        //MainActivity 에서 들어온 경우에만 룸 생성된다
+        if(enterPath.contentEquals("MainActivity")){
+            //액티비티 최초 진입 시 룸 생성되는 함수 (키는 룸넘버(현재날짜데이터), 플레이어수, 방장이메일, 선택한시작권한자)
+            saveDatabaseAfterCreateRoom();
+            makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", " 들어간 경로 : MainActivity");
+        }else if(enterPath.contentEquals("RoomSearchActivity")){
+            makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", " 들어간 경로 : RoomSearchActivity");
+        }else {
+            makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", " 들어간 경로 : Null");
+        }
 
     }
 
@@ -110,7 +124,6 @@ public class RoomCreateActivity extends BaseActivity {
         currentTimeStringData = simpleDateFormat.format(calendar.getTime());
 
         makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", "currentTimeStringData : " + currentTimeStringData);
-
 
         //QR 코드 생성하는 함수 (QR코드 이미지, QR코드 인식하면 값 넘겨줄 데이터)
         createQRcode(imageviewRoomCreateActivityQrCode, currentTimeStringData);
@@ -155,25 +168,22 @@ public class RoomCreateActivity extends BaseActivity {
     }
 
     //DB에서 플레이어 리스트 데이터를 불러온다
-    private void loadPlayerListData() {
+    public void loadPlayerListData() {
 
-        applicationClass.firebaseDatabase.getReference().child("PLAYERLIST").child(createRoomId)
+        applicationClass.databaseReference.child("PLAYERLIST").child(createRoomId)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         //초기화
-                        roomPlayerListAdapter.playerList.clear();
+//                        roomPlayerListAdapter.playerList.clear();
 //                        roomPlayerListAdapter.uidLists.clear();
 
-                        for(DataSnapshot snapshot : dataSnapshot.getChildren()){    //getChildren = 한 유저에 대한 정보 (한줄) 이라고 생각하면 됨
+                        String key = dataSnapshot.getKey(); //202007191931020
+                        makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", "key : " + key);
+                        String roomKey = "room@"+key;
 
-//                            User user = snapshot.getValue(User.class);
-                            String uidKey = snapshot.getKey();
-                            makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", "key : " + uidKey);
-//                            roomPlayerListAdapter.playerList.add(user);
-//                            adminMenulistAdapter.uidLists.add(uidKey);
-                        }
-                        roomPlayerListAdapter.notifyDataSetChanged();
+                        makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", "getChildren: " + dataSnapshot.child(roomKey).getValue());
+
                     }
 
                     @Override

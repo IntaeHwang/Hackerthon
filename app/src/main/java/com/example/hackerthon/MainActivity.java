@@ -32,6 +32,7 @@ public class MainActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.linearLayout_mainAcitivity_createRoom:
                 Intent roomCreateIntent = new Intent(this, RoomCreateActivity.class);
+                roomCreateIntent.putExtra("enterPath", "MainActivity");
                 startActivity(roomCreateIntent);
                 break;
             case R.id.linearLayout_mainAcitivity_searchRoom:

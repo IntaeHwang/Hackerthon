@@ -17,11 +17,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /** GameShakeActivity
- *      1. 센서 이벤트
- *      2. 시간 측정 및 프로그레스바
+ * 1. 센서 이벤트
+ * 2. 시간 측정 및 프로그레스바
  *
- *      */
-public class GameShakeActivity extends AppCompatActivity implements SensorEventListener {
+ * */
+public class GameShakeActivity extends BaseActivity implements SensorEventListener {
 
     @BindView(R.id.textView_GameShakeActivity_time)
     TextView textViewGameShakeActivityTime;
@@ -31,18 +31,18 @@ public class GameShakeActivity extends AppCompatActivity implements SensorEventL
     ProgressBar progressbarGameShakeActivityProgressbar;
 
     /** 센서 이벤트
-     *      - 센서이벤트의 센서 감도는 휴대폰의 속도와 측정 시간에 따라 결정된다.
-     *      - 그래서 변수가 거리, 시간, 속도를 담는 변수가 나오게 됨.
+     * - 센서이벤트의 센서 감도는 휴대폰의 속도와 측정 시간에 따라 결정된다.
+     * - 그래서 변수가 거리, 시간, 속도를 담는 변수가 나오게 됨.
      */
 
-    public int countNum = 0;  //센서를 통해 카운팅 된 수
+    public int countNum = 0; //센서를 통해 카운팅 된 수
 
 
     // 시간
     private long lastTime;
 
-    // 거리
-    // (현재 휴대폰의 좌표 - 최근 저장된 휴대폰의 좌표)를 통해 거리차를 구할 수 있다.
+// 거리
+// (현재 휴대폰의 좌표 - 최근 저장된 휴대폰의 좌표)를 통해 거리차를 구할 수 있다.
 
     // 현재 휴대폰의 좌표
     private float x, y, z;
@@ -54,7 +54,7 @@ public class GameShakeActivity extends AppCompatActivity implements SensorEventL
     private int DATA_Y = SensorManager.DATA_Y;
     private int DATA_Z = SensorManager.DATA_Z;
 
-    // 속도
+// 속도
 
     /* SHAKE_THRESHOLD: 휴대폰이 움직이는 속도와 비교하기 위한 기준값
      * - 숫자값이 클수록 센서가 둔감하게 반응함.
@@ -70,6 +70,7 @@ public class GameShakeActivity extends AppCompatActivity implements SensorEventL
     /**
      * 시간 쓰레드
      */
+    int countTimeValue = 0;
     private Thread timeThread = null;
     private Boolean isRunning = true;
 
@@ -82,7 +83,8 @@ public class GameShakeActivity extends AppCompatActivity implements SensorEventL
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         accelerormeterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
-        timeThread = new Thread(new TimeThread());
+// 쓰레드를 상속받아서 생성 및 실행.
+        timeThread = new GameThread(handler, textViewGameShakeActivityTime, progressbarGameShakeActivityProgressbar);
         timeThread.start();
     }
 
@@ -108,14 +110,14 @@ public class GameShakeActivity extends AppCompatActivity implements SensorEventL
 
             long gabOfTime = (currentTime - lastTime);
 
-            /**조건절의 목적
-             *      - 센서의 측정 시간이 0.2초 이상일 경우 측정
-             *      - 센서 측정이 시간이 낮을 수록 센서에 측정되는 수가 높아짐
-             * */
+/**조건절의 목적
+ * - 센서의 측정 시간이 0.2초 이상일 경우 측정
+ * - 센서 측정이 시간이 낮을 수록 센서에 측정되는 수가 높아짐
+ * */
             if (gabOfTime > 200) {
                 lastTime = currentTime;
 
-                //
+//
                 x = event.values[SensorManager.DATA_X];
                 y = event.values[SensorManager.DATA_Y];
                 z = event.values[SensorManager.DATA_Z];
@@ -138,46 +140,87 @@ public class GameShakeActivity extends AppCompatActivity implements SensorEventL
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
 
-    @SuppressLint("HandlerLeak")
-    Handler handlerTime = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            int time = msg.arg1;
+    /**주석 처리한 이유
+     * - 핸들러 사용을 메세지 객체로 이용했는데, Runnable 객체*/
+// @SuppressLint("HandlerLeak")
+// Handler handlerTime = new Handler() {
+// @Override
+// public void handleMessage(Message msg) {
+// int time = msg.arg1;
+//
+// /**시간계산*/
+// int millisecond = time % 100;
+// int sec = time / 100;
+// String result = String.format("%02d:%02d", sec, millisecond);
+// textViewGameShakeActivityTime.setText(result);
+// progressbarGameShakeActivityProgressbar.setProgress(time);
+//
+// if (sec >= 10) {
+// isRunning = false;
+// textViewGameShakeActivityTime.setText("10:00");
+//// sensorManager.unregisterListener(this);
+// }
+// }
+// };
+//
+// public class TimeThread implements Runnable {
+// @Override
+// public void run() {
+// int i = 0;
+// while (true) {
+// while (isRunning) {
+// Message msg = new Message();
+// msg.arg1 = i++;
+// handlerTime.sendMessage(msg);
+// try {
+// Thread.sleep(10); // 1000이 1초
+// } catch (InterruptedException e) {
+// e.printStackTrace();
+// return;
+// }
+// }
+// }
+// }
+// }
 
-            /**시간계산*/
-            int millisecond = time % 100;
-            int sec = time / 100;
-            String result = String.format("%02d:%02d", sec, millisecond);
-            textViewGameShakeActivityTime.setText(result);
-            progressbarGameShakeActivityProgressbar.setProgress(time);
+// class BackThread extends Thread{
+// @Override
+// public void run() {
+// while(true){
+// while (isRunning) {
+// countTimeValue++;
+// // 메인스레드에 있던 handler겍체를 사용하여
+// // Runnable 객체를 보내고 (post)
+// handler.post(new Runnable(){
+// @Override
+// public void run() { // Runnable 의 Run() 메소드에서 UI 접근
+// int time = countTimeValue;
+//
+// /**시간계산*/
+// int millisecond = time % 100;
+// int sec = time / 100;
+// String result = String.format("%02d:%02d", sec, millisecond);
+// textViewGameShakeActivityTime.setText(result);
+// progressbarGameShakeActivityProgressbar.setProgress(time);
+//
+// if (sec >= 10) {
+// isRunning = false;
+// textViewGameShakeActivityTime.setText("10:00");
+// }
+// }
+// });
+// try {
+// Thread.sleep(10); // 1000이 1초
+// } catch (InterruptedException e) {
+// e.printStackTrace();
+// return;
+// }
+// }
+// }
+// }
+// }
 
-            if (sec >= 10) {
-                isRunning = false;
-                textViewGameShakeActivityTime.setText("10:00");
-//                sensorManager.unregisterListener(this);
-            }
-        }
-    };
 
+    Handler handler = new Handler();
 
-
-    public class TimeThread implements Runnable {
-        @Override
-        public void run() {
-            int i = 0;
-            while (true) {
-                while (isRunning) {
-                    Message msg = new Message();
-                    msg.arg1 = i++;
-                    handlerTime.sendMessage(msg);
-                    try {
-                        Thread.sleep(10); // 1000이 1초
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                        return;
-                    }
-                }
-            }
-        }
-    }
 }

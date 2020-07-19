@@ -61,6 +61,11 @@ public class GameListActivity extends BaseActivity {
                 makeLog(new Object() {}.getClass().getEnclosingMethod().getName()+"()", "snapshot : "+snapshot );
                 makeLog(new Object() {}.getClass().getEnclosingMethod().getName()+"()", "snapshot's children : "+snapshot.getChildren() );
 
+                for(DataSnapshot e: snapshot.getChildren()){
+                    makeLog(new Object() {
+                    }.getClass().getEnclosingMethod().getName() + "()", "e : " + e);
+                }
+
                 String gameid = snapshot.getKey(); //Game 목록을 받아오기
 
 

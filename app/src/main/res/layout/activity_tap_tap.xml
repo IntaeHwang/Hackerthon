@@ -96,7 +96,8 @@
         android:background="@drawable/circular_round_white_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:enabled="false"/>
 
     <Button
         android:id="@+id/button_activity_taptap_realRoundTouchButton"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background=""
+    android:background="@color/colorMainBackground"
     tools:context=".GameListActivity">
 
     <TextView
@@ -13,6 +13,7 @@
 
         android:text="방장:"
         android:textSize="20dp"
+        android:textColor="@color/colorTextWhite"
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

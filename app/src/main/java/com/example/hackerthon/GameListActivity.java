@@ -57,9 +57,10 @@ public class GameListActivity extends BaseActivity {
         applicationClass.databaseReference.child("GAME").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                Game game = snapshot.getValue(Game.class); //Game 목록을 받아오기
+                makeLog(new Object() {}.getClass().getEnclosingMethod().getName()+"()", "snapshot : "+snapshot );
+//                Game game = snapshot.getValue(Game.class); //Game 목록을 받아오기
 
-                gameList.add(game);
+//                gameList.add(game);
             }
 
             @Override

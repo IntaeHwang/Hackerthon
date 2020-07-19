@@ -25,7 +25,6 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-
     }
 
     @OnClick({R.id.linearLayout_mainAcitivity_createRoom, R.id.linearLayout_mainAcitivity_searchRoom, R.id.linearLayout_mainAcitivity_myProfile})

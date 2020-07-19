@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.hackerthon">
 
     <application
@@ -33,6 +34,11 @@
         <activity android:name=".TapTapActivity"/>
         <activity android:name=".BaseActivity" />
         <activity android:name=".MainActivity" />
+        <!-- Zxing 라이브러리 카메라 세로 모드 -->
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="fullSensor"
+            tools:replace="screenOrientation" />
     </application>
 
 </manifest>

@@ -16,6 +16,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/** GameShakeActivity
+ *      1. 센서 이벤트
+ *      2. 시간 측정 및 프로그레스바
+ *
+ *      */
 public class GameShakeActivity extends AppCompatActivity implements SensorEventListener {
 
     @BindView(R.id.textView_GameShakeActivity_time)
@@ -25,37 +30,39 @@ public class GameShakeActivity extends AppCompatActivity implements SensorEventL
     @BindView(R.id.progressbar_GameShakeActivity_progressbar)
     ProgressBar progressbarGameShakeActivityProgressbar;
 
-    /**
-     * 센서 이벤트
+    /** 센서 이벤트
+     *      - 센서이벤트의 센서 감도는 휴대폰의 속도와 측정 시간에 따라 결정된다.
+     *      - 그래서 변수가 거리, 시간, 속도를 담는 변수가 나오게 됨.
      */
-    public int countNum = 0;  // 카운트 되는 수
+
+    public int countNum = 0;  //센서를 통해 카운팅 된 수
 
 
+    // 시간
+    private long lastTime;
 
-    /**
-     * 속도를 통해서 기준이 되는 속도(SHAKE_THRESHOLD) 보다 빠른 경우 숫자가 카우팅이 되기 위함
-     */
-    private long lastTime;  //
-    private float speed;
-
-    // x-lastX(현재 휴대폰의 좌표 - 최근 저장된 휴대폰의 좌표)를 통해 거리를 구할 수 있다.
+    // 거리
+    // (현재 휴대폰의 좌표 - 최근 저장된 휴대폰의 좌표)를 통해 거리차를 구할 수 있다.
 
     // 현재 휴대폰의 좌표
     private float x, y, z;
-
     // 최근 저장된 휴대폰의 좌표
-    private float lastX;
-    private float lastY;
-    private float lastZ;
+    private float lastX, lastY, lastZ;
 
-    /**
-     * 숫자값이 클수록 센서가 둔감하게 반응함.
+    // 휴대폰의 위치에 대한 좌표 상수 DATA_X = 1, DATA_Y = 2 이런 식
+    private int DATA_X = SensorManager.DATA_X;
+    private int DATA_Y = SensorManager.DATA_Y;
+    private int DATA_Z = SensorManager.DATA_Z;
+
+    // 속도
+
+    /* SHAKE_THRESHOLD: 휴대폰이 움직이는 속도와 비교하기 위한 기준값
+     * - 숫자값이 클수록 센서가 둔감하게 반응함.
      * - 그 이유는 (speed > SHAKE_THRESHOLD) 인 경우에만 카운팅 되기 때문
      */
-    private static final int SHAKE_THRESHOLD = 600;
-    private static final int DATA_X = SensorManager.DATA_X;
-    private static final int DATA_Y = SensorManager.DATA_Y;
-    private static final int DATA_Z = SensorManager.DATA_Z;
+    private float speed;
+    private int SHAKE_THRESHOLD = 600;
+
 
     private SensorManager sensorManager;
     private Sensor accelerormeterSensor;
@@ -129,7 +136,6 @@ public class GameShakeActivity extends AppCompatActivity implements SensorEventL
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
     }
 
     @SuppressLint("HandlerLeak")
@@ -143,9 +149,7 @@ public class GameShakeActivity extends AppCompatActivity implements SensorEventL
             int sec = time / 100;
             String result = String.format("%02d:%02d", sec, millisecond);
             textViewGameShakeActivityTime.setText(result);
-
             progressbarGameShakeActivityProgressbar.setProgress(time);
-
 
             if (sec >= 10) {
                 isRunning = false;
@@ -154,6 +158,8 @@ public class GameShakeActivity extends AppCompatActivity implements SensorEventL
             }
         }
     };
+
+
 
     public class TimeThread implements Runnable {
         @Override

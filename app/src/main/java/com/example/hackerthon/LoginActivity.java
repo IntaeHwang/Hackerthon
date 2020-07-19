@@ -15,6 +15,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -70,17 +76,41 @@ public class LoginActivity extends BaseActivity {
                         if (task.isSuccessful()) {
                             //로그인 성공시
 //                            FirebaseUser user = mAuth.getCurrentUser();
-                            makeLog(new Object() {
-                            }.getClass().getEnclosingMethod().getName() + "()", "로그인 성공 : " );
-                            makeToast("로그인 성공",SHORT_TOAST);
 
                             //유저키를 Sharedpreference에 저장
                             applicationClass.mySharedPref.saveStringPref(userKey,userKey);
 
-                            //로그 & 토스트
+                            //데이터베이스에서 유저 데이터중 이름값 빼서 토스트에 띄어보기
+                            DatabaseReference ref2 = applicationClass.firebaseDatabase.getReference("USER").child(userKey);
+                            ref2.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                     //로그인시 로그인한 데이터 불러오기 연습
+//                                        ArrayList userArrayList = new ArrayList<>();
+
+                                        //로그인한 유저 이름값만 빼오기
+                                        User user = dataSnapshot.getValue(User.class);
+                                        String name = user.getUserName();
+//                                        userArrayList.add(user);
+
+                                        //토스트로 '이름' 님 로그인하였습니다.
+                                        makeLog(new Object() {
+                                        }.getClass().getEnclosingMethod().getName() + "()", "name : " + name);
+                                        makeToast(name+"님 로그인 하였습니다.",SHORT_TOAST);
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+
+
+                            //로그 - 로그인 성공 표시
                             makeLog(new Object() {
                             }.getClass().getEnclosingMethod().getName() + "()", "로그인 성공 : " );
-                            makeToast("로그인 성공",SHORT_TOAST);
+
 
                             //메인액티비티로 이동
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);

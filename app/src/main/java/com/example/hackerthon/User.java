@@ -6,11 +6,11 @@ public class User {
 
     String id;
     String pw;
-    String totalScore;
-    String gameScore;
+    int totalScore;
+    int gameScore;
     String userName;
 
-    public User(String id, String pw, String totalScore, String gameScore, String userName) {
+    public User(String id, String pw, int totalScore, int gameScore, String userName) {
         this.id = id;
         this.pw = pw;
         this.totalScore = totalScore;
@@ -34,19 +34,19 @@ public class User {
         this.pw = pw;
     }
 
-    public String getTotalScore() {
+    public int getTotalScore() {
         return totalScore;
     }
 
-    public void setTotalScore(String totalScore) {
+    public void setTotalScore(int totalScore) {
         this.totalScore = totalScore;
     }
 
-    public String getGameScore() {
+    public int getGameScore() {
         return gameScore;
     }
 
-    public void setGameScore(String gameScore) {
+    public void setGameScore(int gameScore) {
         this.gameScore = gameScore;
     }
 

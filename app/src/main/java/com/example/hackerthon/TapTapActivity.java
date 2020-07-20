@@ -53,13 +53,10 @@ public class TapTapActivity extends BaseActivity {
         setContentView(R.layout.activity_tap_tap);
         ButterKnife.bind(this);
 
-
-
         activity = this;
 
         roomNumberKey = applicationClass.mySharedPref.getStringPref("key");
-        makeLog(new Object() {
-        }.getClass().getEnclosingMethod().getName() + "()", " :keys " + roomNumberKey);
+        makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", " :keys " + roomNumberKey);
 //        //인텐트로 받아온 roomNumberKey >> DB 경로에 사용
 //        Intent intent = getIntent();
 //        roomNumberKey = intent.getStringExtra("roomNumberKey");

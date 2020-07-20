@@ -17,6 +17,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -196,6 +198,16 @@ public class GameFinishActivity extends BaseActivity {
 //        }
         Intent intent = new Intent(this, GameListActivity.class);
         intent.putExtra("RoomNumberKey",roomNumberKey);
+        updateRoomData(roomNumberKey, "null", 0);
         startActivity(intent);
+    }
+
+    //ROOM 데이터 DB에서 수정하기
+    public void updateRoomData(String roomKey, String startedGameName, int isStartedGame){
+        Map<String, Object> roomValues = new HashMap<String,Object>();
+        roomValues.put("startedGameName", startedGameName);
+        roomValues.put("isStartedGame", isStartedGame);
+
+        applicationClass.databaseReference.child("ROOM").child(roomKey).updateChildren(roomValues);
     }
 }

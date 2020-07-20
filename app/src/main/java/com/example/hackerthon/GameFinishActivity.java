@@ -31,6 +31,9 @@ public class GameFinishActivity extends BaseActivity {
         setContentView(R.layout.activity_game_finish);
         ButterKnife.bind(this);
 
+        String RoomNumberKey = getIntent().getStringExtra("RoomNumberKey");
+        makeLog(new Object() {}.getClass().getEnclosingMethod().getName()+"()", "RoomNumberKey : "+RoomNumberKey );
+
         applicationClass.databaseReference.child("PLAYERLIST").child(getIntent().getStringExtra("RoomNumberKey")).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {

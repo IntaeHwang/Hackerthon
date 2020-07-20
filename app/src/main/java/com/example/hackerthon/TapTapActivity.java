@@ -42,10 +42,18 @@ public class TapTapActivity extends BaseActivity {
     public static TapTapActivity activity;
 
     @Override
+    public void onBackPressed() {
+        timeThread.interrupt();
+        super.onBackPressed();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tap_tap);
         ButterKnife.bind(this);
+
+
 
         activity = this;
 
@@ -64,7 +72,7 @@ public class TapTapActivity extends BaseActivity {
             public void handleMessage(Message msg) {
                 switch (msg.what) {
                     case 1:
-                        makeToast("실행", SHORT_TOAST);
+
                         Log.d("탭탭게임", "GameShakeActivity - handleMessage() | 메시지 수신 :" );
                         Log.d("탭탭게임", "GameShakeActivity - handleMessage() | 스코어 점수: :"+count ); // 값 확인
 

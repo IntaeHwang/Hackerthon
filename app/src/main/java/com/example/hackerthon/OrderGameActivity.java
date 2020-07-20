@@ -13,6 +13,9 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -79,6 +82,13 @@ public class OrderGameActivity extends BaseActivity {
 
     public static OrderGameActivity activity;
 
+
+    @Override
+    public void onBackPressed() {
+        ordergameThread.interrupt();
+        super.onBackPressed();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,13 +112,15 @@ public class OrderGameActivity extends BaseActivity {
             public void handleMessage(Message msg) {
                 switch (msg.what) {
                     case 1:
-                        makeToast("실행", SHORT_TOAST);
+
                         Log.d("오더게임", "GameShakeActivity - handleMessage() | 메시지 수신 :" );
                         Log.d("오더게임", "GameShakeActivity - handleMessage() | 스코어 점수: :"+score ); // 값 확인
 
-                        //DB - PLAYLIST에 현재 스코어 저장
-                        Player player = new Player(applicationClass.currentUserEmailKey, applicationClass.currentUserName, score, 0);
-                        applicationClass.databaseReference.child("PLAYERLIST").child(roomNumberKey).child(applicationClass.currentUserEmailKey).setValue(player);
+                        Map<String, Object> playerValues = new HashMap<String,Object>();
+                        playerValues.put("gameScore", score);
+                        makeLog(new Object() {
+                        }.getClass().getEnclosingMethod().getName() + "()", "룸넘버키 : " + roomNumberKey);
+                        applicationClass.databaseReference.child("PLAYERLIST").child(roomNumberKey).child(applicationClass.currentUserEmailKey).updateChildren(playerValues);
 
                         Intent intent = new Intent(getApplicationContext(),GameFinishActivity.class);
                         intent.putExtra("roomNumberKey",roomNumberKey);

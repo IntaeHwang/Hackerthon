@@ -16,6 +16,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -82,6 +85,14 @@ public class GameShakeActivity extends BaseActivity implements SensorEventListen
     private Thread timeThread;
     Handler handler;
     String roomNumberKey;
+
+
+    @Override
+    public void onBackPressed() {
+        timeThread.interrupt();
+        super.onBackPressed();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,13 +118,15 @@ public class GameShakeActivity extends BaseActivity implements SensorEventListen
             public void handleMessage(Message msg) {
                 switch (msg.what) {
                     case 1:
-                        makeToast("실행", SHORT_TOAST);
+
                         Log.d(tag, "GameShakeActivity - handleMessage() | 메시지 수신 :" );
                         Log.d(tag, "GameShakeActivity - handleMessage() | 스코어 점수: :"+countNum );
 
-                        //DB - PLAYLIST에 현재 스코어 저장
-                        Player player = new Player(applicationClass.currentUserEmailKey, applicationClass.currentUserName, countNum, 0);
-                        applicationClass.databaseReference.child("PLAYERLIST").child(roomNumberKey).child(applicationClass.currentUserEmailKey).setValue(player);
+                        Map<String, Object> playerValues = new HashMap<String,Object>();
+                        playerValues.put("gameScore", countNum);
+                        makeLog(new Object() {
+                        }.getClass().getEnclosingMethod().getName() + "()", "룸넘버키 : " + roomNumberKey);
+                        applicationClass.databaseReference.child("PLAYERLIST").child(roomNumberKey).child(applicationClass.currentUserEmailKey).updateChildren(playerValues);
 
                         Intent intent = new Intent(getApplicationContext(),GameFinishActivity.class);
                         intent.putExtra("roomNumberKey",roomNumberKey);

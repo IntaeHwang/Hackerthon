@@ -5,10 +5,10 @@
         <shape>
             <gradient
                 android:angle="270"
-                android:centerColor="@color/colorMainBackground"
+                android:centerColor="@color/progressbar"
                 android:centerY="1.0"
-                android:endColor="@color/colorMainBackground"
-                android:startColor="@color/colorMainBackground" />
+                android:endColor="@color/progressbar"
+                android:startColor="@color/progressbar" />
         </shape>
     </item>
 

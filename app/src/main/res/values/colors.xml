@@ -5,7 +5,7 @@
     <color name="colorAccent">#03DAC5</color>
 
     <color name="colorView">#3f342e</color>
-    <color name="colorMainBackground">#8d8176</color>
+    <color name="colorMainBackground">#fbb036</color>
     <color name="colorSubBackground">#bdb1a5</color>
     <color name="colorPoint">#fbb036</color>
 
@@ -14,4 +14,6 @@
     <color name="colorGameBackground">#B22222</color>
     <color name="colorGameFinishBackground">#B3000000</color>
 
+
+    <color name="progressbar">#8d8176</color>
 </resources>

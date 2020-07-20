@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="5"
         android:text="userName"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:paddingVertical="8dp"/>
 
     <TextView
         android:id="@+id/textview_item_recyclerview_playerList_roomCreateActivity_userTotalScore"
@@ -22,5 +23,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="2"
         android:text="totalScore"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:paddingVertical="8dp"/>
 </LinearLayout>

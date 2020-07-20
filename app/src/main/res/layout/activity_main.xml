@@ -4,18 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorMainBackground"
+    android:background="@color/colorPoint"
     tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/textView_mainActivity_title"
-        android:layout_width="227dp"
+        android:layout_width="wrap_content"
         android:layout_height="63dp"
         android:layout_marginTop="56dp"
         android:text="@string/appName"
-        android:textSize="35dp"
+        android:textSize="40dp"
+        android:textStyle="bold"
         android:gravity="center_horizontal"
-        android:textColor="@color/colorTextBlack"
+        android:textColor="@color/colorTextWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,28 +24,45 @@
 
     <TextView
         android:id="@+id/textView_mainActivity_subtitle"
-        android:layout_width="178dp"
-        android:layout_height="34dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="156dp"
-        android:text="@string/subTitle"
+        android:text="흥겹게 즐기며 10초만에 승부를 내는 멀티플레이 벌칙게임!"
         android:gravity="center_horizontal"
+        android:textStyle="bold"
         android:textSize="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingHorizontal="50dp"/>
 
 
-    <ImageView
-        android:id="@+id/imageView_mainActivity_mainIcon"
-        android:layout_width="match_parent"
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView_mainActivity_mainIcon"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="296dp"-->
+<!--        android:src="@drawable/ic_launcher_foreground"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie_splashActivity_mainImage"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="296dp"
-        android:src="@drawable/ic_launcher_foreground"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textview_splashActivity_appName"
+        android:layout_marginTop="150dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/party" />
 
     <LinearLayout
         android:id="@+id/linearLayout_mainAcitivity_menu"
@@ -67,7 +85,8 @@
             android:layout_weight="1"
             android:background="#00ff0000"
             android:drawableTop="@drawable/ic_linearlayout_mainacitivity_createroom"
-            android:text="방 만들기" />
+            android:text="방 만들기"
+            android:textSize="18sp"/>
 
         <Button
             android:id="@+id/linearLayout_mainAcitivity_searchRoom"
@@ -76,7 +95,8 @@
             android:layout_weight="1"
             android:background="#00ff0000"
             android:drawableTop="@drawable/ic_linearlayout_mainacitivity_searchroom"
-            android:text="방 찾기" />
+            android:text="방 찾기"
+            android:textSize="18sp"/>
 
         <Button
             android:id="@+id/linearLayout_mainAcitivity_myProfile"
@@ -85,7 +105,8 @@
             android:layout_weight="1"
             android:background="#00ff0000"
             android:drawableTop="@drawable/ic_linearlayout_mainacitivity_myprofile"
-            android:text="내정보" />
+            android:text="내정보"
+            android:textSize="18sp"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

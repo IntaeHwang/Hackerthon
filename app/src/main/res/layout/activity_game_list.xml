@@ -11,10 +11,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+        android:textColor="@color/colorView"
+        android:textStyle="bold"
         android:text="방장:"
         android:textSize="20sp"
-        android:textColor="@color/colorTextWhite"
+
 
         android:layout_margin="20dp"
 
@@ -29,8 +30,8 @@
 
         android:text="userName"
         android:textSize="20sp"
-        android:textColor="@color/colorTextWhite"
-
+        android:textColor="@color/colorView"
+        android:textStyle="bold"
         android:layout_marginLeft="10dp"
 
         app:layout_constraintStart_toEndOf="@id/textView_GameListActivity_masterText"
@@ -66,6 +67,7 @@
         app:layout_constraintTop_toBottomOf="@id/button_GameListActivity_back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintVertical_bias="0.1"
+        android:background="@drawable/circular_coner_view_stoke"
         >
         
         <TextView

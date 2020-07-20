@@ -13,15 +13,16 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="205dp"
+    android:layout_width="150dp"
     android:layout_height="wrap_content"
-    android:background="@color/colorMainBackground"
-    android:paddingTop="20dp"
+    android:background="@color/colorTextWhite"
+    android:paddingTop="40dp"
+    android:paddingBottom="30dp"
     >
 
     <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:scaleType="centerCrop"
 
         android:src="@drawable/ic_launcher_background"
@@ -39,7 +40,7 @@
         android:layout_height="wrap_content"
 
         android:text="게임명"
-        android:textSize="20sp"
+        android:textSize="23sp"
         android:textStyle="bold"
         android:textColor="@color/colorTextBlack"
 

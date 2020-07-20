@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".OrderGameActivity"
     android:background="#B22222">
-
     <ProgressBar
         android:id="@+id/progressBar_ameRPSActivity_timeBar"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
@@ -37,8 +36,8 @@
         android:id="@+id/textView_activity_taptap_userScore"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="120dp"
-        android:layout_marginEnd="120dp"
+        android:layout_marginLeft="120dp"
+        android:layout_marginRight="120dp"
         android:gravity="center"
         android:text="0"
         android:textColor="#ffffff"
@@ -53,314 +52,369 @@
         android:id="@+id/textView_activity_taptap_scoreText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginBottom="37dp"
         android:gravity="center"
         android:text="score"
         android:textColor="#ffffff"
         android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_activity_taptap_userScore" />
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_activity_taptap_userScore"
+        />
 
 
-    <Button
-        android:id="@+id/button_activity_order_game_roundTouchButton"
-        android:onClick="onClick"
-        android:layout_width="wrap_content"
-        android:layout_height="85dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
-        android:text="2"
-        android:textColor="#B22222"
-        android:textSize="40sp"
-        android:background="@drawable/circular_round_white_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_activity_taptap_scoreText" />
+    <!--=============================================================================-->
 
-    <Button
-        android:id="@+id/button_activity_order_game_roundTouchButton2"
-        android:onClick="onClick"
-        android:layout_width="wrap_content"
-        android:layout_height="85dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/circular_round_white_button"
-        android:text="1"
-        android:textColor="#B22222"
-        android:textSize="40sp"
-        app:layout_constraintBottom_toTopOf="@+id/button_activity_order_game_roundTouchButton6"
-        app:layout_constraintEnd_toStartOf="@+id/button_activity_order_game_roundTouchButton3"
-        app:layout_constraintStart_toEndOf="@+id/button_activity_order_game_roundTouchButton"
-        app:layout_constraintTop_toBottomOf="@+id/textView_activity_taptap_scoreText" />
+    <LinearLayout
+        android:id="@+id/line1"
+        app:layout_constraintTop_toBottomOf="@+id/textView_activity_taptap_scoreText"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:weightSum="5">
+        <LinearLayout
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:weightSum="4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="5dp"
+            >
+            <Button
+                android:id="@+id/button_activity_order_game_roundTouchButton"
+                android:onClick="onClick"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="70dp"
+                android:layout_margin="5dp"
+                android:text="2"
+                android:textColor="#B22222"
+                android:textSize="40sp"
+                android:background="@drawable/circular_round_white_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_activity_taptap_scoreText"
+                />
 
-    <Button
-        android:id="@+id/button_activity_order_game_roundTouchButton4"
-        android:onClick="onClick"
-        android:layout_width="wrap_content"
-        android:layout_height="85dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="12dp"
-        android:text="3"
-        android:textColor="#B22222"
-        android:textSize="40sp"
-        android:background="@drawable/circular_round_white_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button_activity_order_game_roundTouchButton3"
-        app:layout_constraintTop_toBottomOf="@+id/textView_activity_taptap_scoreText" />
+            <Button
+                android:id="@+id/button_activity_order_game_roundTouchButton2"
+                android:onClick="onClick"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/circular_round_white_button"
+                android:text="1"
+                android:textColor="#B22222"
+                android:textSize="40sp"
+                app:layout_constraintBottom_toTopOf="@+id/button_activity_order_game_roundTouchButton6"
+                app:layout_constraintEnd_toStartOf="@+id/button_activity_order_game_roundTouchButton3"
+                app:layout_constraintStart_toEndOf="@+id/button_activity_order_game_roundTouchButton"
+                app:layout_constraintTop_toBottomOf="@+id/textView_activity_taptap_scoreText" />
 
-    <Button
-        android:id="@+id/button_activity_order_game_roundTouchButton8"
-        android:onClick="onClick"
-        android:layout_width="wrap_content"
-        android:layout_height="85dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="12dp"
-        android:text="4"
-        android:textColor="#B22222"
-        android:textSize="40sp"
-        android:background="@drawable/circular_round_white_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_activity_order_game_roundTouchButton4" />
+            <Button
+                android:id="@+id/button_activity_order_game_roundTouchButton4"
+                android:onClick="onClick"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_margin="5dp"
+                android:text="3"
+                android:textColor="#B22222"
+                android:textSize="40sp"
+                android:background="@drawable/circular_round_white_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/button_activity_order_game_roundTouchButton3"
+                app:layout_constraintTop_toBottomOf="@+id/textView_activity_taptap_scoreText" />
 
-    <Button
-        android:id="@+id/button_activity_order_game_roundTouchButton12"
-        android:onClick="onClick"
-        android:layout_width="wrap_content"
-        android:layout_height="85dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="12dp"
-        android:text="5"
-        android:textColor="#B22222"
-        android:textSize="40sp"
-        android:background="@drawable/circular_round_white_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_activity_order_game_roundTouchButton8" />
+            <Button
+                android:id="@+id/button_activity_order_game_roundTouchButton8"
+                android:onClick="onClick"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_margin="5dp"
+                android:text="4"
+                android:textColor="#B22222"
+                android:textSize="40sp"
+                android:background="@drawable/circular_round_white_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_activity_order_game_roundTouchButton4" />
+        </LinearLayout>
 
-    <Button
-        android:id="@+id/button_activity_order_game_roundTouchButton16"
-        android:onClick="onClick"
-        android:layout_width="wrap_content"
-        android:layout_height="85dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="12dp"
-        android:text="6"
-        android:textColor="#B22222"
-        android:textSize="40sp"
-        android:background="@drawable/circular_round_white_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_activity_order_game_roundTouchButton12" />
 
-    <Button
-        android:id="@+id/button_activity_order_game_roundTouchButton20"
-        android:onClick="onClick"
-        android:layout_width="wrap_content"
-        android:layout_height="85dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="12dp"
-        android:text="7"
-        android:textColor="#B22222"
-        android:textSize="40sp"
-        android:background="@drawable/circular_round_white_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_activity_order_game_roundTouchButton16" />
 
-    <Button
-        android:id="@+id/button_activity_order_game_roundTouchButton19"
-        android:onClick="onClick"
-        android:layout_width="wrap_content"
-        android:layout_height="85dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="10dp"
-        android:text="8"
-        android:textColor="#B22222"
-        android:textSize="40sp"
-        android:background="@drawable/circular_round_white_button"
-        app:layout_constraintEnd_toStartOf="@+id/button_activity_order_game_roundTouchButton20"
-        app:layout_constraintTop_toBottomOf="@+id/button_activity_order_game_roundTouchButton15" />
+        <LinearLayout
+            android:gravity="center"
+            android:paddingHorizontal="5dp"
+            android:layout_weight="1"
+            android:weightSum="4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/button_activity_order_game_roundTouchButton12"
+                android:onClick="onClick"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_margin="5dp"
+                android:text="5"
+                android:textColor="#B22222"
+                android:textSize="40sp"
+                android:background="@drawable/circular_round_white_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_activity_order_game_roundTouchButton8" />
 
-    <Button
-        android:id="@+id/button_activity_order_game_roundTouchButton18"
-        android:onClick="onClick"
-        android:layout_width="wrap_content"
-        android:layout_height="85dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="12dp"
-        android:text="9"
-        android:textColor="#B22222"
-        android:textSize="40sp"
-        android:background="@drawable/circular_round_white_button"
-        app:layout_constraintEnd_toStartOf="@+id/button_activity_order_game_roundTouchButton19"
-        app:layout_constraintTop_toBottomOf="@+id/button_activity_order_game_roundTouchButton14" />
+            <Button
+                android:id="@+id/button_activity_order_game_roundTouchButton16"
+                android:onClick="onClick"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_margin="5dp"
+                android:text="6"
+                android:textColor="#B22222"
+                android:textSize="40sp"
+                android:background="@drawable/circular_round_white_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_activity_order_game_roundTouchButton12" />
 
-    <Button
-        android:id="@+id/button_activity_order_game_roundTouchButton17"
-        android:onClick="onClick"
-        android:layout_width="wrap_content"
-        android:layout_height="85dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="10dp"
-        android:text="10"
-        android:textColor="#B22222"
-        android:textSize="40sp"
-        android:background="@drawable/circular_round_white_button"
-        app:layout_constraintEnd_toStartOf="@+id/button_activity_order_game_roundTouchButton18"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_activity_order_game_roundTouchButton13" />
+            <Button
+                android:id="@+id/button_activity_order_game_roundTouchButton20"
+                android:onClick="onClick"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_margin="5dp"
+                android:text="7"
+                android:textColor="#B22222"
+                android:textSize="40sp"
+                android:background="@drawable/circular_round_white_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_activity_order_game_roundTouchButton16" />
 
-    <Button
-        android:id="@+id/button_activity_order_game_roundTouchButton14"
-        android:onClick="onClick"
-        android:layout_width="wrap_content"
-        android:layout_height="85dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="12dp"
-        android:text="11"
-        android:textColor="#B22222"
-        android:textSize="40sp"
-        android:background="@drawable/circular_round_white_button"
-        app:layout_constraintEnd_toStartOf="@+id/button_activity_order_game_roundTouchButton15"
-        app:layout_constraintTop_toBottomOf="@+id/button_activity_order_game_roundTouchButton10" />
+            <Button
+                android:id="@+id/button_activity_order_game_roundTouchButton19"
+                android:onClick="onClick"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_margin="5dp"
+                android:text="8"
+                android:textColor="#B22222"
+                android:textSize="40sp"
+                android:background="@drawable/circular_round_white_button"
+                app:layout_constraintEnd_toStartOf="@+id/button_activity_order_game_roundTouchButton20"
+                app:layout_constraintTop_toBottomOf="@+id/button_activity_order_game_roundTouchButton15" />
+        </LinearLayout>
 
-    <Button
-        android:id="@+id/button_activity_order_game_roundTouchButton13"
-        android:onClick="onClick"
-        android:layout_width="wrap_content"
-        android:layout_height="85dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="12dp"
-        android:text="12"
-        android:textColor="#B22222"
-        android:textSize="40sp"
-        android:background="@drawable/circular_round_white_button"
-        app:layout_constraintEnd_toStartOf="@+id/button_activity_order_game_roundTouchButton14"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_activity_order_game_roundTouchButton9" />
 
-    <Button
-        android:id="@+id/button_activity_order_game_roundTouchButton15"
-        android:onClick="onClick"
-        android:layout_width="wrap_content"
-        android:layout_height="85dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="10dp"
-        android:text="13"
-        android:textColor="#B22222"
-        android:textSize="40sp"
-        android:background="@drawable/circular_round_white_button"
-        app:layout_constraintEnd_toStartOf="@+id/button_activity_order_game_roundTouchButton16"
-        app:layout_constraintTop_toBottomOf="@+id/button_activity_order_game_roundTouchButton11" />
+        <LinearLayout
+            android:gravity="center"
+            android:paddingHorizontal="5dp"
+            android:layout_weight="1"
+            android:weightSum="4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/button_activity_order_game_roundTouchButton18"
+                android:onClick="onClick"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_margin="5dp"
+                android:text="9"
+                android:textColor="#B22222"
+                android:textSize="40sp"
+                android:background="@drawable/circular_round_white_button"
+                app:layout_constraintEnd_toStartOf="@+id/button_activity_order_game_roundTouchButton19"
+                app:layout_constraintTop_toBottomOf="@+id/button_activity_order_game_roundTouchButton14" />
 
-    <Button
-        android:id="@+id/button_activity_order_game_roundTouchButton9"
-        android:onClick="onClick"
-        android:layout_width="wrap_content"
-        android:layout_height="85dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="8dp"
-        android:text="14"
-        android:textColor="#B22222"
-        android:textSize="40sp"
-        android:background="@drawable/circular_round_white_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_activity_order_game_roundTouchButton5" />
+            <Button
+                android:id="@+id/button_activity_order_game_roundTouchButton17"
+                android:onClick="onClick"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_margin="5dp"
+                android:text="10"
+                android:textColor="#B22222"
+                android:textSize="40sp"
+                android:background="@drawable/circular_round_white_button"
+                app:layout_constraintEnd_toStartOf="@+id/button_activity_order_game_roundTouchButton18"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_activity_order_game_roundTouchButton13" />
 
-    <Button
-        android:id="@+id/button_activity_order_game_roundTouchButton10"
-        android:onClick="onClick"
-        android:layout_width="wrap_content"
-        android:layout_height="85dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="12dp"
-        android:text="15"
-        android:textColor="#B22222"
-        android:textSize="40sp"
-        android:background="@drawable/circular_round_white_button"
-        app:layout_constraintEnd_toStartOf="@+id/button_activity_order_game_roundTouchButton11"
-        app:layout_constraintTop_toBottomOf="@+id/button_activity_order_game_roundTouchButton6" />
+            <Button
+                android:id="@+id/button_activity_order_game_roundTouchButton14"
+                android:onClick="onClick"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_margin="5dp"
+                android:text="11"
+                android:textColor="#B22222"
+                android:textSize="40sp"
+                android:background="@drawable/circular_round_white_button"
+                app:layout_constraintEnd_toStartOf="@+id/button_activity_order_game_roundTouchButton15"
+                app:layout_constraintTop_toBottomOf="@+id/button_activity_order_game_roundTouchButton10" />
 
-    <Button
-        android:id="@+id/button_activity_order_game_roundTouchButton11"
-        android:onClick="onClick"
-        android:layout_width="wrap_content"
-        android:layout_height="85dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="10dp"
-        android:text="16"
-        android:textColor="#B22222"
-        android:textSize="40sp"
-        android:background="@drawable/circular_round_white_button"
-        app:layout_constraintEnd_toStartOf="@+id/button_activity_order_game_roundTouchButton12"
-        app:layout_constraintTop_toBottomOf="@+id/button_activity_order_game_roundTouchButton7" />
+            <Button
+                android:id="@+id/button_activity_order_game_roundTouchButton13"
+                android:onClick="onClick"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_margin="5dp"
+                android:text="12"
+                android:textColor="#B22222"
+                android:textSize="40sp"
+                android:background="@drawable/circular_round_white_button"
+                app:layout_constraintEnd_toStartOf="@+id/button_activity_order_game_roundTouchButton14"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_activity_order_game_roundTouchButton9" />
+        </LinearLayout>
 
-    <Button
-        android:id="@+id/button_activity_order_game_roundTouchButton7"
-        android:onClick="onClick"
-        android:layout_width="wrap_content"
-        android:layout_height="85dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="14dp"
-        android:background="@drawable/circular_round_white_button"
-        android:text="17"
-        android:textColor="#B22222"
-        android:textSize="40sp"
-        app:layout_constraintEnd_toStartOf="@+id/button_activity_order_game_roundTouchButton8"
-        app:layout_constraintStart_toEndOf="@+id/button_activity_order_game_roundTouchButton6"
-        app:layout_constraintTop_toBottomOf="@+id/button_activity_order_game_roundTouchButton3" />
 
-    <Button
-        android:id="@+id/button_activity_order_game_roundTouchButton6"
-        android:onClick="onClick"
-        android:layout_width="wrap_content"
-        android:layout_height="85dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="15dp"
-        android:text="18"
-        android:textColor="#B22222"
-        android:textSize="40sp"
-        android:background="@drawable/circular_round_white_button"
-        app:layout_constraintBottom_toTopOf="@+id/button_activity_order_game_roundTouchButton10"
-        app:layout_constraintEnd_toStartOf="@+id/button_activity_order_game_roundTouchButton7"
-        app:layout_constraintStart_toEndOf="@+id/button_activity_order_game_roundTouchButton5"
-        app:layout_constraintTop_toBottomOf="@+id/button_activity_order_game_roundTouchButton" />
+        <LinearLayout
+            android:gravity="center"
+            android:paddingHorizontal="5dp"
+            android:layout_weight="1"
+            android:weightSum="4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/button_activity_order_game_roundTouchButton15"
+                android:onClick="onClick"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_margin="5dp"
+                android:text="13"
+                android:textColor="#B22222"
+                android:textSize="40sp"
+                android:background="@drawable/circular_round_white_button"
+                app:layout_constraintEnd_toStartOf="@+id/button_activity_order_game_roundTouchButton16"
+                app:layout_constraintTop_toBottomOf="@+id/button_activity_order_game_roundTouchButton11" />
 
-    <Button
-        android:id="@+id/button_activity_order_game_roundTouchButton5"
-        android:onClick="onClick"
-        android:layout_width="wrap_content"
-        android:layout_height="85dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="8dp"
-        android:text="19"
-        android:textColor="#B22222"
-        android:textSize="40sp"
-        android:background="@drawable/circular_round_white_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_activity_order_game_roundTouchButton" />
+            <Button
+                android:id="@+id/button_activity_order_game_roundTouchButton9"
+                android:onClick="onClick"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_margin="5dp"
+                android:text="14"
+                android:textColor="#B22222"
+                android:textSize="40sp"
+                android:background="@drawable/circular_round_white_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_activity_order_game_roundTouchButton5" />
 
-    <Button
-        android:id="@+id/button_activity_order_game_roundTouchButton3"
-        android:onClick="onClick"
-        android:layout_width="wrap_content"
-        android:layout_height="85dp"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="12dp"
-        android:text="20"
-        android:textColor="#B22222"
-        android:textSize="40sp"
-        android:background="@drawable/circular_round_white_button"
-        app:layout_constraintEnd_toStartOf="@+id/button_activity_order_game_roundTouchButton4"
-        app:layout_constraintStart_toEndOf="@+id/button_activity_order_game_roundTouchButton"
-        app:layout_constraintTop_toBottomOf="@+id/textView_activity_taptap_scoreText" />
+            <Button
+                android:id="@+id/button_activity_order_game_roundTouchButton10"
+                android:onClick="onClick"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_margin="5dp"
+                android:text="15"
+                android:textColor="#B22222"
+                android:textSize="40sp"
+                android:background="@drawable/circular_round_white_button"
+                app:layout_constraintEnd_toStartOf="@+id/button_activity_order_game_roundTouchButton11"
+                app:layout_constraintTop_toBottomOf="@+id/button_activity_order_game_roundTouchButton6" />
 
+            <Button
+                android:id="@+id/button_activity_order_game_roundTouchButton11"
+                android:onClick="onClick"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_margin="5dp"
+                android:text="16"
+                android:textColor="#B22222"
+                android:textSize="40sp"
+                android:background="@drawable/circular_round_white_button"
+                app:layout_constraintEnd_toStartOf="@+id/button_activity_order_game_roundTouchButton12"
+                app:layout_constraintTop_toBottomOf="@+id/button_activity_order_game_roundTouchButton7" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:gravity="center"
+            android:paddingHorizontal="5dp"
+            android:layout_weight="1"
+            android:weightSum="4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/button_activity_order_game_roundTouchButton7"
+                android:onClick="onClick"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/circular_round_white_button"
+                android:text="17"
+                android:textColor="#B22222"
+                android:textSize="40sp"
+                app:layout_constraintEnd_toStartOf="@+id/button_activity_order_game_roundTouchButton8"
+                app:layout_constraintStart_toEndOf="@+id/button_activity_order_game_roundTouchButton6"
+                app:layout_constraintTop_toBottomOf="@+id/button_activity_order_game_roundTouchButton3" />
+
+            <Button
+                android:id="@+id/button_activity_order_game_roundTouchButton6"
+                android:onClick="onClick"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_margin="5dp"
+                android:text="18"
+                android:textColor="#B22222"
+                android:textSize="40sp"
+                android:background="@drawable/circular_round_white_button"
+                app:layout_constraintBottom_toTopOf="@+id/button_activity_order_game_roundTouchButton10"
+                app:layout_constraintEnd_toStartOf="@+id/button_activity_order_game_roundTouchButton7"
+                app:layout_constraintStart_toEndOf="@+id/button_activity_order_game_roundTouchButton5"
+                app:layout_constraintTop_toBottomOf="@+id/button_activity_order_game_roundTouchButton" />
+
+            <Button
+                android:id="@+id/button_activity_order_game_roundTouchButton5"
+                android:onClick="onClick"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_margin="5dp"
+                android:text="19"
+                android:textColor="#B22222"
+                android:textSize="40sp"
+                android:background="@drawable/circular_round_white_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_activity_order_game_roundTouchButton" />
+
+            <Button
+                android:id="@+id/button_activity_order_game_roundTouchButton3"
+                android:onClick="onClick"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_margin="5dp"
+                android:text="20"
+                android:textColor="#B22222"
+                android:textSize="40sp"
+                android:background="@drawable/circular_round_white_button"
+                app:layout_constraintEnd_toStartOf="@+id/button_activity_order_game_roundTouchButton4"
+                app:layout_constraintStart_toEndOf="@+id/button_activity_order_game_roundTouchButton"
+                app:layout_constraintTop_toBottomOf="@+id/textView_activity_taptap_scoreText" />
+
+        </LinearLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -125,6 +125,9 @@ public class GameFinishActivity extends BaseActivity {
     public void onViewClicked() {
         //현재 유저가 방장과 같은지 확인하여 같으면 모든 참가자 나가게 하기
         String masterName = applicationClass.mySharedPref.getStringPref("MasterName");
+
+        makeLog(new Object() {}.getClass().getEnclosingMethod().getName()+"()", "masterName : "+masterName );
+
         if(masterName.contentEquals("no key")){
             makeToast("GameFinishActivity에서 방장이름을 shared에서 가지고 오지 못함", LONG_TOAST);
         }else{

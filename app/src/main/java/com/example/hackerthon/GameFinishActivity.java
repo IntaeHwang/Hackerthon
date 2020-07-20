@@ -1,14 +1,11 @@
 package com.example.hackerthon;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -33,7 +30,7 @@ public class GameFinishActivity extends BaseActivity {
     RecyclerView.Adapter gameResultListAdapter;
     RecyclerView.LayoutManager gameResultListLayoutManager;
     ArrayList<Player> gameResultList = new ArrayList<>();
-    ArrayList<Player> TempGameResultList = new ArrayList<>();
+    ArrayList<Player> tempGameResultList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +45,19 @@ public class GameFinishActivity extends BaseActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 makeLog(new Object() {}.getClass().getEnclosingMethod().getName()+"()", "snapshot : "+snapshot );
+
+                for(DataSnapshot e: snapshot.getChildren()){
+                    Player player = e.getValue(Player.class);
+                    tempGameResultList.add(player);
+                }
+
+                Comparator<Player> scoreReverse = Comparator.comparing(Player::getGameScore).reversed();
+                tempGameResultList.sort(scoreReverse);
+
+                for(Player e : tempGameResultList){
+                    gameResultList.add(e);
+                }
+                gameResultListAdapter.notifyDataSetChanged();
             }
 
             @Override

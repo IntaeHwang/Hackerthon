@@ -70,10 +70,11 @@ public class GameSRPActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         //인텐트로 받아온 roomNumberKey >> DB 경로에 사용
-        Intent intent = getIntent();
-        roomNumberKey = intent.getStringExtra("roomNumberKey");
-        makeLog(new Object() {
-        }.getClass().getEnclosingMethod().getName() + "()", "roomNumberKey : " + roomNumberKey);
+//        Intent intent = getIntent();
+//        roomNumberKey = intent.getStringExtra("roomNumberKey");
+//        makeLog(new Object() {
+//        }.getClass().getEnclosingMethod().getName() + "()", "roomNumberKey : " + roomNumberKey);
+        roomNumberKey = applicationClass.mySharedPref.getStringPref("key");
 
 // 변수 초기화
         myScore = 0;

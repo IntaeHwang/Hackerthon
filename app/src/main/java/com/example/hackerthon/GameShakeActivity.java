@@ -85,11 +85,12 @@ public class GameShakeActivity extends BaseActivity implements SensorEventListen
         setContentView(R.layout.activity_game_shake);
         ButterKnife.bind(this);
 
-        //인텐트로 받아온 roomNumberKey >> DB 경로에 사용
-        Intent intent = getIntent();
-        roomNumberKey = intent.getStringExtra("roomNumberKey");
-        makeLog(new Object() {
-        }.getClass().getEnclosingMethod().getName() + "()", "roomNumberKey : " + roomNumberKey);
+//        //인텐트로 받아온 roomNumberKey >> DB 경로에 사용
+//        Intent intent = getIntent();
+//        roomNumberKey = intent.getStringExtra("roomNumberKey");
+//        makeLog(new Object() {
+//        }.getClass().getEnclosingMethod().getName() + "()", "roomNumberKey : " + roomNumberKey);
+        roomNumberKey = applicationClass.mySharedPref.getStringPref("key");
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         accelerormeterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);

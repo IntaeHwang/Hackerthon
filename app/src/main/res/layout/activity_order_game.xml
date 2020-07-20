@@ -7,7 +7,6 @@
     tools:context=".OrderGameActivity"
     android:background="#B22222">
 
-
     <ProgressBar
         android:id="@+id/progressBar_ameRPSActivity_timeBar"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"

@@ -84,10 +84,11 @@ public class OrderGameActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         //인텐트로 받아온 roomNumberKey >> DB 경로에 사용
-        Intent intent = getIntent();
-        roomNumberKey = intent.getStringExtra("roomNumberKey");
-        makeLog(new Object() {
-        }.getClass().getEnclosingMethod().getName() + "()", "roomNumberKey : " + roomNumberKey);
+//        Intent intent = getIntent();
+//        roomNumberKey = intent.getStringExtra("roomNumberKey");
+//        makeLog(new Object() {
+//        }.getClass().getEnclosingMethod().getName() + "()", "roomNumberKey : " + roomNumberKey);
+        roomNumberKey = applicationClass.mySharedPref.getStringPref("key");
 
 
         //baseActivity에 선언된 쓰레드 사용을 위해 핸들러 선언 및 생성자에 핸들러,텍스트뷰, 프로그래스바 추가

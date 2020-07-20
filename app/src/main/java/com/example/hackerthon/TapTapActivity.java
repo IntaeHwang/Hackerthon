@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -43,11 +46,11 @@ public class TapTapActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         //인텐트로 받아온 roomNumberKey >> DB 경로에 사용
-        Intent intent = getIntent();
-        roomNumberKey = intent.getStringExtra("roomNumberKey");
-        makeLog(new Object() {
-        }.getClass().getEnclosingMethod().getName() + "()", "roomNumberKey : " + roomNumberKey);
-// 스레드 시작
+//        Intent intent = getIntent();
+        roomNumberKey = getIntent().getStringExtra("roomNumberKey");
+        makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", "roomNumberKey : " + roomNumberKey);
+
+        // 스레드 시작
         handler = new Handler(){
             @Override
             public void handleMessage(Message msg) {
@@ -57,9 +60,14 @@ public class TapTapActivity extends BaseActivity {
                         Log.d("탭탭게임", "GameShakeActivity - handleMessage() | 메시지 수신 :" );
                         Log.d("탭탭게임", "GameShakeActivity - handleMessage() | 스코어 점수: :"+count ); // 값 확인
 
-                        //DB - PLAYLIST에 현재 스코어 저장
-                        Player player = new Player(applicationClass.currentUserEmailKey, applicationClass.currentUserName, count, 0);
-                        applicationClass.databaseReference.child("PLAYERLIST").child(roomNumberKey).child(applicationClass.currentUserEmailKey).setValue(player);
+                        //DB - PLAYLIST에 현재 스코어 업데이트
+                        Map<String, Object> playerValues = new HashMap<String,Object>();
+                        playerValues.put("gameScore", count);
+                        makeLog(new Object() {
+                        }.getClass().getEnclosingMethod().getName() + "()", "룸넘버키 : " + roomNumberKey);
+                        applicationClass.databaseReference.child("PLAYERLIST").child(roomNumberKey).child(applicationClass.currentUserEmailKey).updateChildren(playerValues);
+//                        Player player = new Player(applicationClass.currentUserEmailKey, applicationClass.currentUserName, count, 0);
+//                        applicationClass.databaseReference.child("PLAYERLIST").child(roomNumberKey).child(applicationClass.currentUserEmailKey).setValue(player);
 
                         Intent intent = new Intent(getApplicationContext(),GameFinishActivity.class);
                         intent.putExtra("roomNumberKey",roomNumberKey);

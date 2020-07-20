@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -38,11 +40,15 @@ public class GameFinishActivity extends BaseActivity {
     OrderGameActivity orderGameActivity;
     TapTapActivity tapTapActivity;
 
+    String roomNumberKey;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_finish);
         ButterKnife.bind(this);
+
+        roomNumberKey = applicationClass.mySharedPref.getStringPref("key");
 
         gameShakeActivity = GameShakeActivity.activity;
         gameSRPActivity = GameSRPActivity.activity;
@@ -93,10 +99,37 @@ public class GameFinishActivity extends BaseActivity {
         if(masterName.contentEquals("no key")){
             makeToast("GameFinishActivity에서 방장이름을 shared에서 가지고 오지 못함", LONG_TOAST);
         }else{
-//            if(applicationClass.currentUserName.contentEquals(masterName){
-//                applicationClass.databaseReference.child("ROOM")
-//            }
+            if(applicationClass.currentUserName.contentEquals(masterName)){
+                applicationClass.databaseReference.child("ROOM").child(roomNumberKey).child("isStartedGame").setValue(0);
+            }
         }
+
+        applicationClass.databaseReference.child("PLAYERLIST").child(roomNumberKey).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                makeLog(new Object() {}.getClass().getEnclosingMethod().getName()+"()", "snapshot : "+snapshot );
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         //finish 이전 게임 액티비티와 GameFinishActivity를 죽이면 자동적은 GameReadyActvity로 가게 된다.
         //이전에 열린 게임 액티비티들이 있으면 해당 Activity finish()

@@ -35,7 +35,7 @@ public class GameResultListAdapter extends RecyclerView.Adapter<GameResultListAd
 
         holder.textView_playerRank.setText(String.valueOf(playerResultList.size()));
         holder.textView_playerName.setText(player.getUserName());
-        holder.textView_PlayerScore.setText(player.getGameScore());
+        holder.textView_PlayerScore.setText(String.valueOf(player.getGameScore()));
     }
 
     @Override

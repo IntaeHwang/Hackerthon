@@ -48,6 +48,7 @@
         android:gravity="center"
 
         android:text="0"
+        android:textColor="@color/colorTextWhite"
         android:textSize="@dimen/playerListTextSize"
 
         app:layout_constraintTop_toTopOf="@id/item_RecyclerView_gameResult_GameFinishActivity_rank"

@@ -66,6 +66,10 @@ public class RoomCreateActivity extends BaseActivity {
 
     RoomPlayerListAdapter roomPlayerListAdapter;    //어댑터 객체 생성
 
+    //ROOM DB 에서 받아온 데이터
+    String startedGameNameFromDB;   //방장이 선택한 게임 이름
+    boolean isStartedGameFromDB;    //방장이 선택한 게임 시작 유무
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +94,7 @@ public class RoomCreateActivity extends BaseActivity {
             getCurrentTimeMillis();
 
             //액티비티 최초 진입 시 룸 생성되는 함수 (키는 룸넘버(현재날짜데이터), 플레이어수, 방장이름, 선택한시작권한자)
-            createRoomData(createRoomId, applicationClass.currentUserEmailKey, 0, selectedStartAuthority, applicationClass.currentUserName, null, false);
+            createRoomData(createRoomId, applicationClass.currentUserName, 0, selectedStartAuthority, applicationClass.currentUserEmailKey, "null", false);
             makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", " 들어간 경로 : MainActivity");
 
             //방장을 플레이어에 추가한다
@@ -180,9 +184,9 @@ public class RoomCreateActivity extends BaseActivity {
     }
 
     //룸 생성 후 DB에 생성한 ROOM 데이터 추가 (방번호, 방장이메일, 플레이어숫자, 게임시작권한자, 게임을시작하는유저이메일)
-    public void createRoomData(String roomId, String roomMasterEmail,  int numberOfPlayers, int selectedStartAuthority, String gameStartUserEmail, String startedGameName, boolean isStartedGame) {
+    public void createRoomData(String roomId, String roomMasterName,  int numberOfPlayers, int selectedStartAuthority, String gameStartUserEmail, String startedGameName, boolean isStartedGame) {
         //룸 객체 생성
-        Room room = new Room(roomId, roomMasterEmail, numberOfPlayers, selectedStartAuthority, gameStartUserEmail, startedGameName, isStartedGame);
+        Room room = new Room(roomId, roomMasterName, numberOfPlayers, selectedStartAuthority, gameStartUserEmail, startedGameName, isStartedGame);
         roomKey = "room@"+createRoomId;  //룸에서 날짜 키로 지정해 놓은 데이터가 다른 곳에서의 날짜키와 중복될수도 있으니 앞에 room@를 붙여줘서 구분해준다
         applicationClass.databaseReference.child("ROOM").child(roomKey).setValue(room.toRoomMap(room));
     }
@@ -197,26 +201,25 @@ public class RoomCreateActivity extends BaseActivity {
                 Room room = snapshot.getValue(Room.class);
                 roomMasterName = room.getRoomMasterName();
                 numberOfPlayers = room.getNumberOfPlayers();
+                startedGameNameFromDB = room.getStartedGameName();
+                isStartedGameFromDB = room.isStartedGame();
 
                 //방장 이름을 나타내주는 TextView 에 setText() 해주기
                 textviewRoomCreateActivityRoomMasterName.setText(roomMasterName);
 
-//                //유저 데이터에서 방장이메일을 키값으로 가진 유저의 이름 정보 불러오기
-//                applicationClass.databaseReference.child("USER").child(roomMasterEmail).addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                        User user = snapshot.getValue(User.class);
-//                        masterName = user.getUserName();
-//
-//                        //방장 이름을 나타내주는 TextView 에 setText() 해주기
-//                        textviewRoomCreateActivityRoomMasterName.setText(masterName);
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError error) {
-//
-//                    }
-//                });
+                if(startedGameNameFromDB.contentEquals("탭탭") && isStartedGameFromDB){
+                    Intent intent = new Intent(getApplicationContext(), TapTapActivity.class);
+                    startActivity(intent);
+                }else if(startedGameNameFromDB.contentEquals("순서대로") && isStartedGameFromDB){
+                    Intent intent = new Intent(getApplicationContext(), OrderGameActivity.class);
+                    startActivity(intent);
+                }if(startedGameNameFromDB.contentEquals("쉐킷쉐킷") && isStartedGameFromDB){
+                    Intent intent = new Intent(getApplicationContext(), GameShakeActivity.class);
+                    startActivity(intent);
+                }if(startedGameNameFromDB.contentEquals("가위바위보") && isStartedGameFromDB){
+                    Intent intent = new Intent(getApplicationContext(), GameSRPActivity.class);
+                    startActivity(intent);
+                }
 
             }
 

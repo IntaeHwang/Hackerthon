@@ -14,6 +14,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -35,7 +38,14 @@ public class GameReadyActivity extends BaseActivity {
 
     Game currentGame;//현재 선택된 게임 정보를 갖고 있는 Game 객체이다. 이것으로 게임 시작시 어느 게임이 시작되야 하는지 알 수 있다.
     String roomNumberKey;//현재 들어와 있는 방번호를 알고 있는 키이다.
-    String roomMasterName;  //현재 들어와 았는 방의 방장 이름이다.
+    String masterName;  //현재 들어와 았는 방의 방장 이름이다.
+
+    //ROOM DB 에서 받아온 데이터
+    String roomMasterNameFromDB;    //룸 방장 이름
+    String startedGameNameFromDB;   //방장이 선택한 게임 이름
+    boolean isStartedGameFromDB;    //방장이 선택한 게임 시작 유무
+
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +55,7 @@ public class GameReadyActivity extends BaseActivity {
 
         currentGame = (Game)getIntent().getSerializableExtra("CurrentGame");
         roomNumberKey = getIntent().getStringExtra("RoomNumberKey");
-        roomMasterName = getIntent().getStringExtra("MasterName");
+        masterName = getIntent().getStringExtra("MasterName");
 
         textViewActivityGameReadyInformationPhrase.setText(currentGame.gameInfo);
         textViewActivityGameReadyGameName.setText(currentGame.gameName);
@@ -53,6 +63,9 @@ public class GameReadyActivity extends BaseActivity {
         Glide.with(this)
                 .load(currentGame.getGamePicture())
                 .into(imageViewActivityGameReadyButtonImage);
+
+        //ROOM 데이터 수신 대기중
+        loadRoomData(roomNumberKey);
     }
 
     @OnClick(R.id.button_activity_game_ready_backButton)
@@ -62,27 +75,63 @@ public class GameReadyActivity extends BaseActivity {
 
     @OnClick(R.id.button_activity_game_ready_startButton)
     public void onButtonActivityGameReadyStartButtonClicked() {
-        Intent intent;
+//        Intent intent;
+
         if(currentGame.getGameName().contentEquals("탭탭")){
-            intent = new Intent(getApplicationContext(), TapTapActivity.class);
-            intent.putExtra("roomNumberKey",roomNumberKey);
+
+            if(applicationClass.currentUserName.contentEquals(roomMasterNameFromDB)){
+                //로그인한 유저가 방장 이름과 같으면 -> 권한이 생김
+                updateRoomData(roomNumberKey, "탭탭", true);
+                intent = new Intent(getApplicationContext(), TapTapActivity.class);
+                intent.putExtra("roomNumberKey",roomNumberKey);
+            }else{
+                makeToast("방장만 게임 시작가능합니다", LONG_TOAST);
+            }
+
         }else if(currentGame.getGameName().contentEquals("순서대로")){
-            intent = new Intent(getApplicationContext(), OrderGameActivity.class);
-            intent.putExtra("roomNumberKey",roomNumberKey);
+
+            if(applicationClass.currentUserName.contentEquals(roomMasterNameFromDB)){
+                //로그인한 유저가 방장 이름과 같으면 -> 권한이 생김
+                updateRoomData(roomNumberKey, "순서대로", true);
+                intent = new Intent(getApplicationContext(), OrderGameActivity.class);
+                intent.putExtra("roomNumberKey",roomNumberKey);
+            }else{
+                makeToast("방장만 게임 시작가능합니다", LONG_TOAST);
+            }
+
+
         }else if(currentGame.getGameName().contentEquals("쉐킷쉐킷")){
-            intent = new Intent(getApplicationContext(), GameShakeActivity.class);
-            intent.putExtra("roomNumberKey",roomNumberKey);
+
+            if(applicationClass.currentUserName.contentEquals(roomMasterNameFromDB)){
+                //로그인한 유저가 방장 이름과 같으면 -> 권한이 생김
+                updateRoomData(roomNumberKey, "쉐킷쉐킷", true);
+                intent = new Intent(getApplicationContext(), GameShakeActivity.class);
+                intent.putExtra("roomNumberKey",roomNumberKey);
+            }else{
+                makeToast("방장만 게임 시작가능합니다", LONG_TOAST);
+            }
+
         }else if(currentGame.getGameName().contentEquals("가위바위보")){
-            intent = new Intent(getApplicationContext(), GameSRPActivity.class);
-            intent.putExtra("roomNumberKey",roomNumberKey);
+
+            if(applicationClass.currentUserName.contentEquals(roomMasterNameFromDB)){
+                //로그인한 유저가 방장 이름과 같으면 -> 권한이 생김
+                updateRoomData(roomNumberKey, "가위바위보", true);
+                intent = new Intent(getApplicationContext(), GameSRPActivity.class);
+                intent.putExtra("roomNumberKey",roomNumberKey);
+            }else{
+                makeToast("방장만 게임 시작가능합니다", LONG_TOAST);
+            }
+
         }else{
             makeToast("게임 선택 오류 게임 객체의 이름이 잘못되었습니다.", LONG_TOAST);
             intent = new Intent();
         }
 
         intent.putExtra("RoomNumberKey", roomNumberKey);
+        intent.putExtra("MasterName", masterName);
         startActivity(intent);
     }
+
 
     //룸 데이터 DB에서 불러오기
     public void loadRoomData(String roomKey){
@@ -91,8 +140,23 @@ public class GameReadyActivity extends BaseActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 Room room = snapshot.getValue(Room.class);
-                String roomMasterName = room.getRoomMasterName();
+                roomMasterNameFromDB = room.getRoomMasterName();
+                startedGameNameFromDB = room.getStartedGameName();
+                isStartedGameFromDB = room.isStartedGame();
 
+                if(startedGameNameFromDB.contentEquals("탭탭") && isStartedGameFromDB){
+                    Intent intent = new Intent(getApplicationContext(), TapTapActivity.class);
+                    startActivity(intent);
+                }else if(startedGameNameFromDB.contentEquals("순서대로") && isStartedGameFromDB){
+                    Intent intent = new Intent(getApplicationContext(), OrderGameActivity.class);
+                    startActivity(intent);
+                }if(startedGameNameFromDB.contentEquals("쉐킷쉐킷") && isStartedGameFromDB){
+                    Intent intent = new Intent(getApplicationContext(), GameShakeActivity.class);
+                    startActivity(intent);
+                }if(startedGameNameFromDB.contentEquals("가위바위보") && isStartedGameFromDB){
+                    Intent intent = new Intent(getApplicationContext(), GameSRPActivity.class);
+                    startActivity(intent);
+                }
             }
 
             @Override
@@ -101,5 +165,14 @@ public class GameReadyActivity extends BaseActivity {
             }
         });
 
+    }
+
+    //ROOM 데이터 DB에서 수정하기
+    public void updateRoomData(String roomKey, String startedGameName, boolean isStartedGame){
+
+        Map<String, Object> roomValues = new HashMap<String,Object>();
+        roomValues.put("startedGameName", startedGameName);
+        roomValues.put("isStartedGame", isStartedGame);
+        applicationClass.databaseReference.child("ROOM").child(roomKey).updateChildren(roomValues);
     }
 }

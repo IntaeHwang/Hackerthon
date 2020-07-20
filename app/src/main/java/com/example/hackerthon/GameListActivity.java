@@ -1,5 +1,6 @@
 package com.example.hackerthon;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -41,11 +42,26 @@ public class GameListActivity extends BaseActivity {
     RecyclerView.LayoutManager gameListLayoutManager;
     ArrayList<Game> gameList;
 
+    String roomNumberKey;//현재 들어와 있는 방번호를 알고 있는 키이다.
+    String masterName;  //현재 들어와 았는 방의 방장 이름이다.
+
+    //ROOM DB 에서 받아온 데이터
+    String roomMasterNameFromDB;    //룸 방장 이름
+    String startedGameNameFromDB;   //방장이 선택한 게임 이름
+    boolean isStartedGameFromDB;    //방장이 선택한 게임 시작 유무
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_list);
         ButterKnife.bind(this);
+
+        //인텐트에서 룸번호랑 방장이름 데이터를 받아온다
+        roomNumberKey = getIntent().getStringExtra("RoomNumberKey");
+        masterName = getIntent().getStringExtra("MasterName");
+
+        //ROOM 데이터 수신 대기중
+        loadRoomData(roomNumberKey);
 
         //방장 이름, 이전 액티비티(방 생성 시 최초 액티비티)를 사용해서 방장 이름을 가져온다
         textViewGameListActivityMasterName.setText(getIntent().getStringExtra("MasterName"));
@@ -123,6 +139,41 @@ public class GameListActivity extends BaseActivity {
             }
         });
 
+
+    }
+
+    //룸 데이터 DB에서 불러오기
+    public void loadRoomData(String roomKey){
+        applicationClass.databaseReference.child("ROOM").child(roomKey).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                Room room = snapshot.getValue(Room.class);
+                roomMasterNameFromDB = room.getRoomMasterName();
+                startedGameNameFromDB = room.getStartedGameName();
+                isStartedGameFromDB = room.isStartedGame();
+
+                if(startedGameNameFromDB.contentEquals("탭탭") && isStartedGameFromDB){
+                    Intent intent = new Intent(getApplicationContext(), TapTapActivity.class);
+                    startActivity(intent);
+                }else if(startedGameNameFromDB.contentEquals("순서대로") && isStartedGameFromDB){
+                    Intent intent = new Intent(getApplicationContext(), OrderGameActivity.class);
+                    startActivity(intent);
+                }if(startedGameNameFromDB.contentEquals("쉐킷쉐킷") && isStartedGameFromDB){
+                    Intent intent = new Intent(getApplicationContext(), GameShakeActivity.class);
+                    startActivity(intent);
+                }if(startedGameNameFromDB.contentEquals("가위바위보") && isStartedGameFromDB){
+                    Intent intent = new Intent(getApplicationContext(), GameSRPActivity.class);
+                    startActivity(intent);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 

@@ -13,17 +13,25 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class GameFinishActivity extends BaseActivity {
-    @BindView(R.id.recyclerView_GameFinishActivity_gameResult)
-    RecyclerView recyclerViewGameFinishActivityGameResult;
 
     //게임 결과 화면을 종료하고 GameReady Activity로 넘어가기 위한 확인 버튼
     @BindView(R.id.button_GameFinishActivity_dismiss)
     Button buttonGameFinishActivityDismiss;
+
+    //게임결과 리싸이클러뷰 관련 선언, 이 리싸이클러뷰에서는 게임 점수의 따라 참여자들의 등수를 보여줍니다.
+
+    @BindView(R.id.recyclerView_GameFinishActivity_gameResult)
+    RecyclerView recyclerViewGameFinishActivityGameResult;
+    RecyclerView.Adapter gameListAdapter;
+    RecyclerView.LayoutManager gameListLayoutManager;
+    ArrayList<Game> gameList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +68,6 @@ public class GameFinishActivity extends BaseActivity {
 
             }
         });
-
-
     }
 
     @OnClick(R.id.button_GameFinishActivity_dismiss)

@@ -87,12 +87,12 @@ public class GameSRPActivity extends BaseActivity {
                         Log.d(tag, "GameShakeActivity - handleMessage() | 메시지 수신 :" );
                         Log.d(tag, "GameShakeActivity - handleMessage() | 스코어 점수: :"+myScore );
 
-                        //DB에 USER데이터 추가하기
+                        //DB - PLAYLIST에 현재 스코어 저장
                         Player player = new Player(applicationClass.currentUserEmailKey, applicationClass.currentUserName, myScore, 0);
                         applicationClass.databaseReference.child("PLAYERLIST").child(roomNumberKey).child(applicationClass.currentUserEmailKey).setValue(player);
 
-                        Intent intent = new Intent(getApplicationContext(),ScoreExampleActivity.class);
-                        intent.putExtra("qq",myScore);
+                        Intent intent = new Intent(getApplicationContext(),GameFinishActivity.class);
+                        intent.putExtra("roomNumberKey",roomNumberKey);
                         startActivity(intent);
 
                         break;

@@ -98,15 +98,15 @@ public class OrderGameActivity extends BaseActivity {
                 switch (msg.what) {
                     case 1:
                         makeToast("실행", SHORT_TOAST);
-                        Log.d("ㅂㅂ", "GameShakeActivity - handleMessage() | 메시지 수신 :" );
-                        Log.d("ㅂㅂ", "GameShakeActivity - handleMessage() | 스코어 점수: :"+score ); // 값 확인
+                        Log.d("오더게임", "GameShakeActivity - handleMessage() | 메시지 수신 :" );
+                        Log.d("오더게임", "GameShakeActivity - handleMessage() | 스코어 점수: :"+score ); // 값 확인
 
-                        //DB에 USER데이터 추가하기
-                                Player player = new Player(applicationClass.currentUserEmailKey, applicationClass.currentUserName, score, 0);
-                                applicationClass.databaseReference.child("PLAYERLIST").child(roomNumberKey).child(applicationClass.currentUserEmailKey).setValue(player);
+                        //DB - PLAYLIST에 현재 스코어 저장
+                        Player player = new Player(applicationClass.currentUserEmailKey, applicationClass.currentUserName, score, 0);
+                        applicationClass.databaseReference.child("PLAYERLIST").child(roomNumberKey).child(applicationClass.currentUserEmailKey).setValue(player);
 
-                        Intent intent = new Intent(getApplicationContext(),ScoreExampleActivity.class);
-                        intent.putExtra("qq",score);
+                        Intent intent = new Intent(getApplicationContext(),GameFinishActivity.class);
+                        intent.putExtra("roomNumberKey",roomNumberKey);
                         startActivity(intent);
 
                         break;

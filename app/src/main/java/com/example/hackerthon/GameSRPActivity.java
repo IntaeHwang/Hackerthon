@@ -85,7 +85,7 @@ public class GameSRPActivity extends BaseActivity {
         showOppoenet(arrayList.get(0), arrayList.get(1), arrayList.get(2));
 
         // 쓰레드를 상속받아서 생성 및 실행.
-        timeThread = new GameThread(handler, textViewAmeRPSActivityTime, progressBarAmeRPSActivityTimeBar);
+        timeThread = new GameThread(handler, textViewAmeRPSActivityTime, progressBarAmeRPSActivityTimeBar,myScore);
         timeThread.start();
     }
 

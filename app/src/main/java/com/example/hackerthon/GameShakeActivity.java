@@ -82,7 +82,7 @@ public class GameShakeActivity extends BaseActivity implements SensorEventListen
         accelerormeterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
         // 쓰레드를 상속받아서 생성 및 실행.
-        timeThread = new GameThread(handler, textViewGameShakeActivityTime, progressbarGameShakeActivityProgressbar);
+        timeThread = new GameThread(handler, textViewGameShakeActivityTime, progressbarGameShakeActivityProgressbar,countNum);
         timeThread.start();
     }
 

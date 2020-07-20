@@ -2,6 +2,7 @@ package com.example.hackerthon;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -94,14 +95,15 @@ public class BaseActivity extends AppCompatActivity {
         Handler handler;            // Activity에서 선언될 핸들러
         TextView textView;      // 화면에 시간 경과를 보여주는 View 예: (00:00)
         ProgressBar progressBar;
-
+        int gameScore;
         // 사용할 Activity에서 Thread를 선언해주고 아래 생성자를 통해서 Thread 생성해주면 됨.
         // Ex. Thread thread = new GameThread(핸들러, TextView, Progressbar)
         // thread.start() 메서드를 호출해 아래 run()함수를 실행
-        public GameThread(Handler handler, TextView textView, ProgressBar progressBar){
+        public GameThread(Handler handler, TextView textView, ProgressBar progressBar, int gameScore){
             this.handler = handler;
             this.textView = textView;
             this.progressBar = progressBar;
+            this.gameScore = gameScore;
         }
 
         @Override
@@ -128,6 +130,13 @@ public class BaseActivity extends AppCompatActivity {
                             if (sec >= 10) {
                                 isRunning = false;
                                 textView.setText("10:00");
+                                //DB에 스코어값을 저장
+
+                                Intent intent = new Intent(getApplicationContext(),ScoreExampleActivity.class);
+                                intent.putExtra("exScore",gameScore);
+                                startActivity(intent);
+
+
                             }
                         }
                     });

@@ -14,14 +14,16 @@ import butterknife.ButterKnife;
 public class OrderGameActivity extends BaseActivity {
 
     @BindView(R.id.progressBar_ameRPSActivity_timeBar)
-    ProgressBar progressBar_ameRPSActivity_timeBar;
+    ProgressBar progressBar_ameRPSActivity_timeBar; //프로그래스바
     @BindView(R.id.textView_ameRPSActivity_time)
-    TextView textView_ameRPSActivity_time;
+    TextView textView_ameRPSActivity_time; //프로그래스바 시간
 
     @BindView(R.id.textView_activity_taptap_userScore)
-    TextView textViewActivityTaptapUserScore;
+    TextView textViewActivityTaptapUserScore; //실제 스코어
     @BindView(R.id.textView_activity_taptap_scoreText)
-    TextView textViewActivityTaptapScoreText;
+    TextView textViewActivityTaptapScoreText; // 데코용 텍스트 "score"
+
+    //버튼 20개..
     @BindView(R.id.button_activity_order_game_roundTouchButton)
     Button buttonActivityOrderGameRoundTouchButton;
     @BindView(R.id.button_activity_order_game_roundTouchButton2)
@@ -63,17 +65,21 @@ public class OrderGameActivity extends BaseActivity {
     @BindView(R.id.button_activity_order_game_roundTouchButton3)
     Button buttonActivityOrderGameRoundTouchButton3;
 
+
     Handler handler;
-    int count = 1;
-    int score = 0;
+    int count = 1; // 버튼 클릭 시 값 증가하는 변수
+    int score = 55; // 게임점수
     Thread ordergameThread;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_game);
         ButterKnife.bind(this);
+
+        //baseActivity에 선언된 쓰레드 사용을 위해 핸들러 선언 및 생성자에 핸들러,텍스트뷰, 프로그래스바 추가
         handler = new Handler();
-        ordergameThread= new GameThread(handler,textView_ameRPSActivity_time,progressBar_ameRPSActivity_timeBar);
+        ordergameThread= new GameThread(handler,textView_ameRPSActivity_time,progressBar_ameRPSActivity_timeBar,score);
         ordergameThread.start();
 
     }//OnCreate
@@ -87,7 +93,7 @@ public class OrderGameActivity extends BaseActivity {
 
     }
 
-    //버튼 클릭시
+    //숫자버튼 클릭시
     public void onClick(View view) {
         check(view.getId()); //클릭된 버튼의 int형 id를 받아오기
     }
@@ -95,17 +101,22 @@ public class OrderGameActivity extends BaseActivity {
 
     public void check(int id) {
 
-        Button tmp = (Button) findViewById(id); //임의의 버튼객체를 하나 만들어
-        int buttonValue = Integer.parseInt((String) tmp.getText()); // 클릭시 해당버튼의 숫자값 잘 나옴
+        Button coverButton = (Button) findViewById(id); //임의의 버튼객체를 하나 만들어
+        int buttonValue = Integer.parseInt((String) coverButton.getText()); // 클릭시 해당버튼의 숫자값 잘 나옴
         makeLog(new Object() {
         }.getClass().getEnclosingMethod().getName() + "()", "buttonValue : " + buttonValue);
 
             if (count == buttonValue) {
-                tmp.setBackgroundColor(Color.rgb(178, 34, 34));
-
+                //순서대로 맞게 눌렀으면 안보이고 텍스트만큼 점수에 추가
+                coverButton.setVisibility(View.INVISIBLE);
+//                coverButton.setBackgroundColor(Color.rgb(178, 34, 34));
+                score = score+buttonValue;
+                textViewActivityTaptapUserScore.setText(""+score);
                 count ++;
             }else {
-
+                //순서에 맞지 않게 누르면 -10점
+                score = score-10;
+                textViewActivityTaptapUserScore.setText(""+score);
             }
 
     }

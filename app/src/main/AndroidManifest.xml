@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GameFinishActivity"></activity>
+        <activity android:name=".ScoreExampleActivity"></activity>
+        <activity android:name=".GameFinishActivity" />
         <activity android:name=".GameSRPActivity" />
         <activity android:name=".GameShakeActivity" />
         <activity android:name=".SignUpActivity" />

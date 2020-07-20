@@ -4,25 +4,33 @@ import java.util.HashMap;
 
 public class Room {
     String roomId;
-    String roomMasterEmail;
+    String roomMasterName;
     int numberOfPlayers;
     int selectedStartAuthority;
     String gameStartUserEmail;
+
+    String startedGameName;
+    boolean isStartedGame;
 
     public static final int ROOM_MASTER = 0;
     public static final int THE_FIRST = 1;
     public static final int THE_LAST = 2;
 
+    //어떤 게임인지 -> 탭탭
+    //사작이 됬는지 안됬는지 여부 -> boolean -> true
+
     public Room(){
 
     }
 
-    public Room(String roomId, String roomMasterEmail, int numberOfPlayers, int selectedStartAuthority, String gameStartUserEmail) {
+    public Room(String roomId, String roomMasterName, int numberOfPlayers, int selectedStartAuthority, String gameStartUserEmail, String startedGameName, boolean isStartedGame) {
         this.roomId = roomId;
-        this.roomMasterEmail = roomMasterEmail;
+        this.roomMasterName = roomMasterName;
         this.numberOfPlayers = numberOfPlayers;
         this.selectedStartAuthority = selectedStartAuthority;
         this.gameStartUserEmail = gameStartUserEmail;
+        this.startedGameName = startedGameName;
+        this.isStartedGame = isStartedGame;
     }
 
     public String getRoomId() {
@@ -33,12 +41,12 @@ public class Room {
         this.roomId = roomId;
     }
 
-    public String getRoomMasterEmail() {
-        return roomMasterEmail;
+    public String getRoomMasterName() {
+        return roomMasterName;
     }
 
-    public void setRoomMasterEmail(String roomMasterEmail) {
-        this.roomMasterEmail = roomMasterEmail;
+    public void setRoomMasterName(String roomMasterName) {
+        this.roomMasterName = roomMasterName;
     }
 
     public int getNumberOfPlayers() {
@@ -65,14 +73,32 @@ public class Room {
         this.gameStartUserEmail = gameStartUserEmail;
     }
 
+    public String getStartedGameName() {
+        return startedGameName;
+    }
+
+    public void setStartedGameName(String startedGameName) {
+        this.startedGameName = startedGameName;
+    }
+
+    public boolean isStartedGame() {
+        return isStartedGame;
+    }
+
+    public void setStartedGame(boolean startedGame) {
+        isStartedGame = startedGame;
+    }
+
     HashMap<String, Object> toRoomMap(Room room){
         HashMap<String, Object> roomMap = new HashMap<>();
 
         roomMap.put("roomId", roomId);
-        roomMap.put("roomMasterEmail", roomMasterEmail);
+        roomMap.put("roomMasterName", roomMasterName);
         roomMap.put("numberOfPlayers", numberOfPlayers);
         roomMap.put("selectedStartAuthority", selectedStartAuthority);
         roomMap.put("gameStartUserEmail", gameStartUserEmail);
+        roomMap.put("startedGameName", startedGameName);
+        roomMap.put("isStartedGame", isStartedGame);
 
         return roomMap;
     }

@@ -59,7 +59,7 @@ public class RoomCreateActivity extends BaseActivity {
 
     String createRoomId;    //생성된 방 아이디 = 현재시간을 초 단위까지 받아온 데이터 (중복되지 않기위해)
     String roomKey;         //room@현재시간 -> 파이어베이스 키
-    String masterName;      //룸 방장 이름
+    String roomMasterName;      //룸 방장 이름
     int numberOfPlayers;    //룸 플레이어 숫자
     String currentTimeStringData;    //현재시간 (초까지)
     int selectedStartAuthority = 1;     //시작권한자로 설정한 방장or1등or꼴등 중 선택한 사람의 값을 int = 1,2,3 으로 구분
@@ -89,8 +89,8 @@ public class RoomCreateActivity extends BaseActivity {
             //현재시간(초단위까지)을 받아와서 qr코드를 생성해준다 (qr코드 값은 = 현재시간을 데이터값으로 가진다)
             getCurrentTimeMillis();
 
-            //액티비티 최초 진입 시 룸 생성되는 함수 (키는 룸넘버(현재날짜데이터), 플레이어수, 방장이메일, 선택한시작권한자)
-            createRoomData(createRoomId, applicationClass.currentUserEmailKey, 1, selectedStartAuthority, applicationClass.currentUserEmailKey);
+            //액티비티 최초 진입 시 룸 생성되는 함수 (키는 룸넘버(현재날짜데이터), 플레이어수, 방장이름, 선택한시작권한자)
+            createRoomData(createRoomId, applicationClass.currentUserEmailKey, 0, selectedStartAuthority, applicationClass.currentUserName, null, false);
             makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", " 들어간 경로 : MainActivity");
 
             //방장을 플레이어에 추가한다
@@ -180,9 +180,9 @@ public class RoomCreateActivity extends BaseActivity {
     }
 
     //룸 생성 후 DB에 생성한 ROOM 데이터 추가 (방번호, 방장이메일, 플레이어숫자, 게임시작권한자, 게임을시작하는유저이메일)
-    public void createRoomData(String roomId, String roomMasterEmail,  int numberOfPlayers, int selectedStartAuthority, String gameStartUserEmail) {
+    public void createRoomData(String roomId, String roomMasterEmail,  int numberOfPlayers, int selectedStartAuthority, String gameStartUserEmail, String startedGameName, boolean isStartedGame) {
         //룸 객체 생성
-        Room room = new Room(roomId, roomMasterEmail, numberOfPlayers, selectedStartAuthority, gameStartUserEmail);
+        Room room = new Room(roomId, roomMasterEmail, numberOfPlayers, selectedStartAuthority, gameStartUserEmail, startedGameName, isStartedGame);
         roomKey = "room@"+createRoomId;  //룸에서 날짜 키로 지정해 놓은 데이터가 다른 곳에서의 날짜키와 중복될수도 있으니 앞에 room@를 붙여줘서 구분해준다
         applicationClass.databaseReference.child("ROOM").child(roomKey).setValue(room.toRoomMap(room));
     }
@@ -195,25 +195,28 @@ public class RoomCreateActivity extends BaseActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 Room room = snapshot.getValue(Room.class);
-                String roomMasterEmail = room.getRoomMasterEmail();
+                roomMasterName = room.getRoomMasterName();
                 numberOfPlayers = room.getNumberOfPlayers();
 
-                //유저 데이터에서 방장이메일을 키값으로 가진 유저의 이름 정보 불러오기
-                applicationClass.databaseReference.child("USER").child(roomMasterEmail).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        User user = snapshot.getValue(User.class);
-                        masterName = user.getUserName();
+                //방장 이름을 나타내주는 TextView 에 setText() 해주기
+                textviewRoomCreateActivityRoomMasterName.setText(roomMasterName);
 
-                        //방장 이름을 나타내주는 TextView 에 setText() 해주기
-                        textviewRoomCreateActivityRoomMasterName.setText(masterName);
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+//                //유저 데이터에서 방장이메일을 키값으로 가진 유저의 이름 정보 불러오기
+//                applicationClass.databaseReference.child("USER").child(roomMasterEmail).addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        User user = snapshot.getValue(User.class);
+//                        masterName = user.getUserName();
+//
+//                        //방장 이름을 나타내주는 TextView 에 setText() 해주기
+//                        textviewRoomCreateActivityRoomMasterName.setText(masterName);
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
 
             }
 
@@ -292,7 +295,7 @@ public class RoomCreateActivity extends BaseActivity {
                 break;
             case R.id.button_roomCreateActivity_gameList:   //게임리스트 화면으로 가기 버튼
                 Intent gameListIntent = new Intent(this, GameListActivity.class);
-                gameListIntent.putExtra("MasterName", masterName);          //방장이름
+                gameListIntent.putExtra("MasterName", roomMasterName);          //방장이름
                 gameListIntent.putExtra("RoomNumberKey", roomKey);  //룸번호 room@현재날짜
                 startActivity(gameListIntent);
                 break;

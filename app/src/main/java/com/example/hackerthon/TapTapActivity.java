@@ -39,16 +39,21 @@ public class TapTapActivity extends BaseActivity {
     private Thread timeThread;
     Handler handler;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tap_tap);
         ButterKnife.bind(this);
 
-        //인텐트로 받아온 roomNumberKey >> DB 경로에 사용
-        Intent intent = getIntent();
-        roomNumberKey = intent.getStringExtra("roomNumberKey");
-        makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", "roomNumberKey : " + roomNumberKey);
+        roomNumberKey = applicationClass.mySharedPref.getStringPref("key");
+        makeLog(new Object() {
+        }.getClass().getEnclosingMethod().getName() + "()", " :keys " + roomNumberKey);
+//        //인텐트로 받아온 roomNumberKey >> DB 경로에 사용
+//        Intent intent = getIntent();
+//        roomNumberKey = intent.getStringExtra("roomNumberKey");
+//        makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", "roomNumberKey : " + roomNumberKey);
 
 
         // 스레드 시작

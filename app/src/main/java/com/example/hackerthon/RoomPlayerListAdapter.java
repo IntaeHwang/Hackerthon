@@ -37,8 +37,8 @@ public class RoomPlayerListAdapter extends RecyclerView.Adapter<RoomPlayerListAd
 
         Player player = playerList.get(position);
 //
-//        holder.playerName.setText(user.getUserName());
-//        holder.playerTotalScore.setText(user.getTotalScore());
+        holder.playerName.setText(player.getUserName());
+        holder.playerTotalScore.setText(player.getGameTotalScore()+"");
 
     }
 

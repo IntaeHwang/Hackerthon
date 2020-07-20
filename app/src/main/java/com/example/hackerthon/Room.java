@@ -13,7 +13,9 @@ public class Room {
     public static final int THE_FIRST = 1;
     public static final int THE_LAST = 2;
 
-    public Room(){}
+    public Room(){
+
+    }
 
     public Room(String roomId, String roomMasterEmail, int numberOfPlayers, int selectedStartAuthority, String gameStartUserEmail) {
         this.roomId = roomId;

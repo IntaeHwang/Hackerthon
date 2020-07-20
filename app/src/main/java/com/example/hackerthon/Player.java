@@ -4,8 +4,8 @@ public class Player {
 
     String userEmail;
     String userName;
-    int gameScore;
-    int gameTotalScore;
+    int gameScore;      //게임마다 점수
+    int gameTotalScore; //게임 총 승리 횟수
 
     public Player(){
 

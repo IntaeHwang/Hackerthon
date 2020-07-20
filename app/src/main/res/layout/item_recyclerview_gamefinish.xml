@@ -10,7 +10,7 @@
         android:layout_height="50dp"
 
         android:text="1"
-        android:textSize="26sp"
+        android:textSize="@dimen/playerListTextSize"
         android:textColor="@color/colorTextWhite"
 
         android:layout_marginTop="10dp"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
 
-        android:id="@+id/item_RecyclerView_gameRank_GameFinishActivity_rank"
+        android:id="@+id/item_RecyclerView_gameResult_GameFinishActivity_rank"
         />
 
     <TextView
@@ -31,12 +31,12 @@
         android:paddingLeft="10dp"
 
         android:text="userName"
-        android:textSize="26sp"
+        android:textSize="@dimen/playerListTextSize"
         android:textColor="@color/colorTextWhite"
 
-        app:layout_constraintStart_toEndOf="@id/item_RecyclerView_gameRank_GameFinishActivity_rank"
-        app:layout_constraintTop_toTopOf="@id/item_RecyclerView_gameRank_GameFinishActivity_rank"
-        app:layout_constraintBottom_toBottomOf="@id/item_RecyclerView_gameRank_GameFinishActivity_rank"
+        app:layout_constraintStart_toEndOf="@id/item_RecyclerView_gameResult_GameFinishActivity_rank"
+        app:layout_constraintTop_toTopOf="@id/item_RecyclerView_gameResult_GameFinishActivity_rank"
+        app:layout_constraintBottom_toBottomOf="@id/item_RecyclerView_gameResult_GameFinishActivity_rank"
         app:layout_constraintEnd_toStartOf="@id/item_RecyclerView_gameRank_GameFinishActivity_score"
 
         android:id="@+id/item_RecyclerView_gameRank_GameFinishActivity_name"/>
@@ -48,10 +48,10 @@
         android:gravity="center"
 
         android:text="0"
-        android:textSize="26sp"
+        android:textSize="@dimen/playerListTextSize"
 
-        app:layout_constraintTop_toTopOf="@id/item_RecyclerView_gameRank_GameFinishActivity_rank"
-        app:layout_constraintBottom_toBottomOf="@id/item_RecyclerView_gameRank_GameFinishActivity_rank"
+        app:layout_constraintTop_toTopOf="@id/item_RecyclerView_gameResult_GameFinishActivity_rank"
+        app:layout_constraintBottom_toBottomOf="@id/item_RecyclerView_gameResult_GameFinishActivity_rank"
         app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/item_RecyclerView_gameRank_GameFinishActivity_score"
         />

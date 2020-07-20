@@ -37,9 +37,9 @@
         app:layout_constraintStart_toEndOf="@id/item_RecyclerView_gameResult_GameFinishActivity_rank"
         app:layout_constraintTop_toTopOf="@id/item_RecyclerView_gameResult_GameFinishActivity_rank"
         app:layout_constraintBottom_toBottomOf="@id/item_RecyclerView_gameResult_GameFinishActivity_rank"
-        app:layout_constraintEnd_toStartOf="@id/item_RecyclerView_gameRank_GameFinishActivity_score"
+        app:layout_constraintEnd_toStartOf="@id/item_RecyclerView_gameResult_GameFinishActivity_score"
 
-        android:id="@+id/item_RecyclerView_gameRank_GameFinishActivity_name"/>
+        android:id="@+id/item_RecyclerView_gameResult_GameFinishActivity_name"/>
 
     <TextView
         android:layout_width="40dp"
@@ -53,7 +53,7 @@
         app:layout_constraintTop_toTopOf="@id/item_RecyclerView_gameResult_GameFinishActivity_rank"
         app:layout_constraintBottom_toBottomOf="@id/item_RecyclerView_gameResult_GameFinishActivity_rank"
         app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/item_RecyclerView_gameRank_GameFinishActivity_score"
+        android:id="@+id/item_RecyclerView_gameResult_GameFinishActivity_score"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

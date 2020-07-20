@@ -16,7 +16,7 @@
     android:layout_width="205dp"
     android:layout_height="wrap_content"
     android:background="@color/colorMainBackground"
-    android:padding="20dp"
+    android:paddingTop="20dp"
     >
 
     <ImageView

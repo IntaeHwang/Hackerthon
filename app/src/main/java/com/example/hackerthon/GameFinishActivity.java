@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -40,6 +41,11 @@ public class GameFinishActivity extends BaseActivity {
 
         String roomNumberKey = getIntent().getStringExtra("roomNumberKey");
         makeLog(new Object() {}.getClass().getEnclosingMethod().getName()+"()", "roomNumberKey : "+roomNumberKey );
+
+        recyclerViewGameFinishActivityGameResult.setHasFixedSize(true);
+        gameResultListAdapter = new GameResultListAdapter(gameResultList, this);
+        recyclerViewGameFinishActivityGameResult.setAdapter(gameResultListAdapter);
+        recyclerViewGameFinishActivityGameResult.setLayoutManager( new LinearLayoutManager(this));
 
         applicationClass.databaseReference.child("PLAYERLIST").child(roomNumberKey).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

@@ -17,18 +17,18 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
-
 public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.GameViewHolder> {
 
     private ArrayList<Game> gameList;
     private Context context;
     private String roomNumberKey;
+    private String masterName;
 
-    public GameListAdapter(ArrayList<Game> gameList, Context context, String roomNumberKey) {
+    public GameListAdapter(ArrayList<Game> gameList, Context context, String roomNumberKey, String masterName) {
         this.gameList = gameList;
         this.context = context;
         this.roomNumberKey = roomNumberKey;
+        this.masterName = masterName;
     }
 
     @NonNull
@@ -78,6 +78,7 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.GameVi
                     Intent intent = new Intent(context, GameReadyActivity.class);
                     intent.putExtra("CurrentGame", gameList.get(getAdapterPosition()));
                     intent.putExtra("RoomNumberKey", roomNumberKey);
+                    intent.putExtra("MasterName", masterName);
                     context.startActivity(intent);
                 }
             });

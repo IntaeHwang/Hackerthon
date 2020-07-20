@@ -33,7 +33,7 @@ public class GameResultListAdapter extends RecyclerView.Adapter<GameResultListAd
     public void onBindViewHolder(@NonNull PlayerResultViewHolder holder, int position) {
         Player player = playerResultList.get(position);
 
-        holder.textView_playerRank.setText(playerResultList.size());
+        holder.textView_playerRank.setText(String.valueOf(playerResultList.size()));
         holder.textView_playerName.setText(player.getUserName());
         holder.textView_PlayerScore.setText(player.getGameScore());
     }

@@ -1,19 +1,17 @@
 package com.example.hackerthon;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,9 +27,10 @@ public class GameFinishActivity extends BaseActivity {
 
     @BindView(R.id.recyclerView_GameFinishActivity_gameResult)
     RecyclerView recyclerViewGameFinishActivityGameResult;
-    RecyclerView.Adapter gameListAdapter;
-    RecyclerView.LayoutManager gameListLayoutManager;
-    ArrayList<Game> gameList;
+    RecyclerView.Adapter gameResultListAdapter;
+    RecyclerView.LayoutManager gameResultListLayoutManager;
+    ArrayList<Player> gameResultList = new ArrayList<>();
+    ArrayList<Player> tempGameResultList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,25 +41,23 @@ public class GameFinishActivity extends BaseActivity {
         String roomNumberKey = getIntent().getStringExtra("roomNumberKey");
         makeLog(new Object() {}.getClass().getEnclosingMethod().getName()+"()", "roomNumberKey : "+roomNumberKey );
 
-        applicationClass.databaseReference.child("PLAYERLIST").child(roomNumberKey).addChildEventListener(new ChildEventListener() {
+        applicationClass.databaseReference.child("PLAYERLIST").child(roomNumberKey).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
                 makeLog(new Object() {}.getClass().getEnclosingMethod().getName()+"()", "snapshot : "+snapshot );
-            }
 
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                for(DataSnapshot e: snapshot.getChildren()){
+                    Player player = e.getValue(Player.class);
+                    tempGameResultList.add(player);
+                }
 
-            }
+                Comparator<Player> scoreReverse = Comparator.comparing(Player::getGameScore).reversed();
+                tempGameResultList.sort(scoreReverse);
 
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
+                for(Player e : tempGameResultList){
+                    gameResultList.add(e);
+                }
+                gameResultListAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -68,6 +65,40 @@ public class GameFinishActivity extends BaseActivity {
 
             }
         });
+
+//        applicationClass.databaseReference.child("PLAYERLIST").child(roomNumberKey).addChildEventListener(new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//                makeLog(new Object() {}.getClass().getEnclosingMethod().getName()+"()", "snapshot : "+snapshot );
+//
+//                Player currentPlayer = snapshot.getValue(Player.class);
+//
+//                TempGameResultList.add(currentPlayer);
+//                Comparator<Player> scoreReverse = Comparator.comparing(Player::getGameScore).reversed();
+//                TempGameResultList.sort(scoreReverse);
+//
+//            }
+//
+//            @Override
+//            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//
+//            }
+//
+//            @Override
+//            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+//
+//            }
+//
+//            @Override
+//            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
     }
 
     @OnClick(R.id.button_GameFinishActivity_dismiss)

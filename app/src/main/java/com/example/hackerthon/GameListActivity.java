@@ -53,7 +53,7 @@ public class GameListActivity extends BaseActivity {
         gameList = new ArrayList<>();
         makeLog(new Object() {}.getClass().getEnclosingMethod().getName()+"()", "gameList111 : "+gameList.size() );
         recyclerViewGameListActivityGameList.setHasFixedSize(true);
-        gameListAdapter = new GameListAdapter(gameList, this, getIntent().getStringExtra("RoomNumberKey"), textViewGameListActivityMasterName);
+        gameListAdapter = new GameListAdapter(gameList, this, getIntent().getStringExtra("RoomNumberKey"), getIntent().getStringExtra("MasterName");
         recyclerViewGameListActivityGameList.setAdapter(gameListAdapter);
         recyclerViewGameListActivityGameList.setLayoutManager( new GridLayoutManager(this, 2));
 

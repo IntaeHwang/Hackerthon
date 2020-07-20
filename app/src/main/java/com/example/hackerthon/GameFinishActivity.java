@@ -75,7 +75,7 @@ public class GameFinishActivity extends BaseActivity {
                     gameResultList.add(e);
                 }
 
-                applicationClass.databaseReference.child("PLAYER").child(roomNumberKey).child(applicationClass.currentUserEmailKey).child("gameTotalScore").setValue(gameResultList.get(0).getGameTotalScore()+1);
+                applicationClass.databaseReference.child("PLAYERLIST").child(roomNumberKey).child(applicationClass.currentUserEmailKey).child("gameTotalScore").setValue(gameResultList.get(0).getGameTotalScore()+1);
                 gameResultListAdapter.notifyDataSetChanged();
             }
 
@@ -89,7 +89,14 @@ public class GameFinishActivity extends BaseActivity {
     @OnClick(R.id.button_GameFinishActivity_dismiss)
     public void onViewClicked() {
         //현재 유저가 방장과 같은지 확인하여 같으면 모든 참가자 나가게 하기
-
+        String masterName = applicationClass.mySharedPref.getStringPref("MasterName");
+        if(masterName.contentEquals("no key")){
+            makeToast("GameFinishActivity에서 방장이름을 shared에서 가지고 오지 못함", LONG_TOAST);
+        }else{
+//            if(applicationClass.currentUserName.contentEquals(masterName){
+//                applicationClass.databaseReference.child("ROOM")
+//            }
+        }
 
         //finish 이전 게임 액티비티와 GameFinishActivity를 죽이면 자동적은 GameReadyActvity로 가게 된다.
         //이전에 열린 게임 액티비티들이 있으면 해당 Activity finish()

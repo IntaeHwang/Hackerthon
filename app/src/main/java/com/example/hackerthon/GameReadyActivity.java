@@ -71,6 +71,7 @@ public class GameReadyActivity extends BaseActivity {
 
         //멘토 - 쉐어드
         applicationClass.mySharedPref.saveStringPref("key",roomNumberKey);
+        applicationClass.mySharedPref.saveStringPref("MasterName", masterName);
     }
 
     @OnClick(R.id.button_activity_game_ready_backButton)
@@ -177,8 +178,6 @@ public class GameReadyActivity extends BaseActivity {
     }
 
     //ROOM 데이터 DB에서 수정하기
-
-
     public void updateRoomData(String roomKey, String startedGameName, int isStartedGame){
         Map<String, Object> roomValues = new HashMap<String,Object>();
         roomValues.put("startedGameName", startedGameName);

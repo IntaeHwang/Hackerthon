@@ -1,5 +1,6 @@
 package com.example.hackerthon;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -52,7 +53,7 @@ public class GameSRPActivity extends BaseActivity {
 
     // 컴퓨터가 가질 가위 바위 보 리스트 값
     ArrayList<Integer> arrayList;
-
+    String roomNumberKey;
     // 사용자의 점수
     private int myScore;
 
@@ -68,6 +69,12 @@ public class GameSRPActivity extends BaseActivity {
         setContentView(R.layout.activity_game_s_r_p);
         ButterKnife.bind(this);
 
+        //인텐트로 받아온 roomNumberKey >> DB 경로에 사용
+        Intent intent = getIntent();
+        roomNumberKey = intent.getStringExtra("roomNumberKey");
+        makeLog(new Object() {
+        }.getClass().getEnclosingMethod().getName() + "()", "roomNumberKey : " + roomNumberKey);
+
 // 변수 초기화
         myScore = 0;
         arrayList = new ArrayList<>();
@@ -79,6 +86,15 @@ public class GameSRPActivity extends BaseActivity {
                         makeToast("실행", SHORT_TOAST);
                         Log.d(tag, "GameShakeActivity - handleMessage() | 메시지 수신 :" );
                         Log.d(tag, "GameShakeActivity - handleMessage() | 스코어 점수: :"+myScore );
+
+                        //DB에 USER데이터 추가하기
+                        Player player = new Player(applicationClass.currentUserEmailKey, applicationClass.currentUserName, myScore, 0);
+                        applicationClass.databaseReference.child("PLAYERLIST").child(roomNumberKey).child(applicationClass.currentUserEmailKey).setValue(player);
+
+                        Intent intent = new Intent(getApplicationContext(),ScoreExampleActivity.class);
+                        intent.putExtra("qq",myScore);
+                        startActivity(intent);
+
                         break;
                     default:
                         break;

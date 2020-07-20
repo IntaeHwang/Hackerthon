@@ -1,7 +1,10 @@
 package com.example.hackerthon;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -26,7 +29,7 @@ public class TapTapActivity extends BaseActivity {
     Button buttonActivityTaptapRealRoundTouchButton; //클릭계속하는 버튼
 
     int count = 0; //게임 초기값
-
+    String roomNumberKey;
     /**
      * 시간 쓰레드
      */
@@ -39,8 +42,35 @@ public class TapTapActivity extends BaseActivity {
         setContentView(R.layout.activity_tap_tap);
         ButterKnife.bind(this);
 
+        //인텐트로 받아온 roomNumberKey >> DB 경로에 사용
+        Intent intent = getIntent();
+        roomNumberKey = intent.getStringExtra("roomNumberKey");
+        makeLog(new Object() {
+        }.getClass().getEnclosingMethod().getName() + "()", "roomNumberKey : " + roomNumberKey);
 // 스레드 시작
-        handler = new Handler();
+        handler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case 1:
+                        makeToast("실행", SHORT_TOAST);
+                        Log.d("ㅂㅂ", "GameShakeActivity - handleMessage() | 메시지 수신 :" );
+                        Log.d("ㅂㅂ", "GameShakeActivity - handleMessage() | 스코어 점수: :"+count ); // 값 확인
+
+                        //DB에 USER데이터 추가하기
+                        Player player = new Player(applicationClass.currentUserEmailKey, applicationClass.currentUserName, count, 0);
+                        applicationClass.databaseReference.child("PLAYERLIST").child(roomNumberKey).child(applicationClass.currentUserEmailKey).setValue(player);
+
+                        Intent intent = new Intent(getApplicationContext(),ScoreExampleActivity.class);
+                        intent.putExtra("qq",count);
+                        startActivity(intent);
+
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
         timeThread = new GameThread(handler, textViewActivityTaptapTime, progressBarActivityTaptapTimeBar);
         timeThread.start();
     }//OnCreate
@@ -48,13 +78,10 @@ public class TapTapActivity extends BaseActivity {
 
     @OnClick(R.id.button_activity_taptap_realRoundTouchButton)
     public void onButtonActivityTaptapRealRoundTouchButtonClicked() {
-        if (count % 2 == 0) {
-            textViewActivityTaptapUserScore.setText("" + count);
+        if (count >= 0) {
             count++;
+            textViewActivityTaptapUserScore.setText("" + count);
 
-        } else if (count % 2 == 1) {
-            textViewActivityTaptapUserScore.setText("" + count);
-            count++;
         }
 
 //프로그래스바 10초 종료됬을때 유저 데이터의 gamescore에 추가하기

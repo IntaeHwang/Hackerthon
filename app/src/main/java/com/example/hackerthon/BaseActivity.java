@@ -139,6 +139,9 @@ public class BaseActivity extends AppCompatActivity {
                                 //핸들러 자신에게 메세지 보내기
                                 handler.sendEmptyMessage(1);
                                 Log.d(tag, "GameThread - run() | 메세지 송신 :");
+
+
+
                             }
                         }
                     });

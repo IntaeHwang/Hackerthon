@@ -1,12 +1,17 @@
 package com.example.hackerthon;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.google.firebase.database.DatabaseReference;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -68,8 +73,9 @@ public class OrderGameActivity extends BaseActivity {
 
     Handler handler;
     int count = 1; // 버튼 클릭 시 값 증가하는 변수
-    int score = 55; // 게임점수
+    int score = 0; // 게임점수
     Thread ordergameThread;
+    String roomNumberKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,9 +83,39 @@ public class OrderGameActivity extends BaseActivity {
         setContentView(R.layout.activity_order_game);
         ButterKnife.bind(this);
 
+        //인텐트로 받아온 roomNumberKey >> DB 경로에 사용
+        Intent intent = getIntent();
+        roomNumberKey = intent.getStringExtra("roomNumberKey");
+        makeLog(new Object() {
+        }.getClass().getEnclosingMethod().getName() + "()", "roomNumberKey : " + roomNumberKey);
+
+
         //baseActivity에 선언된 쓰레드 사용을 위해 핸들러 선언 및 생성자에 핸들러,텍스트뷰, 프로그래스바 추가
-        handler = new Handler();
-        ordergameThread= new GameThread(handler,textView_ameRPSActivity_time,progressBar_ameRPSActivity_timeBar,score);
+        //수정 : 핸들러 자신에게 메세지를 보내서 10초뒤 score의 값을 가져온다
+        handler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case 1:
+                        makeToast("실행", SHORT_TOAST);
+                        Log.d("ㅂㅂ", "GameShakeActivity - handleMessage() | 메시지 수신 :" );
+                        Log.d("ㅂㅂ", "GameShakeActivity - handleMessage() | 스코어 점수: :"+score ); // 값 확인
+
+                        //DB에 USER데이터 추가하기
+                                Player player = new Player(applicationClass.currentUserEmailKey, applicationClass.currentUserName, score, 0);
+                                applicationClass.databaseReference.child("PLAYERLIST").child(roomNumberKey).child(applicationClass.currentUserEmailKey).setValue(player);
+
+                        Intent intent = new Intent(getApplicationContext(),ScoreExampleActivity.class);
+                        intent.putExtra("qq",score);
+                        startActivity(intent);
+
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
+        ordergameThread= new GameThread(handler,textView_ameRPSActivity_time,progressBar_ameRPSActivity_timeBar);
         ordergameThread.start();
 
     }//OnCreate
@@ -160,6 +196,8 @@ public class OrderGameActivity extends BaseActivity {
 
 
     }
+
+
 
 
 }//class

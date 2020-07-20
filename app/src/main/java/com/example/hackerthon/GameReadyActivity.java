@@ -58,12 +58,16 @@ public class GameReadyActivity extends BaseActivity {
         Intent intent;
         if(currentGame.getGameName().contentEquals("탭탭")){
             intent = new Intent(getApplicationContext(), TapTapActivity.class);
+            intent.putExtra("roomNumberKey",roomNumberKey);
         }else if(currentGame.getGameName().contentEquals("순서대로")){
             intent = new Intent(getApplicationContext(), OrderGameActivity.class);
+            intent.putExtra("roomNumberKey",roomNumberKey);
         }else if(currentGame.getGameName().contentEquals("쉐킷쉐킷")){
             intent = new Intent(getApplicationContext(), GameShakeActivity.class);
+            intent.putExtra("roomNumberKey",roomNumberKey);
         }else if(currentGame.getGameName().contentEquals("가위바위보")){
             intent = new Intent(getApplicationContext(), GameSRPActivity.class);
+            intent.putExtra("roomNumberKey",roomNumberKey);
         }else{
             makeToast("게임 선택 오류 게임 객체의 이름이 잘못되었습니다.", LONG_TOAST);
             intent = new Intent();

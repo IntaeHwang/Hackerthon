@@ -21,7 +21,7 @@ public class ScoreExampleActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-      int ppp =  intent.getIntExtra("exScore",99);
+      int ppp =  intent.getIntExtra("qq",99);
         textView.setText(""+ppp);
     }
 }

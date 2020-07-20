@@ -1,6 +1,7 @@
 package com.example.hackerthon;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -77,12 +78,18 @@ public class GameShakeActivity extends BaseActivity implements SensorEventListen
      */
     private Thread timeThread;
     Handler handler;
-
+    String roomNumberKey;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_shake);
         ButterKnife.bind(this);
+
+        //인텐트로 받아온 roomNumberKey >> DB 경로에 사용
+        Intent intent = getIntent();
+        roomNumberKey = intent.getStringExtra("roomNumberKey");
+        makeLog(new Object() {
+        }.getClass().getEnclosingMethod().getName() + "()", "roomNumberKey : " + roomNumberKey);
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         accelerormeterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -97,6 +104,16 @@ public class GameShakeActivity extends BaseActivity implements SensorEventListen
                         makeToast("실행", SHORT_TOAST);
                         Log.d(tag, "GameShakeActivity - handleMessage() | 메시지 수신 :" );
                         Log.d(tag, "GameShakeActivity - handleMessage() | 스코어 점수: :"+countNum );
+
+                        //DB에 USER데이터 추가하기
+                        Player player = new Player(applicationClass.currentUserEmailKey, applicationClass.currentUserName, countNum, 0);
+                        applicationClass.databaseReference.child("PLAYERLIST").child(roomNumberKey).child(applicationClass.currentUserEmailKey).setValue(player);
+
+                        Intent intent = new Intent(getApplicationContext(),ScoreExampleActivity.class);
+                        intent.putExtra("qq",countNum);
+                        startActivity(intent);
+
+
                         break;
                     default:
                         break;

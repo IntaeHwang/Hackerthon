@@ -2,6 +2,7 @@ package com.example.hackerthon;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -12,8 +13,11 @@ import butterknife.ButterKnife;
 
 public class OrderGameActivity extends BaseActivity {
 
-    @BindView(R.id.progressBar_activity_taptap_timeBar)
-    ProgressBar progressBarActivityTaptapTimeBar;
+    @BindView(R.id.progressBar_ameRPSActivity_timeBar)
+    ProgressBar progressBar_ameRPSActivity_timeBar;
+    @BindView(R.id.textView_ameRPSActivity_time)
+    TextView textView_ameRPSActivity_time;
+
     @BindView(R.id.textView_activity_taptap_userScore)
     TextView textViewActivityTaptapUserScore;
     @BindView(R.id.textView_activity_taptap_scoreText)
@@ -59,14 +63,18 @@ public class OrderGameActivity extends BaseActivity {
     @BindView(R.id.button_activity_order_game_roundTouchButton3)
     Button buttonActivityOrderGameRoundTouchButton3;
 
-
-    int count =1;
+    Handler handler;
+    int count = 1;
+    int score = 0;
+    Thread ordergameThread;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_game);
         ButterKnife.bind(this);
-
+        handler = new Handler();
+        ordergameThread= new GameThread(handler,textView_ameRPSActivity_time,progressBar_ameRPSActivity_timeBar);
+        ordergameThread.start();
 
     }//OnCreate
 
@@ -76,15 +84,12 @@ public class OrderGameActivity extends BaseActivity {
 
         //재시작마다 랜덤함수 생성하기
         buttonValueSetting();
+
     }
 
+    //버튼 클릭시
     public void onClick(View view) {
         check(view.getId()); //클릭된 버튼의 int형 id를 받아오기
-        if(view.getId() == R.id.button_activity_order_game_roundTouchButton){
-            makeToast("버튼 1클릭"+view.getId(),SHORT_TOAST);
-        }else if(view.getId() == R.id.button_activity_order_game_roundTouchButton2){
-            makeToast("버튼 2클릭"+view.getId(),SHORT_TOAST);
-        }
     }
 
 
@@ -97,7 +102,10 @@ public class OrderGameActivity extends BaseActivity {
 
             if (count == buttonValue) {
                 tmp.setBackgroundColor(Color.rgb(178, 34, 34));
+
                 count ++;
+            }else {
+
             }
 
     }

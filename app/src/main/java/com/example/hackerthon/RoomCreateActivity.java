@@ -60,7 +60,7 @@ public class RoomCreateActivity extends BaseActivity {
     String createRoomId;    //생성된 방 아이디 = 현재시간을 초 단위까지 받아온 데이터 (중복되지 않기위해)
     String roomKey;         //room@현재시간 -> 파이어베이스 키
     String roomMasterName;      //룸 방장 이름
-    int numberOfPlayers;    //룸 플레이어 숫자
+    int numberOfPlayers = 0;    //룸 플레이어 숫자
     String currentTimeStringData;    //현재시간 (초까지)
     int selectedStartAuthority = 1;     //시작권한자로 설정한 방장or1등or꼴등 중 선택한 사람의 값을 int = 1,2,3 으로 구분
 
@@ -206,6 +206,9 @@ public class RoomCreateActivity extends BaseActivity {
 
                 //방장 이름을 나타내주는 TextView 에 setText() 해주기
                 textviewRoomCreateActivityRoomMasterName.setText(roomMasterName);
+
+                makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", " cheonga startedGameNameFromDB: " +startedGameNameFromDB );
+                makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", " cheonga isStartedGameFromDB: " +isStartedGameFromDB );
 
                 if(startedGameNameFromDB.contentEquals("탭탭") && isStartedGameFromDB){
                     Intent intent = new Intent(getApplicationContext(), TapTapActivity.class);

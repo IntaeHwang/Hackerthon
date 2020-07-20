@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GameSRPActivity">
+    tools:context=".GameSRPActivity"
+    android:background="@color/colorGameBackground">
 
     <ProgressBar
         android:id="@+id/progressBar_ameRPSActivity_timeBar"
@@ -38,7 +39,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:text="0"
-        android:textSize="60sp"
+        android:textSize="80sp"
+        android:textColor="@color/colorTextWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +51,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="SCORE"
-        android:textSize="20sp"
+        android:textSize="30sp"
+        android:textColor="@color/colorTextWhite"
         app:layout_constraintEnd_toEndOf="@+id/textView_ameRPSActivity_userScore"
         app:layout_constraintStart_toStartOf="@+id/textView_ameRPSActivity_userScore"
         app:layout_constraintTop_toBottomOf="@+id/textView_ameRPSActivity_userScore" />

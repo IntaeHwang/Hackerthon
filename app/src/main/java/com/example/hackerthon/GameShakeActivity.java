@@ -8,20 +8,24 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/** GameShakeActivity
+/**
+ * GameShakeActivity
  * 1. 센서 이벤트
  * 2. 시간 측정 및 프로그레스바
- *
- * */
+ */
 public class GameShakeActivity extends BaseActivity implements SensorEventListener {
+
+    private final String tag = "로그";
 
     @BindView(R.id.textView_GameShakeActivity_time)
     TextView textViewGameShakeActivityTime;
@@ -30,7 +34,8 @@ public class GameShakeActivity extends BaseActivity implements SensorEventListen
     @BindView(R.id.progressbar_GameShakeActivity_progressbar)
     ProgressBar progressbarGameShakeActivityProgressbar;
 
-    /** 센서 이벤트
+    /**
+     * 센서 이벤트
      * - 센서이벤트의 센서 감도는 휴대폰의 속도와 측정 시간에 따라 결정된다.
      * - 그래서 변수가 거리, 시간, 속도를 담는 변수가 나오게 됨.
      */
@@ -71,6 +76,7 @@ public class GameShakeActivity extends BaseActivity implements SensorEventListen
      * 시간 쓰레드
      */
     private Thread timeThread;
+    Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,9 +86,26 @@ public class GameShakeActivity extends BaseActivity implements SensorEventListen
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         accelerormeterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+// handler = new Handler();
 
-        // 쓰레드를 상속받아서 생성 및 실행.
-        timeThread = new GameThread(handler, textViewGameShakeActivityTime, progressbarGameShakeActivityProgressbar,countNum);
+// 핸들러 생성할때, 핸들러가 처리할 수 있는 메세지를 지정하여, 해당 메세지가 왔을때 case문 실행
+        handler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case 1:
+                        makeToast("실행", SHORT_TOAST);
+                        Log.d(tag, "GameShakeActivity - handleMessage() | 메시지 수신 :" );
+                        Log.d(tag, "GameShakeActivity - handleMessage() | 스코어 점수: :"+countNum );
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
+
+// 쓰레드를 상속받아서 생성 및 실행.
+        timeThread = new GameThread(handler, textViewGameShakeActivityTime, progressbarGameShakeActivityProgressbar);
         timeThread.start();
     }
 
@@ -138,8 +161,11 @@ public class GameShakeActivity extends BaseActivity implements SensorEventListen
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
 
-    /**주석 처리한 이유
-     * - 핸들러 사용을 메세지 객체로 이용했는데, Runnable 객체*/
+
+/**주석 처리한 이유
+ * - 핸들러 사용을 메세지 객체로 이용했는데, Runnable 객체를 이용한 핸들러로 변경
+ * - Runnable 객체를 이용한 핸들러를 BaseActivity에서 상속받아 쓰는쪽으로 변경됨
+ * */
 // @SuppressLint("HandlerLeak")
 // Handler handlerTime = new Handler() {
 // @Override
@@ -217,8 +243,4 @@ public class GameShakeActivity extends BaseActivity implements SensorEventListen
 // }
 // }
 // }
-
-
-    Handler handler = new Handler();
-
 }

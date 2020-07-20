@@ -7,8 +7,6 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -61,6 +59,8 @@ public class OrderGameActivity extends BaseActivity {
     @BindView(R.id.button_activity_order_game_roundTouchButton3)
     Button buttonActivityOrderGameRoundTouchButton3;
 
+
+    int count =1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,14 +89,17 @@ public class OrderGameActivity extends BaseActivity {
 
 
     public void check(int id) {
-        int count=0;
-        Button tmp = (Button) findViewById(id); //임의의 버튼객체를 하나 만들어
-        int buttonValue = Integer.parseInt((String) tmp.getText());
 
-        if(count == buttonValue){
-            tmp.setBackgroundColor(Color.rgb(178,34,34));
-            count++;
-        }
+        Button tmp = (Button) findViewById(id); //임의의 버튼객체를 하나 만들어
+        int buttonValue = Integer.parseInt((String) tmp.getText()); // 클릭시 해당버튼의 숫자값 잘 나옴
+        makeLog(new Object() {
+        }.getClass().getEnclosingMethod().getName() + "()", "buttonValue : " + buttonValue);
+
+            if (count == buttonValue) {
+                tmp.setBackgroundColor(Color.rgb(178, 34, 34));
+                count ++;
+            }
+
     }
 
 

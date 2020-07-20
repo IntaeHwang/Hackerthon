@@ -45,7 +45,7 @@ public class GameFinishActivity extends BaseActivity {
         applicationClass.databaseReference.child("PLAYERLIST").child(roomNumberKey).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
+                makeLog(new Object() {}.getClass().getEnclosingMethod().getName()+"()", "snapshot : "+snapshot );
             }
 
             @Override

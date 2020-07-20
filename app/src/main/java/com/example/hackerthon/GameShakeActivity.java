@@ -70,9 +70,7 @@ public class GameShakeActivity extends BaseActivity implements SensorEventListen
     /**
      * 시간 쓰레드
      */
-    int countTimeValue = 0;
-    private Thread timeThread = null;
-    private Boolean isRunning = true;
+    private Thread timeThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +81,7 @@ public class GameShakeActivity extends BaseActivity implements SensorEventListen
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         accelerormeterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
-// 쓰레드를 상속받아서 생성 및 실행.
+        // 쓰레드를 상속받아서 생성 및 실행.
         timeThread = new GameThread(handler, textViewGameShakeActivityTime, progressbarGameShakeActivityProgressbar);
         timeThread.start();
     }

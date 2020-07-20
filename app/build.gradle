@@ -22,6 +22,7 @@ android {
         }
     }
 
+    // 버터나이브를 사용하기 위한 추가된 코드
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8

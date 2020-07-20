@@ -23,10 +23,12 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.GameVi
 
     private ArrayList<Game> gameList;
     private Context context;
+    private String roomNumberKey;
 
-    public GameListAdapter(ArrayList<Game> gameList, Context context) {
+    public GameListAdapter(ArrayList<Game> gameList, Context context, String roomNumberKey) {
         this.gameList = gameList;
         this.context = context;
+        this.roomNumberKey = roomNumberKey;
     }
 
     @NonNull
@@ -75,6 +77,7 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.GameVi
                 public void onClick(View view) {
                     Intent intent = new Intent(context, GameReadyActivity.class);
                     intent.putExtra("CurrentGame", gameList.get(getAdapterPosition()));
+                    intent.putExtra("RoomNumberKey", roomNumberKey);
                     context.startActivity(intent);
                 }
             });

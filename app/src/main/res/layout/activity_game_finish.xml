@@ -1,9 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GameFinishActivity">
+    android:background="@color/colorGameFinishBackground"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:gravity="center"
+
+        android:text="Finish"
+        android:textColor="@color/colorTextWhite"
+        android:textSize="120sp"
+        android:textStyle="bold"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:id="@+id/textView_GameFinishActivity_finish"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
+        app:layout_constraintTop_toBottomOf="@id/textView_GameFinishActivity_finish"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/button_GameFinishActivity_dismiss"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingBottom="30dp"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:textColor="@color/colorTextBlack"
+        android:text="확      인"
+        android:textSize="20sp"
+        android:textStyle="bold"
+
+        android:layout_margin="20dp"
+
+        android:background="@drawable/circular_round_white_button"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/button_GameFinishActivity_dismiss"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

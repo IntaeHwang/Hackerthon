@@ -12,5 +12,6 @@
     <color name="colorTextWhite">#ffffff</color>
     <color name="colorTextBlack">#000000</color>
     <color name="colorGameBackground">#B22222</color>
+    <color name="colorGameFinishBackground">#B3000000</color>
 
 </resources>

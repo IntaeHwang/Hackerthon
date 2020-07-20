@@ -39,13 +39,15 @@ public class TapTapActivity extends BaseActivity {
     private Thread timeThread;
     Handler handler;
 
-
+    public static TapTapActivity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tap_tap);
         ButterKnife.bind(this);
+
+        activity = this;
 
         roomNumberKey = applicationClass.mySharedPref.getStringPref("key");
         makeLog(new Object() {

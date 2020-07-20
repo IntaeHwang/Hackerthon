@@ -51,6 +51,8 @@ public class GameSRPActivity extends BaseActivity {
     private int ROCK = 2;
     private int PAPER = 3;
 
+    public static GameSRPActivity activity;
+
     // 컴퓨터가 가질 가위 바위 보 리스트 값
     ArrayList<Integer> arrayList;
     String roomNumberKey;
@@ -68,6 +70,8 @@ public class GameSRPActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_s_r_p);
         ButterKnife.bind(this);
+
+        activity = this;
 
         //인텐트로 받아온 roomNumberKey >> DB 경로에 사용
 //        Intent intent = getIntent();

@@ -28,6 +28,9 @@ public class GameShakeActivity extends BaseActivity implements SensorEventListen
 
     private final String tag = "로그";
 
+    public static GameShakeActivity activity;
+
+
     @BindView(R.id.textView_GameShakeActivity_time)
     TextView textViewGameShakeActivityTime;
     @BindView(R.id.textView_GameShakeActivity_score)
@@ -84,6 +87,8 @@ public class GameShakeActivity extends BaseActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_shake);
         ButterKnife.bind(this);
+
+        activity = this;
 
 //        //인텐트로 받아온 roomNumberKey >> DB 경로에 사용
 //        Intent intent = getIntent();

@@ -33,11 +33,21 @@ public class GameFinishActivity extends BaseActivity {
     ArrayList<Player> gameResultList = new ArrayList<>();
     ArrayList<Player> tempGameResultList = new ArrayList<>();
 
+    GameShakeActivity gameShakeActivity;
+    GameSRPActivity gameSRPActivity;
+    OrderGameActivity orderGameActivity;
+    TapTapActivity tapTapActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_finish);
         ButterKnife.bind(this);
+
+        gameShakeActivity = GameShakeActivity.activity;
+        gameSRPActivity = GameSRPActivity.activity;
+        orderGameActivity = OrderGameActivity.activity;
+        tapTapActivity = TapTapActivity.activity;
 
         String roomNumberKey = getIntent().getStringExtra("roomNumberKey");
         makeLog(new Object() {}.getClass().getEnclosingMethod().getName()+"()", "roomNumberKey : "+roomNumberKey );
@@ -57,12 +67,15 @@ public class GameFinishActivity extends BaseActivity {
                     tempGameResultList.add(player);
                 }
 
+
                 Comparator<Player> scoreReverse = Comparator.comparing(Player::getGameScore).reversed();
                 tempGameResultList.sort(scoreReverse);
 
                 for(Player e : tempGameResultList){
                     gameResultList.add(e);
                 }
+
+                applicationClass.databaseReference.child("PLAYER").child(roomNumberKey).child(applicationClass.currentUserEmailKey).child("gameTotalScore").setValue(gameResultList.get(0).getGameTotalScore()+1);
                 gameResultListAdapter.notifyDataSetChanged();
             }
 
@@ -71,44 +84,29 @@ public class GameFinishActivity extends BaseActivity {
 
             }
         });
-
-//        applicationClass.databaseReference.child("PLAYERLIST").child(roomNumberKey).addChildEventListener(new ChildEventListener() {
-//            @Override
-//            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//                makeLog(new Object() {}.getClass().getEnclosingMethod().getName()+"()", "snapshot : "+snapshot );
-//
-//                Player currentPlayer = snapshot.getValue(Player.class);
-//
-//                TempGameResultList.add(currentPlayer);
-//                Comparator<Player> scoreReverse = Comparator.comparing(Player::getGameScore).reversed();
-//                TempGameResultList.sort(scoreReverse);
-//
-//            }
-//
-//            @Override
-//            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//
-//            }
-//
-//            @Override
-//            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-//
-//            }
-//
-//            @Override
-//            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
     }
 
     @OnClick(R.id.button_GameFinishActivity_dismiss)
     public void onViewClicked() {
-        //현재 유저가 방장과 같으면 확인
+        //현재 유저가 방장과 같은지 확인하여 같으면 모든 참가자 나가게 하기
+
+
+        //finish 이전 게임 액티비티와 GameFinishActivity를 죽이면 자동적은 GameReadyActvity로 가게 된다.
+        //이전에 열린 게임 액티비티들이 있으면 해당 Activity finish()
+        if(gameShakeActivity!=null){
+            gameShakeActivity.finish();
+        }
+        if(gameSRPActivity!=null){
+            gameSRPActivity.finish();
+        }
+        if(orderGameActivity!=null){
+            orderGameActivity.finish();
+        }
+        if(tapTapActivity!=null){
+            tapTapActivity.finish();
+        }
+
+        //자신을 finish()
+        finish();
     }
 }

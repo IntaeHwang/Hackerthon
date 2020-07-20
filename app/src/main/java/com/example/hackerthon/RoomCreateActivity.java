@@ -279,8 +279,8 @@ public class RoomCreateActivity extends BaseActivity {
                 break;
             case R.id.button_roomCreateActivity_gameList:   //게임리스트 화면으로 가기 버튼
                 Intent gameListIntent = new Intent(this, GameListActivity.class);
-                gameListIntent.putExtra("masterName", masterName);          //방장이름
-                gameListIntent.putExtra("roomNumberKey", roomKey);  //룸번호 room@현재날짜
+                gameListIntent.putExtra("MasterName", masterName);          //방장이름
+                gameListIntent.putExtra("RoomNumberKey", roomKey);  //룸번호 room@현재날짜
                 startActivity(gameListIntent);
                 break;
         }

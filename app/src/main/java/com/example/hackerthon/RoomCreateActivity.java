@@ -57,6 +57,7 @@ public class RoomCreateActivity extends BaseActivity {
 
     String createRoomId; //생성된 방 아이디 = 현재시간을 초 단위까지 받아온 데이터 (중복되지 않기위해)
     String roomKey; //room@현재시간 -> 파이어베이스 키
+    String masterName;  //방장 이름
     String currentTimeStringData;    //현재시간 (초까지)
     int selectedStartAuthority = 1;     //시작권한자로 설정한 방장or1등or꼴등 중 선택한 사람의 값을 int = 1,2,3 으로 구분
 
@@ -198,10 +199,10 @@ public class RoomCreateActivity extends BaseActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         User user = snapshot.getValue(User.class);
-                        String userEmail = user.getUserName();
+                        masterName = user.getUserName();
 
                         //방장 이름을 나타내주는 TextView 에 setText() 해주기
-                        textviewRoomCreateActivityRoomMasterName.setText(userEmail);
+                        textviewRoomCreateActivityRoomMasterName.setText(masterName);
                     }
 
                     @Override
@@ -278,7 +279,8 @@ public class RoomCreateActivity extends BaseActivity {
                 break;
             case R.id.button_roomCreateActivity_gameList:   //게임리스트 화면으로 가기 버튼
                 Intent gameListIntent = new Intent(this, GameListActivity.class);
-//                gameListIntent.putExtra("MasterName", "");  //TODO: 방장이름 데이터 넘겨주기
+                gameListIntent.putExtra("masterName", masterName);          //방장이름
+                gameListIntent.putExtra("roomNumberKey", roomKey);  //룸번호 room@현재날짜
                 startActivity(gameListIntent);
                 break;
         }

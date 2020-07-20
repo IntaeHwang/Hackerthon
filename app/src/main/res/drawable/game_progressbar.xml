@@ -17,10 +17,10 @@
             <shape>
                 <gradient
                     android:angle="270"
-                    android:centerColor="@color/colorView"
+                    android:centerColor="@color/colorPoint"
                     android:centerY="1.0"
-                    android:endColor="@color/colorView"
-                    android:startColor="@color/colorView" />
+                    android:endColor="@color/colorPoint"
+                    android:startColor="@color/colorPoint" />
             </shape>
         </clip>
     </item>

@@ -46,9 +46,10 @@ public class TapTapActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         //인텐트로 받아온 roomNumberKey >> DB 경로에 사용
-//        Intent intent = getIntent();
-        roomNumberKey = getIntent().getStringExtra("roomNumberKey");
+        Intent intent = getIntent();
+        roomNumberKey = intent.getStringExtra("roomNumberKey");
         makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", "roomNumberKey : " + roomNumberKey);
+
 
         // 스레드 시작
         handler = new Handler(){

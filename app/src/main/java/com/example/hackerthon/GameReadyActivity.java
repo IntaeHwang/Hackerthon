@@ -83,10 +83,12 @@ public class GameReadyActivity extends BaseActivity {
 
             if(applicationClass.currentUserName.contentEquals(roomMasterNameFromDB)){
                 //로그인한 유저가 방장 이름과 같으면 -> 권한이 생김
+
                 updateRoomData(roomNumberKey, "탭탭", 1);
-                Intent intent = new Intent(getApplicationContext(), TapTapActivity.class);
+                Intent intent = new Intent(getApplicationContext(),TapTapActivity.class);
                 intent.putExtra("roomNumberKey",roomNumberKey);
                 intent.putExtra("MasterName", masterName);
+
                 makeLog(new Object() {
                 }.getClass().getEnclosingMethod().getName() + "()", "보내는 roomNumberKey : " + roomNumberKey);
                 startActivity(intent);

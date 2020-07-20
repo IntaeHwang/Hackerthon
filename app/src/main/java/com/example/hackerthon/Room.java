@@ -14,11 +14,13 @@ public class Room {
     public static final int THE_LAST = 2;
 
     public Room(){}
-    public Room(String roomId, String roomMasterEmail, int numberOfPlayers, int selectedStartAuthority) {
+
+    public Room(String roomId, String roomMasterEmail, int numberOfPlayers, int selectedStartAuthority, String gameStartUserEmail) {
         this.roomId = roomId;
         this.roomMasterEmail = roomMasterEmail;
         this.numberOfPlayers = numberOfPlayers;
         this.selectedStartAuthority = selectedStartAuthority;
+        this.gameStartUserEmail = gameStartUserEmail;
     }
 
     public String getRoomId() {

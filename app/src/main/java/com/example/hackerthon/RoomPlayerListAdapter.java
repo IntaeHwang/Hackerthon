@@ -17,7 +17,7 @@ public class RoomPlayerListAdapter extends RecyclerView.Adapter<RoomPlayerListAd
     Context context;
     AdapterView.OnItemClickListener clickListener;
 
-    ArrayList<User> playerList = new ArrayList<User>();
+    ArrayList<Player> playerList = new ArrayList<Player>();
 
     public RoomPlayerListAdapter(Context context) {
         this.context = context;
@@ -35,8 +35,8 @@ public class RoomPlayerListAdapter extends RecyclerView.Adapter<RoomPlayerListAd
     @Override
     public void onBindViewHolder(@NonNull RoomPlayerListViewHolder holder, int position) {
 
-        User user = playerList.get(position);
-
+        Player player = playerList.get(position);
+//
 //        holder.playerName.setText(user.getUserName());
 //        holder.playerTotalScore.setText(user.getTotalScore());
 
@@ -47,11 +47,11 @@ public class RoomPlayerListAdapter extends RecyclerView.Adapter<RoomPlayerListAd
         return playerList.size();
     }
 
-    public void addItem(User user){
-        playerList.add(user);
+    public void addItem(Player player){
+        playerList.add(player);
     }
 
-    public User getItem(int position){
+    public Player getItem(int position){
         return playerList.get(position);
     }
 

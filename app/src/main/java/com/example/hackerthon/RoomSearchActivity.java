@@ -55,15 +55,14 @@ public class RoomSearchActivity extends BaseActivity {
     //DB 에 스캔한 룸번호의 플레이어로 참가하게된다 (플레이어 추가)
     public void saveDatabaseAfterCreatePlayer() {
         //룸 객체 생성
-        User user = new User();
-        user.id = applicationClass.currentUserEmailKey;
+//        User user = new User();
+//        user.id = applicationClass.currentUserEmailKey;
         String roomKey = "room@"+resultScannerStr;  //룸에서 날짜 키로 지정해 놓은 데이터가 다른 곳에서의 날짜키와 중복될수도 있으니 앞에 room@를 붙여줘서 구분해준다
 
-        Map<String, Object> player = new HashMap<>();
-        player.put("roomPlayerEmail", user.id);
-        player.put("roomPlayerEmail", user.id);
-
-        applicationClass.databaseReference.child("PLAYERLIST").child(roomKey).child(user.id).setValue(player);
+        //플레이어 객체 생성 -> 유저이메일, 유저이름, 게임점수, 게임총이긴점수
+        Player player = new Player(applicationClass.currentUserEmailKey, applicationClass.currentUserName, 0, 0);
+        //DB 플레이어리스트에 플레이어 추가
+        applicationClass.databaseReference.child("PLAYERLIST").child(roomKey).child(applicationClass.currentUserEmailKey).setValue(player);
 
         //DB에 플레이어 추가 후 방만들기 화면으로 전환하고 현재 화면 종료
         Intent createRoomIntent = new Intent(this, RoomCreateActivity.class);

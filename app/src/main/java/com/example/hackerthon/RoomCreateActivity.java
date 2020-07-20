@@ -12,9 +12,11 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -54,6 +56,7 @@ public class RoomCreateActivity extends BaseActivity {
     Button buttonRoomCreateActivityGameList;    //게임리스트 액티비티로 화면전환하는 버튼
 
     String createRoomId; //생성된 방 아이디 = 현재시간을 초 단위까지 받아온 데이터 (중복되지 않기위해)
+    String roomKey; //room@현재시간 -> 파이어베이스 키
     String currentTimeStringData;    //현재시간 (초까지)
     int selectedStartAuthority = 1;     //시작권한자로 설정한 방장or1등or꼴등 중 선택한 사람의 값을 int = 1,2,3 으로 구분
 
@@ -65,34 +68,55 @@ public class RoomCreateActivity extends BaseActivity {
         setContentView(R.layout.activity_room_create);
         ButterKnife.bind(this);
 
-        //방 만들기를 한 user 이름을 받아서 setText() 해준다
-        textviewRoomCreateActivityRoomMasterName.setText(applicationClass.currentUserName);
+        radiogroupRoomCreateActivityGameStartGroup.setOnCheckedChangeListener(radioGroupButtonChangeListener);
 
-        //현재시간(초단위까지)을 받아와서 qr코드를 생성해준다 (qr코드 값은 = 현재시간을 데이터값으로 가진다)
-        getCurrentTimeMillis();
+        //진입 경로 -> enterPath = 메인액티비티 & 방찾기액티비티 에서 진입할 수 있음
+        Intent intent = getIntent();
+        String enterPath = intent.getStringExtra("enterPath");
 
         //리사이클러뷰를 초기화한다
         recyclerviewInit();
 
-        //플레이어 데이터를 불러온다
-        loadPlayerListData();
-
-        radiogroupRoomCreateActivityGameStartGroup.setOnCheckedChangeListener(radioGroupButtonChangeListener);
-
-        Intent intent = getIntent();
-        String enterPath = intent.getStringExtra("enterPath");
-
         //RoomCreateActivity 에 들어온 경로 체크
         //MainActivity 에서 들어온 경우에만 룸 생성된다
+        //방만들기의 방장으로서 진입시
         if(enterPath.contentEquals("MainActivity")){
+
+            //방 만들기를 한 user 이름을 받아서 setText() 해준다
+            textviewRoomCreateActivityRoomMasterName.setText(applicationClass.currentUserName);
+
+            //현재시간(초단위까지)을 받아와서 qr코드를 생성해준다 (qr코드 값은 = 현재시간을 데이터값으로 가진다)
+            getCurrentTimeMillis();
+
             //액티비티 최초 진입 시 룸 생성되는 함수 (키는 룸넘버(현재날짜데이터), 플레이어수, 방장이메일, 선택한시작권한자)
             saveDatabaseAfterCreateRoom();
             makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", " 들어간 경로 : MainActivity");
+
+            //방장을 플레이어에 추가한다
+            savePlayerListToDB(applicationClass.currentUserEmailKey, applicationClass.currentUserName, 0, 0);
+
+            //플레이어 데이터를 불러온다
+            loadPlayerListData();
+
+        //방찾기에서 참여자로서 진입시
         }else if(enterPath.contentEquals("RoomSearchActivity")){
             makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", " 들어간 경로 : RoomSearchActivity");
         }else {
             makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", " 들어간 경로 : Null");
         }
+
+//        //플레이어 데이터를 불러온다
+//        loadPlayerListData();
+
+    }
+
+    //DB 에 플레이어 리스트에 플레이어 추가하는 함수
+    public void savePlayerListToDB(String userEmail, String userName, int gameScore, int gameTotalScore) {
+
+        //플레이어 객체 생성 -> 유저이메일, 유저이름, 게임점수, 게임총이긴점수
+        Player player = new Player(userEmail, userName, gameScore, gameTotalScore);
+        //DB 플레이어리스트에 플레이어 추가
+        applicationClass.databaseReference.child("PLAYERLIST").child(roomKey).child(applicationClass.currentUserEmailKey).setValue(player);
 
     }
 
@@ -150,12 +174,12 @@ public class RoomCreateActivity extends BaseActivity {
     //룸 생성 후 DB에 생성한 ROOM 데이터 추가
     public void saveDatabaseAfterCreateRoom() {
         //룸 객체 생성
-        Room room = new Room(createRoomId, applicationClass.currentUserEmailKey, 1, selectedStartAuthority);
-        String roomKey = "room@"+createRoomId;  //룸에서 날짜 키로 지정해 놓은 데이터가 다른 곳에서의 날짜키와 중복될수도 있으니 앞에 room@를 붙여줘서 구분해준다
+        Room room = new Room(createRoomId, applicationClass.currentUserEmailKey, 1, selectedStartAuthority, applicationClass.currentUserEmailKey);
+        roomKey = "room@"+createRoomId;  //룸에서 날짜 키로 지정해 놓은 데이터가 다른 곳에서의 날짜키와 중복될수도 있으니 앞에 room@를 붙여줘서 구분해준다
         applicationClass.databaseReference.child("ROOM").child(roomKey).setValue(room.toRoomMap(room));
     }
 
-    //리사이클러뷰 데이터 초기화하는 함수
+    //playerlist 리사이클러뷰 데이터 초기화하는 함수
     public void recyclerviewInit() {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -170,27 +194,67 @@ public class RoomCreateActivity extends BaseActivity {
     //DB에서 플레이어 리스트 데이터를 불러온다
     public void loadPlayerListData() {
 
-        applicationClass.databaseReference.child("PLAYERLIST").child(createRoomId)
-                .addValueEventListener(new ValueEventListener() {
+        makeLog(new Object() {
+        }.getClass().getEnclosingMethod().getName() + "()", "111 : " + 111);
+
+        applicationClass.databaseReference.child("PLAYERLIST").child(roomKey)
+                .addChildEventListener(new ChildEventListener() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        //초기화
-//                        roomPlayerListAdapter.playerList.clear();
-//                        roomPlayerListAdapter.uidLists.clear();
+                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String previousChildName) {
 
-                        String key = dataSnapshot.getKey(); //202007191931020
-                        makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", "key : " + key);
-                        String roomKey = "room@"+key;
+                        roomPlayerListAdapter.playerList.clear();
 
-                        makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", "getChildren: " + dataSnapshot.child(roomKey).getValue());
+                        String userEmailKey = dataSnapshot.getKey(); //iii@naver,com
+                        makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", "userEmailKey : " + userEmailKey);
+
+                        Player player = dataSnapshot.getValue(Player.class);
+                        roomPlayerListAdapter.playerList.add(player);
+                        roomPlayerListAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
                     }
 
                     @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
                     }
                 });
+
+
+//        applicationClass.databaseReference.child("PLAYERLIST").child(createRoomId)
+//                .addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                        //초기화
+////                        roomPlayerListAdapter.playerList.clear();
+////                        roomPlayerListAdapter.uidLists.clear();
+//
+//                        String key = dataSnapshot.getKey(); //202007191931020
+//                        makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", "key : " + key);
+//                        String roomKey = "room@"+key;
+//
+//                        makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", "key2: " + dataSnapshot.child(roomKey).getKey());
+//
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                    }
+//                });
     }
 
     @OnClick({R.id.button_roomCreateActivity_roomExit, R.id.button_roomCreateActivity_gameList})

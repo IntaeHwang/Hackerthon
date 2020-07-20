@@ -90,6 +90,35 @@ public class GameFinishActivity extends BaseActivity {
 
             }
         });
+
+        applicationClass.databaseReference.child("ROOM").child(roomNumberKey).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Room room = snapshot.getValue(Room.class);
+                if(room.isStartedGame == 0){
+                    if(gameShakeActivity!=null){
+                        gameShakeActivity.finish();
+                    }
+                    if(gameSRPActivity!=null){
+                        gameSRPActivity.finish();
+                    }
+                    if(orderGameActivity!=null){
+                        orderGameActivity.finish();
+                    }
+                    if(tapTapActivity!=null){
+                        tapTapActivity.finish();
+                    }
+
+                    //자신을 finish()
+                    finish();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        })
     }
 
     @OnClick(R.id.button_GameFinishActivity_dismiss)
@@ -100,53 +129,63 @@ public class GameFinishActivity extends BaseActivity {
             makeToast("GameFinishActivity에서 방장이름을 shared에서 가지고 오지 못함", LONG_TOAST);
         }else{
             if(applicationClass.currentUserName.contentEquals(masterName)){
+
                 applicationClass.databaseReference.child("ROOM").child(roomNumberKey).child("isStartedGame").setValue(0);
+
+                applicationClass.databaseReference.child("PLAYERLIST").child(roomNumberKey).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for(DataSnapshot e:snapshot.getChildren()){
+                            Player player = e.getValue(Player.class);
+
+                            player.setGameScore(0);
+                            applicationClass.databaseReference.child("PLAYERLIST").child(roomNumberKey).child(snapshot.getKey()).child("gameScore").setValue(player.getGameScore());
+                        }
+                        if(gameShakeActivity!=null){
+                            gameShakeActivity.finish();
+                        }
+                        if(gameSRPActivity!=null){
+                            gameSRPActivity.finish();
+                        }
+                        if(orderGameActivity!=null){
+                            orderGameActivity.finish();
+                        }
+                        if(tapTapActivity!=null){
+                            tapTapActivity.finish();
+                        }
+
+                        //자신을 finish()
+                        finish();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }else{
+                //finish 이전 게임 액티비티와 GameFinishActivity를 죽이면 자동적은 GameReadyActvity로 가게 된다.
+                //이전에 열린 게임 액티비티들이 있으면 해당 Activity finish()
+                if(gameShakeActivity!=null){
+                    gameShakeActivity.finish();
+                }
+                if(gameSRPActivity!=null){
+                    gameSRPActivity.finish();
+                }
+                if(orderGameActivity!=null){
+                    orderGameActivity.finish();
+                }
+                if(tapTapActivity!=null){
+                    tapTapActivity.finish();
+                }
+
+                //자신을 finish()
+                finish();
             }
         }
 
-        applicationClass.databaseReference.child("PLAYERLIST").child(roomNumberKey).addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                makeLog(new Object() {}.getClass().getEnclosingMethod().getName()+"()", "snapshot : "+snapshot );
-            }
 
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
-            }
 
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        //finish 이전 게임 액티비티와 GameFinishActivity를 죽이면 자동적은 GameReadyActvity로 가게 된다.
-        //이전에 열린 게임 액티비티들이 있으면 해당 Activity finish()
-        if(gameShakeActivity!=null){
-            gameShakeActivity.finish();
-        }
-        if(gameSRPActivity!=null){
-            gameSRPActivity.finish();
-        }
-        if(orderGameActivity!=null){
-            orderGameActivity.finish();
-        }
-        if(tapTapActivity!=null){
-            tapTapActivity.finish();
-        }
-
-        //자신을 finish()
-        finish();
     }
 }

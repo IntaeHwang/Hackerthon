@@ -48,7 +48,7 @@ public class GameListActivity extends BaseActivity {
     //ROOM DB 에서 받아온 데이터
     String roomMasterNameFromDB;    //룸 방장 이름
     String startedGameNameFromDB;   //방장이 선택한 게임 이름
-    boolean isStartedGameFromDB;    //방장이 선택한 게임 시작 유무
+    int isStartedGameFromDB;    //방장이 선택한 게임 시작 유무
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,18 +151,18 @@ public class GameListActivity extends BaseActivity {
                 Room room = snapshot.getValue(Room.class);
                 roomMasterNameFromDB = room.getRoomMasterName();
                 startedGameNameFromDB = room.getStartedGameName();
-                isStartedGameFromDB = room.isStartedGame();
+                isStartedGameFromDB = room.getIsStartedGame();
 
-                if(startedGameNameFromDB.contentEquals("탭탭") && isStartedGameFromDB){
+                if(startedGameNameFromDB.contentEquals("탭탭") && isStartedGameFromDB==1){
                     Intent intent = new Intent(getApplicationContext(), TapTapActivity.class);
                     startActivity(intent);
-                }else if(startedGameNameFromDB.contentEquals("순서대로") && isStartedGameFromDB){
+                }else if(startedGameNameFromDB.contentEquals("순서대로") && isStartedGameFromDB==1){
                     Intent intent = new Intent(getApplicationContext(), OrderGameActivity.class);
                     startActivity(intent);
-                }if(startedGameNameFromDB.contentEquals("쉐킷쉐킷") && isStartedGameFromDB){
+                }if(startedGameNameFromDB.contentEquals("쉐킷쉐킷") && isStartedGameFromDB==1){
                     Intent intent = new Intent(getApplicationContext(), GameShakeActivity.class);
                     startActivity(intent);
-                }if(startedGameNameFromDB.contentEquals("가위바위보") && isStartedGameFromDB){
+                }if(startedGameNameFromDB.contentEquals("가위바위보") && isStartedGameFromDB==1){
                     Intent intent = new Intent(getApplicationContext(), GameSRPActivity.class);
                     startActivity(intent);
                 }

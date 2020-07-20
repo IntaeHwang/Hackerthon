@@ -10,7 +10,7 @@ public class Room {
     String gameStartUserEmail;
 
     String startedGameName;
-    boolean isStartedGame;
+    int isStartedGame;
 
     public static final int ROOM_MASTER = 0;
     public static final int THE_FIRST = 1;
@@ -23,7 +23,7 @@ public class Room {
 
     }
 
-    public Room(String roomId, String roomMasterName, int numberOfPlayers, int selectedStartAuthority, String gameStartUserEmail, String startedGameName, boolean isStartedGame) {
+    public Room(String roomId, String roomMasterName, int numberOfPlayers, int selectedStartAuthority, String gameStartUserEmail, String startedGameName, int isStartedGame) {
         this.roomId = roomId;
         this.roomMasterName = roomMasterName;
         this.numberOfPlayers = numberOfPlayers;
@@ -81,12 +81,12 @@ public class Room {
         this.startedGameName = startedGameName;
     }
 
-    public boolean isStartedGame() {
+    public int getIsStartedGame() {
         return isStartedGame;
     }
 
-    public void setStartedGame(boolean startedGame) {
-        isStartedGame = startedGame;
+    public void setIsStartedGame(int isStartedGame) {
+        this.isStartedGame = isStartedGame;
     }
 
     HashMap<String, Object> toRoomMap(Room room){

@@ -2,6 +2,7 @@ package com.example.hackerthon;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -17,7 +18,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * 가위 바위 보 게임
+ * 가위 바위 보 게임 _ Scissors Rock Paper(통칭 Game SRP )
  */
 public class GameSRPActivity extends BaseActivity {
 
@@ -67,31 +68,45 @@ public class GameSRPActivity extends BaseActivity {
         setContentView(R.layout.activity_game_s_r_p);
         ButterKnife.bind(this);
 
-        // 변수 초기화
+// 변수 초기화
         myScore = 0;
         arrayList = new ArrayList<>();
-        handler = new Handler();
+        handler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case 1:
+                        makeToast("실행", SHORT_TOAST);
+                        Log.d(tag, "GameShakeActivity - handleMessage() | 메시지 수신 :" );
+                        Log.d(tag, "GameShakeActivity - handleMessage() | 스코어 점수: :"+myScore );
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
 
-        // 랜덤 난수를 사용하기 위한 Random() 객체 생성
+// 랜덤 난수를 사용하기 위한 Random() 객체 생성
         Random rnd = new Random();
 
-        // 컴퓨터가 가질 가위,바위,보 난수값 리스트에 넣기
+// 컴퓨터가 가질 가위,바위,보 난수값 리스트에 넣기
         for (int i = 0; i < 100; i++) {
             int randomValue = rnd.nextInt(3) + 1; // 1~3 난수 생성
             arrayList.add(randomValue);
         }
 
-        // 이미지 상태 초기화 세팅
+// 이미지 상태 초기화 세팅
         showOppoenet(arrayList.get(0), arrayList.get(1), arrayList.get(2));
 
-        // 쓰레드를 상속받아서 생성 및 실행.
-        timeThread = new GameThread(handler, textViewAmeRPSActivityTime, progressBarAmeRPSActivityTimeBar,myScore);
+// 쓰레드를 상속받아서 생성 및 실행.
+// timeThread = new GameThread(handler, textViewAmeRPSActivityTime, progressBarAmeRPSActivityTimeBar,myScore);
+        timeThread = new GameThread(handler, textViewAmeRPSActivityTime, progressBarAmeRPSActivityTimeBar);
         timeThread.start();
     }
 
     // 사용자가 가위바위보 선택지를 클릭했을 때 이벤트 발생
-    // calculateScore(사용자 선택, 리스트의 값): 인자값을 통해 승패를 판단하고 점수 반영
-    // showOppoenet(첫번째 가위바위보 Icon, 2번째, 3번째)를 인자값으로 넘겨 Icon을 갱신하기 위함.
+// calculateScore(사용자 선택, 리스트의 값): 인자값을 통해 승패를 판단하고 점수 반영
+// showOppoenet(첫번째 가위바위보 Icon, 2번째, 3번째)를 인자값으로 넘겨 Icon을 갱신하기 위함.
     @OnClick({R.id.imageView_gameRPSActivity_scissors, R.id.imageView_gameRPSActivity_rock, R.id.imageView_gameRPSActivity_paper})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -214,7 +229,7 @@ public class GameSRPActivity extends BaseActivity {
                         break;
                 }
             }
-            // 점수 TextView에 반영
+// 점수 TextView에 반영
             textViewAmeRPSActivityUserScore.setText("" + myScore);
         }
     }

@@ -67,6 +67,7 @@ public class RoomSearchActivity extends BaseActivity {
         //DB에 플레이어 추가 후 방만들기 화면으로 전환하고 현재 화면 종료
         Intent createRoomIntent = new Intent(this, RoomCreateActivity.class);
         createRoomIntent.putExtra("enterPath", "RoomSearchActivity");
+        createRoomIntent.putExtra("enterRoomKey", roomKey);
         startActivity(createRoomIntent);
         finish();
     }

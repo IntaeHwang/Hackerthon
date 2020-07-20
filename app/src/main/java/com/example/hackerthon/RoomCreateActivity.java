@@ -29,6 +29,8 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,9 +57,10 @@ public class RoomCreateActivity extends BaseActivity {
     @BindView(R.id.button_roomCreateActivity_gameList)
     Button buttonRoomCreateActivityGameList;    //게임리스트 액티비티로 화면전환하는 버튼
 
-    String createRoomId; //생성된 방 아이디 = 현재시간을 초 단위까지 받아온 데이터 (중복되지 않기위해)
-    String roomKey; //room@현재시간 -> 파이어베이스 키
-    String masterName;  //방장 이름
+    String createRoomId;    //생성된 방 아이디 = 현재시간을 초 단위까지 받아온 데이터 (중복되지 않기위해)
+    String roomKey;         //room@현재시간 -> 파이어베이스 키
+    String masterName;      //룸 방장 이름
+    int numberOfPlayers;    //룸 플레이어 숫자
     String currentTimeStringData;    //현재시간 (초까지)
     int selectedStartAuthority = 1;     //시작권한자로 설정한 방장or1등or꼴등 중 선택한 사람의 값을 int = 1,2,3 으로 구분
 
@@ -94,21 +97,24 @@ public class RoomCreateActivity extends BaseActivity {
             savePlayerListToDB(applicationClass.currentUserEmailKey, applicationClass.currentUserName, 0, 0);
 
             //플레이어 데이터를 불러온다
-            loadPlayerListData();
+            loadPlayerListData(roomKey);
+            //생성된 룸 데이터 불러온다
+            loadRoomData(roomKey);
 
         //방찾기에서 참여자로서 진입시
         }else if(enterPath.contentEquals("RoomSearchActivity")){
             makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", " 들어간 경로 : RoomSearchActivity");
 
+            String enterRoomKey = intent.getStringExtra("enterRoomKey");
+
+            //생성된 룸 데이터 불러온다
+            loadRoomData(enterRoomKey);
             //플레이어 데이터를 불러온다
-            loadPlayerListData();
+            loadPlayerListData(enterRoomKey);
 
         }else {
             makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", " 들어간 경로 : Null");
         }
-
-//        //플레이어 데이터를 불러온다
-//        loadPlayerListData();
 
     }
 
@@ -179,9 +185,6 @@ public class RoomCreateActivity extends BaseActivity {
         Room room = new Room(roomId, roomMasterEmail, numberOfPlayers, selectedStartAuthority, gameStartUserEmail);
         roomKey = "room@"+createRoomId;  //룸에서 날짜 키로 지정해 놓은 데이터가 다른 곳에서의 날짜키와 중복될수도 있으니 앞에 room@를 붙여줘서 구분해준다
         applicationClass.databaseReference.child("ROOM").child(roomKey).setValue(room.toRoomMap(room));
-
-        //생성된 룸 데이터 불러오기
-        loadRoomData(roomKey);
     }
 
     //생성된 룸 데이터 DB에서 불러오기
@@ -193,6 +196,7 @@ public class RoomCreateActivity extends BaseActivity {
 
                 Room room = snapshot.getValue(Room.class);
                 String roomMasterEmail = room.getRoomMasterEmail();
+                numberOfPlayers = room.getNumberOfPlayers();
 
                 //유저 데이터에서 방장이메일을 키값으로 가진 유저의 이름 정보 불러오기
                 applicationClass.databaseReference.child("USER").child(roomMasterEmail).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -234,11 +238,11 @@ public class RoomCreateActivity extends BaseActivity {
     }
 
     //DB에서 플레이어 리스트 데이터를 불러온다
-    public void loadPlayerListData() {
+    public void loadPlayerListData(String updateRoomKey) {
 
         roomPlayerListAdapter.playerList.clear();
 
-        applicationClass.databaseReference.child("PLAYERLIST").child(roomKey)
+        applicationClass.databaseReference.child("PLAYERLIST").child(updateRoomKey)
                 .addChildEventListener(new ChildEventListener() {
 
                     @Override
@@ -250,6 +254,9 @@ public class RoomCreateActivity extends BaseActivity {
                         Player player = dataSnapshot.getValue(Player.class);
                         roomPlayerListAdapter.playerList.add(player);
                         roomPlayerListAdapter.notifyDataSetChanged();
+
+                        //룸 플레이어 숫자를 변경한다 (룸 : 1명 -> 2명 플레이어)
+                        updateRoomData(updateRoomKey);
                     }
 
                     @Override
@@ -268,9 +275,15 @@ public class RoomCreateActivity extends BaseActivity {
     }
 
     //DB에서 ROOM 데이터 수정하는 함수
-//    public updateRoomData(){
-//        Map<>
-//    }
+    public void updateRoomData(String roomKey){
+        makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", "플레이어숫자 1 : " + numberOfPlayers);
+        Map<String, Object> roomValues = new HashMap<String,Object>();
+        numberOfPlayers = numberOfPlayers+1;
+        makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", "플레이어숫자 2 : " + numberOfPlayers);
+        roomValues.put("numberOfPlayers", numberOfPlayers);
+        makeLog(new Object() {}.getClass().getEnclosingMethod().getName() + "()", "플레이어숫자 3 : " + numberOfPlayers);
+        applicationClass.databaseReference.child("ROOM").child(roomKey).updateChildren(roomValues);
+    }
 
     @OnClick({R.id.button_roomCreateActivity_roomExit, R.id.button_roomCreateActivity_gameList})
     public void onViewClicked(View view) {
